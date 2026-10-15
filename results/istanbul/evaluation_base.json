@@ -1,0 +1,78 @@
+{
+  "objective": 105.92622592615393,
+  "Z_min": 60.0,
+  "hours": {
+    "8": {
+      "mean_t": 78.60551062449315,
+      "mean_t_sd": 1.3422489183534647,
+      "share_le_z": 0.3665333333333334,
+      "share_le_z_sd": 0.013865624960871962,
+      "mean_excess": 25.318532354202137,
+      "mean_excess_sd": 1.190695048860559,
+      "car_share": 0.3763145282425822,
+      "car_share_sd": 0.0012181829612679118,
+      "mean_car_t": 34.4987291801441,
+      "mean_car_t_sd": 0.47860291241956104,
+      "objective": 103.9240429786953,
+      "objective_sd": 2.5301499072602236
+    },
+    "18": {
+      "mean_t": 80.8199288845173,
+      "mean_t_sd": 1.3517043252751748,
+      "share_le_z": 0.34299999999999997,
+      "share_le_z_sd": 0.021557416872673357,
+      "mean_excess": 27.108479989095294,
+      "mean_excess_sd": 1.0515234830866622,
+      "car_share": 0.37345408842643124,
+      "car_share_sd": 0.001301570357177697,
+      "mean_car_t": 36.981298027518065,
+      "mean_car_t_sd": 0.729654345628674,
+      "objective": 107.92840887361258,
+      "objective_sd": 2.402523052284611
+    }
+  },
+  "corridors": [
+    {
+      "corridor": "Esenyurt -> Levent",
+      "hour": 8,
+      "transit_min": 134.43848039544608,
+      "car_min": 95.89701342394015,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Ümraniye -> Kadıköy",
+      "hour": 8,
+      "transit_min": 61.51896999140792,
+      "car_min": 35.01661338086418,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Pendik -> Ataşehir",
+      "hour": 8,
+      "transit_min": 80.53203801088974,
+      "car_min": 49.108420513148594,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Esenyurt -> Levent",
+      "hour": 18,
+      "transit_min": 137.1701620243679,
+      "car_min": 94.42285233140097,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Ümraniye -> Kadıköy",
+      "hour": 18,
+      "transit_min": 61.856662958817864,
+      "car_min": 34.41057180219459,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Pendik -> Ataşehir",
+      "hour": 18,
+      "transit_min": 84.1055723326633,
+      "car_min": 49.66604877393518,
+      "meets_Z": false
+    }
+  ]
+}
