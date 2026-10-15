@@ -75,7 +75,7 @@ def cmd_optimize(args):
     oc = cfg["optimization"]
     out = Path(args.out or f"results/{cfg['name']}")
     full = Evaluator(city)
-    fast = Evaluator(city, K=oc["eval_K"], M=oc["eval_M"])
+    fast = Evaluator(city, K=oc["eval_K"], M=oc["eval_M"], n_origins=oc.get("eval_origins"))
     t = time.time()
     base = full.evaluate(city.base).summary()
     log.info("base objective %.2f [%.1fs]", base["objective"], time.time() - t)

@@ -81,3 +81,4 @@ optimization:
   budget: {extra_buses: 300, metro_km: 40}
   greedy_rounds: 8
   anneal_iters: 60
+  eval_origins: 150   # fewer shortest-path trees while searching; final evaluation uses the full sample

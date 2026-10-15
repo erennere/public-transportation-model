@@ -156,8 +156,9 @@ def web_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title:
     z = city.zones
     lon, lat = city.proj.to_lonlat(z.x, z.y)
     m = folium.Map(location=[float(lat.mean()), float(lon.mean())], zoom_start=12, tiles=None, control_scale=True)
-    folium.TileLayer("CartoDB positron", name="Harita (açık)").add_to(m)
     folium.TileLayer("OpenStreetMap", name="OpenStreetMap").add_to(m)
+    folium.TileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+                     attr="Tiles © Esri", name="Esri World Street Map").add_to(m)
 
     dens = z.pop / (z.cell_size / 1000) ** 2
     cmap = bcm.LinearColormap(["#ffffcc", "#fd8d3c", "#bd0026"], vmin=0, vmax=float(np.percentile(dens, 98)),

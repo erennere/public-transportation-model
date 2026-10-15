@@ -257,7 +257,8 @@ def optimize_frequencies(city: City, scenario: Scenario, K=None, M=None, log_cb=
     sx, sy = sc.stops["x"].to_numpy(), sc.stops["y"].to_numpy()
     for pname, hours in oc["periods"].items():
         rep_h = int(hours[len(hours) // 2])
-        ev = Evaluator(city, hours=[rep_h], K=K or oc["eval_K"], M=M or oc["eval_M"])
+        ev = Evaluator(city, hours=[rep_h], K=K or oc["eval_K"], M=M or oc["eval_M"],
+                       n_origins=oc.get("eval_origins"))
         cur = ev.evaluate(sc, loads=True)
         j0 = cur.objective
         for _ in range(oc["frequency_iterations"]):

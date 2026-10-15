@@ -114,6 +114,7 @@ DEFAULTS: dict = {
         "max_headway_min": 30.0,
         "eval_K": 600,
         "eval_M": 2,
+        "eval_origins": None,  # origins per simulation while optimising (None = evaluation.origins_per_sim)
     },
     "synthetic": None,
 }
