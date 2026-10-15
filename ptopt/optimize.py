@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from .candidates import Candidate, materialize
+from .candidates import Candidate, cut_path, materialize, path_cumlen
 from .model import City, Line, Scenario
 from .network import line_cycle_minutes
 from .simulate import Evaluator
@@ -61,7 +61,8 @@ class Optimizer:
             if c.mode == "metro":
                 metro_km += c.length_km
             else:
-                ln = Line(c.cid, c.cid, c.mode, np.arange(len(c.xs)), c.headway_min)
+                ln = Line(c.cid, c.cid, c.mode, np.arange(len(c.xs)), c.headway_min,
+                          meta={} if c.seg_dist_m is None else {"seg_dist_m": c.seg_dist_m})
                 cyc = line_cycle_minutes(ln, c.xs, c.ys, self.city.traffic, self.peak_hour, net)
                 buses += math.ceil(cyc / np.nanmin(c.headway_min))
         return buses, metro_km
@@ -138,6 +139,9 @@ class Optimizer:
         spacing = cc["metro_station_spacing_m"] if c.mode == "metro" else cc["bus_stop_spacing_m"]
         if kind == "remove":
             sel.remove(c)
+        elif c.on_roads and kind in ("shift", "extend", "trim"):
+            if not self._move_on_roads(c, kind, spacing):
+                return None
         elif kind == "shift":
             i = rng.integers(len(c.xs))
             c.xs[i] += rng.normal(0, spacing / 2)
@@ -169,6 +173,52 @@ class Optimizer:
             f = 0.8 if rng.integers(2) else 1.25
             c.headway_min = np.clip(c.headway_min * f, self.oc["min_headway_min"], self.oc["max_headway_min"])
         return sel
+
+    def _move_on_roads(self, c: Candidate, kind: str, spacing: float) -> bool:
+        """Stop moves that keep a road-routed bus line on the streets."""
+        rng = self.rng
+        s = c.stop_s
+        if kind == "shift":  # slide one stop along the street, keeping stop order
+            i = int(rng.integers(len(s)))
+            lo = s[i - 1] + 50 if i > 0 else 0.0
+            hi = s[i + 1] - 50 if i < len(s) - 1 else path_cumlen(c.path_xs, c.path_ys)[-1]
+            if hi <= lo:
+                return False
+            s[i] = float(np.clip(s[i] + rng.normal(0, spacing / 2), lo, hi))
+        elif kind == "trim":  # drop an end stop (and the street section beyond it)
+            if len(s) <= 3:
+                return False
+            c.stop_s = s[1:] if rng.integers(2) else s[:-1]
+        elif kind == "extend":  # route onward on the streets, roughly continuing the line
+            at_start = bool(rng.integers(2))
+            i0, i1 = (0, 1) if at_start else (-1, -2)
+            dx, dy = c.xs[i0] - c.xs[i1], c.ys[i0] - c.ys[i1]
+            n = math.hypot(dx, dy) or 1.0
+            ang = rng.normal(0, 0.5)
+            ux, uy = dx / n, dy / n
+            tx = c.xs[i0] + 3 * spacing * (ux * math.cos(ang) - uy * math.sin(ang))
+            ty = c.ys[i0] + 3 * spacing * (ux * math.sin(ang) + uy * math.cos(ang))
+            if at_start:
+                ex, ey = self.city.roads.route_via([tx, c.xs[0]], [ty, c.ys[0]])
+            else:
+                ex, ey = self.city.roads.route_via([c.xs[-1], tx], [c.ys[-1], ty])
+            if len(ex) < 2:
+                return False
+            px, py = cut_path(c.path_xs, c.path_ys, s[0], s[-1])
+            ext = path_cumlen(ex, ey)[-1]
+            if ext < spacing / 2:
+                return False
+            base = s - s[0]
+            if at_start:
+                c.path_xs, c.path_ys = np.concatenate([ex, px[1:]]), np.concatenate([ey, py[1:]])
+                mid = np.arange(ext - spacing, spacing / 2, -spacing)[::-1]
+                c.stop_s = np.concatenate([[0.0], mid, base + ext])
+            else:
+                c.path_xs, c.path_ys = np.concatenate([px, ex[1:]]), np.concatenate([py, ey[1:]])
+                mid = np.arange(spacing, ext - spacing / 2, spacing)
+                c.stop_s = np.concatenate([base, base[-1] + mid, [base[-1] + ext]])
+        c.place_stops()
+        return True
 
     def anneal(self, sel: list[Candidate]) -> list[Candidate]:
         cur, j_cur = sel, self.objective(sel)

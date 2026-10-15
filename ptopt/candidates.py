@@ -7,7 +7,9 @@
 3. For each corridor find the route through the zone grid that balances
    length against passing through dense (population + jobs) zones. This
    decides *which zones the line passes through*.
-4. Place stops along that path at the mode's spacing.
+4. Buses: route through those zones on the real street network (OSM), then
+   place stops along the streets at the bus stop spacing. Metro: a smoothed
+   straight alignment with stations at the metro spacing.
 """
 from __future__ import annotations
 
@@ -32,14 +34,68 @@ class Candidate:
     ys: np.ndarray
     headway_min: np.ndarray  # 24 values, NaN = no service
     meta: dict = field(default_factory=dict)
+    # street geometry for road-routed buses; stop_s = stop positions along it (m)
+    path_xs: np.ndarray | None = None
+    path_ys: np.ndarray | None = None
+    stop_s: np.ndarray | None = None
 
     def copy(self) -> "Candidate":
-        return Candidate(self.cid, self.mode, self.xs.copy(), self.ys.copy(),
-                         self.headway_min.copy(), dict(self.meta))
+        cp = lambda a: None if a is None else a.copy()
+        return Candidate(self.cid, self.mode, self.xs.copy(), self.ys.copy(), self.headway_min.copy(),
+                         dict(self.meta), cp(self.path_xs), cp(self.path_ys), cp(self.stop_s))
+
+    @property
+    def on_roads(self) -> bool:
+        return self.path_xs is not None
+
+    @property
+    def seg_dist_m(self) -> np.ndarray | None:
+        return np.diff(self.stop_s) if self.on_roads else None
 
     @property
     def length_km(self) -> float:
+        if self.on_roads:
+            return float(self.stop_s[-1] - self.stop_s[0]) / 1000.0
         return polyline_length(self.xs, self.ys) / 1000.0
+
+    def place_stops(self) -> None:
+        """Recompute stop coordinates from their positions along the street path."""
+        cum = path_cumlen(self.path_xs, self.path_ys)
+        self.stop_s = np.clip(np.sort(self.stop_s), 0, cum[-1])
+        self.xs = np.interp(self.stop_s, cum, self.path_xs)
+        self.ys = np.interp(self.stop_s, cum, self.path_ys)
+
+    def used_path(self) -> tuple[np.ndarray, np.ndarray]:
+        """Street geometry between the first and the last stop."""
+        if not self.on_roads:
+            return self.xs, self.ys
+        return cut_path(self.path_xs, self.path_ys, self.stop_s[0], self.stop_s[-1])
+
+
+def path_cumlen(px, py) -> np.ndarray:
+    return np.concatenate([[0.0], np.cumsum(np.hypot(np.diff(px), np.diff(py)))])
+
+
+def cut_path(px, py, s0: float, s1: float):
+    """Part of a polyline between arc positions s0 <= s1 (interpolated ends)."""
+    cum = path_cumlen(px, py)
+    inner = (cum > s0) & (cum < s1)
+    xs = np.concatenate([[np.interp(s0, cum, px)], px[inner], [np.interp(s1, cum, px)]])
+    ys = np.concatenate([[np.interp(s0, cum, py)], py[inner], [np.interp(s1, cum, py)]])
+    return xs, ys
+
+
+def bus_on_roads(cid: str, roads, wx, wy, spacing: float, corridor_width: float,
+                 headway: np.ndarray, meta: dict) -> "Candidate | None":
+    """Bus candidate routed on streets along the corridor polyline (wx, wy)."""
+    px, py = roads.route_corridor(wx, wy, width_m=corridor_width / 2)
+    if len(px) < 2:
+        return None
+    total = path_cumlen(px, py)[-1]
+    n = max(1, int(round(total / spacing)))
+    c = Candidate(cid, "bus", np.zeros(0), np.zeros(0), headway, meta, px, py, np.linspace(0, total, n + 1))
+    c.place_stops()
+    return c
 
 
 def default_headways(peak: float, off: float, peak_hours=(7, 8, 9, 17, 18, 19)) -> np.ndarray:
@@ -69,9 +125,16 @@ def materialize(base: Scenario, cands: list[Candidate], snap_m: float) -> Scenar
         idx = idx[keep]
         if len(idx) < 2:
             continue
-        for suffix, seq in (("A", idx), ("B", idx[::-1].copy())):
+        seg = np.diff(c.stop_s[keep]) if c.on_roads else None
+        shape = c.used_path()
+        for suffix, seq, sd, shp in (("A", idx, seg, shape),
+                                     ("B", idx[::-1].copy(), None if seg is None else seg[::-1].copy(),
+                                      (shape[0][::-1], shape[1][::-1]))):
+            meta = {"candidate": c.cid, "shape": shp}
+            if sd is not None:
+                meta["seg_dist_m"] = sd
             sc.lines.append(Line(f"{c.cid}_{suffix}", c.cid, c.mode, seq, c.headway_min.copy(),
-                                 is_new=True, meta={"candidate": c.cid}))
+                                 is_new=True, meta=meta))
     return sc
 
 
@@ -201,7 +264,13 @@ def generate_candidates(city: City, ev: Evaluator, scenario: Scenario | None = N
             px, py = np.asarray(ls.xy[0]), np.asarray(ls.xy[1])
             if mode == "metro" and polyline_length(px, py) < 5000:
                 continue
+            meta = {"corridor": n, "path_zones": [int(p) for p in path]}
+            if mode == "bus" and city.roads is not None:
+                c = bus_on_roads(f"{prefix}{n}", city.roads, px, py, spacing, cc["bus_corridor_width_m"],
+                                 default_headways(hw, hw * 2), meta)
+                if c is not None:
+                    cands.append(c)
+                continue
             sx, sy = resample_polyline(px, py, spacing)
-            cands.append(Candidate(f"{prefix}{n}", mode, sx, sy, default_headways(hw, hw * 2),
-                                   meta={"corridor": n, "path_zones": [int(p) for p in path]}))
+            cands.append(Candidate(f"{prefix}{n}", mode, sx, sy, default_headways(hw, hw * 2), meta=meta))
     return cands

@@ -34,36 +34,36 @@
     }
   },
   "optimised": {
-    "objective": 61.21321447511035,
+    "objective": 60.66168420406471,
     "Z_min": 45.0,
     "hours": {
       "8": {
-        "mean_t": 49.980192412130364,
-        "mean_t_sd": 1.0477413199141905,
-        "share_le_z": 0.4373,
-        "share_le_z_sd": 0.02241539649437413,
-        "mean_excess": 10.724384307963565,
-        "mean_excess_sd": 0.6877464511166526,
-        "car_share": 0.3601919338070509,
-        "car_share_sd": 0.0019201139756704214,
+        "mean_t": 49.74126782573338,
+        "mean_t_sd": 1.0844242635021575,
+        "share_le_z": 0.4333,
+        "share_le_z_sd": 0.022698017534577793,
+        "mean_excess": 10.417011614218193,
+        "mean_excess_sd": 0.7042383078329344,
+        "car_share": 0.3602471334669506,
+        "car_share_sd": 0.0018686382797174078,
         "mean_car_t": 23.569363458446144,
         "mean_car_t_sd": 0.40109039993344786,
-        "objective": 60.704576720093925,
-        "objective_sd": 1.7233487103136673
+        "objective": 60.15827943995157,
+        "objective_sd": 1.7776007193854035
       },
       "18": {
-        "mean_t": 50.648070427813835,
-        "mean_t_sd": 0.6502289245990865,
-        "share_le_z": 0.41719999999999996,
-        "share_le_z_sd": 0.017308235034225752,
-        "mean_excess": 11.073781802312936,
-        "mean_excess_sd": 0.40977535568894646,
-        "car_share": 0.35790149011292555,
-        "car_share_sd": 0.000990040572682097,
+        "mean_t": 50.393215100814494,
+        "mean_t_sd": 0.7236214654888475,
+        "share_le_z": 0.41209999999999997,
+        "share_le_z_sd": 0.016569550386175226,
+        "mean_excess": 10.771873867363366,
+        "mean_excess_sd": 0.5096047458340828,
+        "car_share": 0.3580247068236679,
+        "car_share_sd": 0.001080181745997542,
         "mean_car_t": 24.940328377814556,
         "mean_car_t_sd": 0.5734501158182619,
-        "objective": 61.72185223012677,
-        "objective_sd": 1.0496055164403388
+        "objective": 61.16508896817786,
+        "objective_sd": 1.228016070588849
       }
     }
   },
@@ -159,95 +159,95 @@
     {
       "line": "NB9",
       "mode": "bus",
-      "stops": 57,
-      "length_km": 22.367365359141136,
-      "peak_headway": 8.0
+      "stops": 63,
+      "length_km": 24.782701355531692,
+      "peak_headway": 10.0
     },
     {
       "line": "NM17",
       "mode": "metro",
       "stops": 13,
-      "length_km": 14.909816509124607,
+      "length_km": 14.502366106383759,
       "peak_headway": 5.0
-    },
-    {
-      "line": "NB11",
-      "mode": "bus",
-      "stops": 27,
-      "length_km": 10.110298973670588,
-      "peak_headway": 5.120000000000001
-    },
-    {
-      "line": "NB16",
-      "mode": "bus",
-      "stops": 31,
-      "length_km": 12.320280777005014,
-      "peak_headway": 10.0
     },
     {
       "line": "NB4",
       "mode": "bus",
-      "stops": 31,
-      "length_km": 11.827168679564549,
-      "peak_headway": 8.0
+      "stops": 38,
+      "length_km": 14.804627490775404,
+      "peak_headway": 10.0
     },
     {
-      "line": "NB1",
+      "line": "NB16",
       "mode": "bus",
-      "stops": 21,
-      "length_km": 8.07309832077652,
+      "stops": 36,
+      "length_km": 14.018246017738612,
+      "peak_headway": 10.0
+    },
+    {
+      "line": "NB15",
+      "mode": "bus",
+      "stops": 44,
+      "length_km": 17.214234881903288,
+      "peak_headway": 10.0
+    },
+    {
+      "line": "NB19",
+      "mode": "bus",
+      "stops": 56,
+      "length_km": 21.89237536925903,
+      "peak_headway": 10.0
+    },
+    {
+      "line": "NB23",
+      "mode": "bus",
+      "stops": 46,
+      "length_km": 17.885944839239592,
+      "peak_headway": 10.0
+    },
+    {
+      "line": "NB13",
+      "mode": "bus",
+      "stops": 25,
+      "length_km": 9.687400817965745,
       "peak_headway": 10.0
     },
     {
       "line": "NB10",
       "mode": "bus",
-      "stops": 20,
-      "length_km": 7.9231098092664585,
-      "peak_headway": 8.0
-    },
-    {
-      "line": "NB0",
-      "mode": "bus",
-      "stops": 19,
-      "length_km": 6.933277154418967,
-      "peak_headway": 10.0
-    },
-    {
-      "line": "NB5",
-      "mode": "bus",
-      "stops": 12,
-      "length_km": 4.242640687119285,
+      "stops": 21,
+      "length_km": 7.945473895422001,
       "peak_headway": 10.0
     }
   ],
   "cost": {
     "extra_buses": 119,
-    "metro_km": 14.909816509124607
+    "metro_km": 14.502366106383759
   },
   "frequency_periods": [
     {
       "period": "am_peak",
       "hour": 8,
-      "objective_before": 62.877261808248214,
-      "objective_after": 62.877261808248214
+      "objective_before": 62.39601832921963,
+      "objective_after": 62.39601832921963
     },
     {
       "period": "midday",
       "hour": 13,
-      "objective_before": 57.62990333614486,
-      "objective_after": 55.964547827551094
+      "objective_before": 57.839755649010286,
+      "objective_after": 55.42375683797066
     },
     {
       "period": "pm_peak",
       "hour": 18,
-      "objective_before": 59.35619827586642,
-      "objective_after": 59.35619827586642
+      "objective_before": 58.83502263424739,
+      "objective_after": 58.83502263424739
     },
     {
       "period": "evening",
       "hour": 21,
-      "objective_before": 60.38915416874468,
-      "objective_after": 60.38915416874468
+      "objective_before": 60.21753266615072,
+      "objective_after": 60.21753266615072
     }
   ],
   "history": [
@@ -255,175 +255,66 @@
       "stage": "greedy",
       "round": 0,
       "added": "NB9",
-      "objective": 66.09536607891044
+      "objective": 65.59802656492707
     },
     {
       "stage": "greedy",
       "round": 1,
       "added": "NM17",
-      "objective": 63.73577673087574
+      "objective": 63.331025073803
     },
     {
       "stage": "greedy",
       "round": 2,
-      "added": "NB11",
-      "objective": 63.00575875428482
+      "added": "NB4",
+      "objective": 62.82883313662519
     },
     {
       "stage": "greedy",
       "round": 3,
-      "added": "NB14",
-      "objective": 62.455522457318644
+      "added": "NB16",
+      "objective": 62.33981899704621
     },
     {
       "stage": "greedy",
       "round": 4,
-      "added": "NB16",
-      "objective": 61.94286211733147
+      "added": "NB15",
+      "objective": 61.89390220669051
     },
     {
       "stage": "greedy",
       "round": 5,
-      "added": "NB4",
-      "objective": 61.48859159026602
+      "added": "NB14",
+      "objective": 61.461512866586446
+    },
+    {
+      "stage": "greedy",
+      "round": 6,
+      "added": "NB23",
+      "objective": 61.07392098397605
+    },
+    {
+      "stage": "greedy",
+      "round": 7,
+      "added": "NB13",
+      "objective": 60.74866185115189
     },
     {
       "stage": "anneal",
-      "iter": 26,
-      "objective": 61.3578395768946,
+      "iter": 10,
+      "objective": 60.61552048173351,
       "lines": [
         "NB9",
         "NM17",
-        "NB11",
+        "NB4",
+        "NB16",
         "NB15",
-        "NB16",
-        "NB4",
-        "NB1"
-      ]
-    },
-    {
-      "stage": "anneal",
-      "iter": 63,
-      "objective": 61.339531579704584,
-      "lines": [
-        "NB9",
-        "NM17",
-        "NB11",
-        "NB16",
-        "NB4",
-        "NB1",
-        "NB10",
-        "NB5"
-      ]
-    },
-    {
-      "stage": "anneal",
-      "iter": 65,
-      "objective": 61.263919468968865,
-      "lines": [
-        "NB9",
-        "NM17",
-        "NB11",
-        "NB16",
-        "NB4",
-        "NB1",
-        "NB10",
-        "NB5"
-      ]
-    },
-    {
-      "stage": "anneal",
-      "iter": 67,
-      "objective": 61.21413547222561,
-      "lines": [
-        "NB9",
-        "NM17",
-        "NB11",
-        "NB16",
-        "NB4",
-        "NB1",
-        "NB10",
-        "NB5"
-      ]
-    },
-    {
-      "stage": "anneal",
-      "iter": 69,
-      "objective": 61.21351830019572,
-      "lines": [
-        "NB9",
-        "NM17",
-        "NB11",
-        "NB16",
-        "NB4",
-        "NB1",
-        "NB10",
-        "NB5"
-      ]
-    },
-    {
-      "stage": "anneal",
-      "iter": 70,
-      "objective": 61.1392288465064,
-      "lines": [
-        "NB9",
-        "NM17",
-        "NB11",
-        "NB16",
-        "NB4",
-        "NB1",
-        "NB10",
-        "NB5"
-      ]
-    },
-    {
-      "stage": "anneal",
-      "iter": 90,
-      "objective": 61.126438950142514,
-      "lines": [
-        "NB9",
-        "NM17",
-        "NB11",
-        "NB16",
-        "NB4",
-        "NB1",
-        "NB10",
-        "NB0",
-        "NB5"
-      ]
-    },
-    {
-      "stage": "anneal",
-      "iter": 92,
-      "objective": 61.12641214427272,
-      "lines": [
-        "NB9",
-        "NM17",
-        "NB11",
-        "NB16",
-        "NB4",
-        "NB1",
-        "NB10",
-        "NB0",
-        "NB5"
-      ]
-    },
-    {
-      "stage": "anneal",
-      "iter": 101,
-      "objective": 61.11673004205732,
-      "lines": [
-        "NB9",
-        "NM17",
-        "NB11",
-        "NB16",
-        "NB4",
-        "NB1",
-        "NB10",
-        "NB0",
-        "NB5"
+        "NB19",
+        "NB23",
+        "NB13",
+        "NB10"
       ]
     }
   ],
-  "runtime_s": 297.3617684841156
+  "runtime_s": 191.6344838142395
 }

@@ -22,7 +22,11 @@ def scenario_geojson(city: City, sc: Scenario, only_new: bool = False) -> dict:
         if ln.name in seen:  # one feature per line (direction A)
             continue
         seen.add(ln.name)
-        coords = [[float(lon[i]), float(lat[i])] for i in ln.stops]
+        if "shape" in ln.meta:  # street geometry of road-routed new lines
+            slo, sla = city.proj.to_lonlat(*ln.meta["shape"])
+            coords = [[float(a), float(b)] for a, b in zip(slo, sla)]
+        else:
+            coords = [[float(lon[i]), float(lat[i])] for i in ln.stops]
         hw = {str(h): (None if not np.isfinite(v) else round(float(v), 1)) for h, v in enumerate(ln.headway_min)}
         feats.append({"type": "Feature", "geometry": {"type": "LineString", "coordinates": coords},
                       "properties": {"line": ln.name, "mode": ln.mode, "new": ln.is_new, "headway_min": hw}})
@@ -118,7 +122,8 @@ def plot_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title
             seen.append(ln.name)
             col = NEW_COLORS[(len(seen) - 1) % len(NEW_COLORS)]
             ls = "-" if ln.mode == "bus" else (0, (4, 1.5))
-            ax.plot(ox[ln.stops], oy[ln.stops], color=col, lw=4 if ln.mode != "bus" else 3, ls=ls, zorder=8)
+            gx, gy = _merc(city, *ln.meta["shape"]) if "shape" in ln.meta else (ox[ln.stops], oy[ln.stops])
+            ax.plot(gx, gy, color=col, lw=4 if ln.mode != "bus" else 3, ls=ls, zorder=8)
             ax.scatter(ox[ln.stops], oy[ln.stops], s=22 if ln.mode != "bus" else 9, color=col,
                        edgecolor="white", lw=0.8, zorder=9)
             kind = "metro" if ln.mode == "metro" else "otobüs"
@@ -199,7 +204,11 @@ def web_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title:
             kind = "metro" if ln.mode == "metro" else "otobüs"
             hw = np.nanmin(ln.headway_min)
             g = folium.FeatureGroup(name=f"YENİ {kind}: {ln.name}", show=True)
-            coords = [[float(olat[i]), float(olon[i])] for i in ln.stops]
+            if "shape" in ln.meta:
+                glo, gla = city.proj.to_lonlat(*ln.meta["shape"])
+                coords = [[float(b), float(a)] for a, b in zip(glo, gla)]
+            else:
+                coords = [[float(olat[i]), float(olon[i])] for i in ln.stops]
             folium.PolyLine(coords, color=col, weight=6, opacity=0.95,
                             dash_array=None if ln.mode == "bus" else "10 4",
                             tooltip=f"YENİ {kind} {ln.name} · {len(ln.stops)} durak · zirve sıklığı {hw:.0f} dk").add_to(g)

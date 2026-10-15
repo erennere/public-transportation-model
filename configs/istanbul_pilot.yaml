@@ -4,6 +4,10 @@ extends: istanbul.yaml
 name: istanbul_pilot
 bbox: [28.99, 40.95, 29.20, 41.07]
 
+jobs:
+  # the small BBBike Istanbul extract covers the pilot area
+  pbf_url: https://download.bbbike.org/osm/bbbike/Istanbul/Istanbul.osm.pbf
+
 evaluation:
   K: 2000
   origins_per_sim: 200

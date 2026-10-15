@@ -93,15 +93,22 @@ Araba süresi: başlangıç–varış doğrusu üzerindeki trafik hızlarının 
 3. Koridor için bölge grid'i üzerinde en kısa yol bulunur; kenar maliyeti
    `uzunluk × (1 − ödül × yoğunluk)` olduğundan yol yoğun (nüfus + iş) bölgelerden geçmeye
    yönelir. **Hattın hangi bölgelerden geçeceği** böyle belirlenir.
-4. Duraklar otobüs için ~400 m, metro için ~1.2 km aralıkla yerleştirilir; otobüs durağı mevcut
-   bir durağa 150 m'den yakınsa onu kullanır.
+4. **Otobüs hatları gerçek sokaklara oturtulur**: OSM'den (pbf) sürülebilir yol ağı (tek yönler
+   dahil) kurulur. Koridor boyunca en kısa yol, kenar maliyeti
+   `uzunluk × yol_sınıfı_katsayısı × (1 + (koridora_uzaklık / 750 m)²)` ile bulunur:
+   ana arterler (primary 1.0, secondary 1.1, tertiary 1.3) mahalle sokaklarına (residential 2.5)
+   tercih edilir ve hat koridordan uzaklaşmaz. Duraklar bu sokak geometrisi boyunca ~400 m
+   aralıkla yerleştirilir; mevcut İETT durağına 150 m'den yakınsa o durak kullanılır. Durak arası
+   süre gerçek yol mesafesiyle hesaplanır.
+5. Metro: koridor sadeleştirilmiş düz bir hat olarak alınır, istasyonlar ~1.2 km aralıkla.
 
 ## 7. Optimizasyon
 
 1. **Açgözlü (greedy)**: bütçe (ek otobüs sayısı, metro km) izin verdikçe amaç fonksiyonunu en
    çok düşüren adayı ekle.
 2. **Benzetimli tavlama (simulated annealing)**: durak kaydır, hattı uzat/kısalt, headway değiştir,
-   hat değiştir/ekle/çıkar. Bu adım durakların tam yerini ince ayarlar.
+   hat değiştir/ekle/çıkar. Bu adım durakların tam yerini ince ayarlar. Otobüs durakları sokak
+   boyunca kaydırılır, uzatma da sokak ağı üzerinden rotalanır; hat yoldan çıkmaz.
 3. **Sıklık (frekans) dağıtımı**, her dönem için (sabah zirvesi, öğle, akşam zirvesi, akşam):
    atama ile hat yükleri (biniş) bulunur, sonra sabit filo altında karekök kuralı uygulanır:
    `araç_l ∝ √(yolcu_l × tur_süresi_l)` (toplam bekleme süresini minimize eden çözüm).
@@ -116,7 +123,8 @@ hesaplanan gidiş-dönüş süresi + %10 bekleme.
   kısıtlı atama.
 * Gerçek OD verisi yok, gravity ile tahmin ediliyor. İBB İstanbulkart biniş–iniş (OD) verisi
   veya mobil telefon verisi elde edilirse `Demand` sınıfı doğrudan onunla değiştirilebilir.
-* Araba süresi yol ağı yerine düz çizgi × dolambaç katsayısı ile yaklaşıklanıyor.
+* Araba süresi ve mevcut İETT hatlarının durak arası mesafesi (GTFS'te shape yok) hâlâ
+  düz çizgi × 1.3 ile yaklaşıklanıyor; yeni otobüs hatları gerçek yol mesafesi kullanıyor.
 * İBB raylı GTFS verisi 2024'e ait; yeni açılan hatlar (ör. M12, M14) eksik olabilir.
 * Google / Bing trafik haritaları kullanım şartları gereği kazınmıyor; İBB'nin resmi saatlik
   trafik yoğunluğu verisi kullanılıyor. Başka şehirler için TomTom / HERE gibi lisanslı API'lere

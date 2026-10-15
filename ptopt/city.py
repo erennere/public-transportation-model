@@ -14,6 +14,8 @@ from .io.download import fetch, unzip_if_needed
 from .io.gtfs import load_feeds
 from .io.osm import fetch_pois, pois_from_pbf
 from .io.ridership import ibb_hourly_profile
+from .io.roads import CACHE_VERSION as ROADS_CACHE_VERSION
+from .io.roads import load_or_build
 from .io.worldpop import read_points, worldpop_url
 from .model import City, Scenario, Zones
 from .synthetic import build_synthetic
@@ -42,7 +44,7 @@ def download_all(cfg: dict) -> None:
         url = pc.get("url") or worldpop_url(pc["iso3"], pc["year"])
         fetch(url, raw / "worldpop")
     jc = cfg["jobs"]
-    if jc["source"] == "pbf":
+    if jc["source"] == "pbf" or cfg["roads"]["source"] == "pbf":
         fetch(jc["pbf_url"], raw / "osm")
     get_pois(cfg)
     for feed in cfg["gtfs"]:
@@ -126,6 +128,16 @@ def build_traffic(cfg: dict, proj: Projector):
     return ProfileTraffic(tc["free_flow_kmh"], tc["hourly_factor"])
 
 
+def build_roads(cfg: dict, proj: Projector):
+    if cfg["roads"]["source"] != "pbf":
+        return None
+    raw, processed = data_paths(cfg)
+    pbf = raw / "osm" / Path(cfg["jobs"]["pbf_url"]).name
+    g = load_or_build(pbf, cfg["bbox"], proj, processed / f"roads_v{ROADS_CACHE_VERSION}_{_bbox_tag(cfg['bbox'])}.npz")
+    log.info("road graph: %d nodes", len(g.x))
+    return g
+
+
 def build_profile(cfg: dict) -> np.ndarray:
     rc = cfg["ridership"]
     if rc["source"] == "ibb" and rc.get("urls"):
@@ -136,8 +148,9 @@ def build_profile(cfg: dict) -> np.ndarray:
 
 
 def _cache_key(cfg: dict) -> str:
-    keys = ["bbox", "crs", "zones", "population", "jobs", "gtfs", "traffic", "ridership"]
-    blob = json.dumps({k: cfg.get(k) for k in keys}, sort_keys=True, default=str)
+    keys = ["bbox", "crs", "zones", "population", "jobs", "gtfs", "traffic", "ridership", "roads"]
+    blob = json.dumps({**{k: cfg.get(k) for k in keys}, "_roads_v": ROADS_CACHE_VERSION},
+                      sort_keys=True, default=str)
     return hashlib.sha1(blob.encode()).hexdigest()[:12]
 
 
@@ -156,7 +169,8 @@ def load_city(cfg: dict, use_cache: bool = True) -> City:
     raw, _ = data_paths(cfg)
     stops, lines = load_feeds(cfg["gtfs"], raw, cfg["bbox"], proj)
     city = City(cfg=cfg, proj=proj, zones=zones, base=Scenario(stops, lines),
-                traffic=build_traffic(cfg, proj), hourly_profile=build_profile(cfg))
+                traffic=build_traffic(cfg, proj), hourly_profile=build_profile(cfg),
+                roads=build_roads(cfg, proj))
     processed.mkdir(parents=True, exist_ok=True)
     with open(cache, "wb") as f:
         pickle.dump(city, f)

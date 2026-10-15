@@ -35,7 +35,10 @@ def line_segment_minutes(line: Line, sx: np.ndarray, sy: np.ndarray, traffic: Tr
     if line.mode == "bus":
         mx, my = (xs[:-1] + xs[1:]) / 2, (ys[:-1] + ys[1:]) / 2
         v = np.minimum(traffic.speed_kmh(mx, my, hour) * net["bus_speed_factor"], net["bus_max_kmh"])
-        return dist_m * net["road_detour"] / 1000.0 / v * 60.0 + dwell
+        road_m = line.meta.get("seg_dist_m")  # distance along real streets, when routed
+        if road_m is None or len(road_m) != len(dist_m):
+            road_m = dist_m * net["road_detour"]
+        return np.asarray(road_m) / 1000.0 / v * 60.0 + dwell
     v = net["mode_speed_kmh"].get(line.mode, 30.0)
     return dist_m * 1.1 / 1000.0 / v * 60.0 + dwell
 

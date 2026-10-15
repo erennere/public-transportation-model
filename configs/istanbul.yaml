@@ -12,13 +12,15 @@ population:
   year: 2026
 
 jobs:
-  # Workplace proxy from OSM POIs. 'pbf' reads a local extract (robust, no rate
-  # limits); 'osm' queries Overpass instead. BBBike's Istanbul extract covers
-  # lon 28.655-29.27, lat 40.896-41.266; outside it jobs fall back to a share
-  # of population.
+  # Workplace proxy from OSM POIs, read from a local .osm.pbf extract
+  # (robust, no rate limits); 'osm' queries Overpass instead. The Turkey
+  # extract also provides the street network for routing new bus lines.
   source: pbf
-  pbf_url: https://download.bbbike.org/osm/bbbike/Istanbul/Istanbul.osm.pbf
+  pbf_url: https://download.openstreetmap.fr/extracts/europe/turkey-latest.osm.pbf
   overpass_url: https://overpass.kumi.systems/api/interpreter
+
+roads:
+  source: pbf   # route new bus lines on real streets (same .pbf as jobs)
 
 gtfs:
   # İETT buses + Metrobüs (Mart 2026)
@@ -72,5 +74,10 @@ evaluation:
     - {name: "Ümraniye -> Kadıköy", x: [29.124, 41.026], y: [29.027, 40.991]}
     - {name: "Pendik -> Ataşehir", x: [29.233, 40.877], y: [29.112, 40.993]}
 
+candidates:
+  n_corridors: 25
+
 optimization:
   budget: {extra_buses: 300, metro_km: 40}
+  greedy_rounds: 8
+  anneal_iters: 60

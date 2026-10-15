@@ -32,6 +32,8 @@ DEFAULTS: dict = {
         "population_share": 0.1,
         "url": None,
     },
+    # drivable street network for routing new bus lines ('pbf' reads jobs.pbf_url)
+    "roads": {"source": "none"},
     "gtfs": [],  # list of {name, path|url|files, fixes: [istanbul]}
     "traffic": {
         "source": "profile",  # 'ibb' | 'profile'
@@ -97,6 +99,7 @@ DEFAULTS: dict = {
         "density_reward": 0.6,
         "default_bus_headway_min": 10.0,
         "default_metro_headway_min": 5.0,
+        "bus_corridor_width_m": 1500,  # route penalty doubles at half this distance
     },
     "optimization": {
         "budget": {"extra_buses": 120, "metro_km": 20.0},

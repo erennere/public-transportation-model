@@ -97,3 +97,4 @@ class City:
     base: Scenario
     traffic: TrafficField
     hourly_profile: np.ndarray  # share of daily trips per hour (sums to 1)
+    roads: object | None = None  # ptopt.io.roads.RoadGraph, for routing new bus lines on streets
