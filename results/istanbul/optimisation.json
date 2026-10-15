@@ -1,0 +1,312 @@
+{
+  "base": {
+    "objective": 105.92622592615393,
+    "Z_min": 60.0,
+    "hours": {
+      "8": {
+        "mean_t": 78.60551062449315,
+        "mean_t_sd": 1.3422489183534647,
+        "share_le_z": 0.3665333333333334,
+        "share_le_z_sd": 0.013865624960871962,
+        "mean_excess": 25.318532354202137,
+        "mean_excess_sd": 1.190695048860559,
+        "car_share": 0.3763145282425822,
+        "car_share_sd": 0.0012181829612679118,
+        "mean_car_t": 34.4987291801441,
+        "mean_car_t_sd": 0.47860291241956104,
+        "objective": 103.9240429786953,
+        "objective_sd": 2.5301499072602236
+      },
+      "18": {
+        "mean_t": 80.8199288845173,
+        "mean_t_sd": 1.3517043252751748,
+        "share_le_z": 0.34299999999999997,
+        "share_le_z_sd": 0.021557416872673357,
+        "mean_excess": 27.108479989095294,
+        "mean_excess_sd": 1.0515234830866622,
+        "car_share": 0.37345408842643124,
+        "car_share_sd": 0.001301570357177697,
+        "mean_car_t": 36.981298027518065,
+        "mean_car_t_sd": 0.729654345628674,
+        "objective": 107.92840887361258,
+        "objective_sd": 2.402523052284611
+      }
+    }
+  },
+  "optimised": {
+    "objective": 101.90749412653085,
+    "Z_min": 60.0,
+    "hours": {
+      "8": {
+        "mean_t": 76.48082514000924,
+        "mean_t_sd": 1.2025047560864086,
+        "share_le_z": 0.3802666666666667,
+        "share_le_z_sd": 0.017210139130433795,
+        "mean_excess": 23.435100967411987,
+        "mean_excess_sd": 1.0259212797828337,
+        "car_share": 0.37546720304753817,
+        "car_share_sd": 0.001196303306945657,
+        "mean_car_t": 34.4987291801441,
+        "mean_car_t_sd": 0.47860291241956104,
+        "objective": 99.91592610742123,
+        "objective_sd": 2.2229959791113836
+      },
+      "18": {
+        "mean_t": 78.68905753804704,
+        "mean_t_sd": 1.4185770064979326,
+        "share_le_z": 0.3554,
+        "share_le_z_sd": 0.021400155762673012,
+        "mean_excess": 25.210004607593454,
+        "mean_excess_sd": 1.1225095624248844,
+        "car_share": 0.37258742276543266,
+        "car_share_sd": 0.001285954829390246,
+        "mean_car_t": 36.981298027518065,
+        "mean_car_t_sd": 0.729654345628674,
+        "objective": 103.89906214564049,
+        "objective_sd": 2.538587741997939
+      }
+    }
+  },
+  "corridors_base": [
+    {
+      "corridor": "Esenyurt -> Levent",
+      "hour": 8,
+      "transit_min": 134.43848039544608,
+      "car_min": 95.89701342394015,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Ümraniye -> Kadıköy",
+      "hour": 8,
+      "transit_min": 61.51896999140792,
+      "car_min": 35.01661338086418,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Pendik -> Ataşehir",
+      "hour": 8,
+      "transit_min": 80.53203801088974,
+      "car_min": 49.108420513148594,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Esenyurt -> Levent",
+      "hour": 18,
+      "transit_min": 137.1701620243679,
+      "car_min": 94.42285233140097,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Ümraniye -> Kadıköy",
+      "hour": 18,
+      "transit_min": 61.856662958817864,
+      "car_min": 34.41057180219459,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Pendik -> Ataşehir",
+      "hour": 18,
+      "transit_min": 84.1055723326633,
+      "car_min": 49.66604877393518,
+      "meets_Z": false
+    }
+  ],
+  "corridors_optimised": [
+    {
+      "corridor": "Esenyurt -> Levent",
+      "hour": 8,
+      "transit_min": 122.12480780004005,
+      "car_min": 95.89701342394015,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Ümraniye -> Kadıköy",
+      "hour": 8,
+      "transit_min": 61.51896999140792,
+      "car_min": 35.01661338086418,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Pendik -> Ataşehir",
+      "hour": 8,
+      "transit_min": 87.27886658125932,
+      "car_min": 49.108420513148594,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Esenyurt -> Levent",
+      "hour": 18,
+      "transit_min": 126.25288306842126,
+      "car_min": 94.42285233140097,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Ümraniye -> Kadıköy",
+      "hour": 18,
+      "transit_min": 61.856662958817864,
+      "car_min": 34.41057180219459,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Pendik -> Ataşehir",
+      "hour": 18,
+      "transit_min": 84.1055723326633,
+      "car_min": 49.66604877393518,
+      "meets_Z": false
+    }
+  ],
+  "new_lines": [
+    {
+      "line": "NM5",
+      "mode": "metro",
+      "stops": 12,
+      "length_km": 13.4143868653115,
+      "peak_headway": 5.0
+    },
+    {
+      "line": "NM4",
+      "mode": "metro",
+      "stops": 13,
+      "length_km": 14.691992502606054,
+      "peak_headway": 5.0
+    },
+    {
+      "line": "NB15",
+      "mode": "bus",
+      "stops": 44,
+      "length_km": 17.044583986705124,
+      "peak_headway": 10.0
+    },
+    {
+      "line": "NM16",
+      "mode": "metro",
+      "stops": 7,
+      "length_km": 6.741874773423635,
+      "peak_headway": 5.0
+    },
+    {
+      "line": "NB11",
+      "mode": "bus",
+      "stops": 117,
+      "length_km": 46.38797639616175,
+      "peak_headway": 10.0
+    },
+    {
+      "line": "NB14",
+      "mode": "bus",
+      "stops": 56,
+      "length_km": 21.98270062981652,
+      "peak_headway": 10.0
+    },
+    {
+      "line": "NB8",
+      "mode": "bus",
+      "stops": 77,
+      "length_km": 30.574763481508104,
+      "peak_headway": 10.0
+    },
+    {
+      "line": "NB9",
+      "mode": "bus",
+      "stops": 62,
+      "length_km": 24.383831089821665,
+      "peak_headway": 10.0
+    }
+  ],
+  "cost": {
+    "extra_buses": 112,
+    "metro_km": 34.84825414134119
+  },
+  "frequency_periods": [
+    {
+      "period": "am_peak",
+      "hour": 8,
+      "objective_before": 104.84141723983078,
+      "objective_after": 101.55242268907868
+    },
+    {
+      "period": "midday",
+      "hour": 13,
+      "objective_before": 94.63911384939621,
+      "objective_after": 91.35878525999266
+    },
+    {
+      "period": "pm_peak",
+      "hour": 18,
+      "objective_before": 99.40111951788558,
+      "objective_after": 99.40111951788558
+    },
+    {
+      "period": "evening",
+      "hour": 21,
+      "objective_before": 96.2696365441559,
+      "objective_after": 96.2696365441559
+    }
+  ],
+  "history": [
+    {
+      "stage": "greedy",
+      "round": 0,
+      "added": "NM5",
+      "objective": 105.47132991926884
+    },
+    {
+      "stage": "greedy",
+      "round": 1,
+      "added": "NM4",
+      "objective": 104.3065993072323
+    },
+    {
+      "stage": "greedy",
+      "round": 2,
+      "added": "NB15",
+      "objective": 103.85656070802756
+    },
+    {
+      "stage": "greedy",
+      "round": 3,
+      "added": "NM16",
+      "objective": 103.43917741295736
+    },
+    {
+      "stage": "greedy",
+      "round": 4,
+      "added": "NB11",
+      "objective": 103.08740044894003
+    },
+    {
+      "stage": "greedy",
+      "round": 5,
+      "added": "NB14",
+      "objective": 102.75354394351582
+    },
+    {
+      "stage": "greedy",
+      "round": 6,
+      "added": "NB8",
+      "objective": 102.42321543229056
+    },
+    {
+      "stage": "greedy",
+      "round": 7,
+      "added": "NB9",
+      "objective": 102.12173902929074
+    },
+    {
+      "stage": "anneal",
+      "iter": 0,
+      "objective": 102.12126837885818,
+      "lines": [
+        "NM5",
+        "NM4",
+        "NB15",
+        "NM16",
+        "NB11",
+        "NB14",
+        "NB8",
+        "NB9"
+      ]
+    }
+  ],
+  "runtime_s": 1151.9862291812897
+}
