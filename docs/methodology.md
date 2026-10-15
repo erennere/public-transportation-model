@@ -1,0 +1,123 @@
+# Yöntem (Methodology)
+
+Bu belge modelin her adımını ve neden öyle seçildiğini anlatır.
+
+## 1. Bölgeler (zones)
+
+Çalışma alanı (bbox) metrik bir projeksiyonda (otomatik UTM; İstanbul için EPSG:32635)
+kare hücrelere bölünür (varsayılan 1 km). Her hücreye:
+
+* **Nüfus**: WorldPop R2025A 100 m *constrained* raster'ının (varsayılan 2026 tahmini) piksel
+  değerlerinin toplamı. Bu, *gece nüfusu*dur, yani insanların yaşadığı yerdir.
+* **İş / çekim gücü**: OSM POI'lerinin ağırlıklı sayımı (ofis 10, sanayi 15, dükkân 3,
+  zanaat 3, eğitim/sağlık/kamu vb. 2) ve nüfusun %10'u (yerel hizmet işleri). Gerçek
+  istihdam verisi (ör. SGK işyeri istatistikleri) olursa `jobs` doğrudan onunla değiştirilebilir.
+
+Nüfusu veya işi eşiğin altında olan hücreler atılır.
+
+## 2. Gün içi talep (OD matrisi)
+
+Yolculuklar üç amaca ayrılır:
+
+| amaç | üretim (O) | çekim (D) | model |
+|---|---|---|---|
+| Ev → İş | nüfus | iş | çift kısıtlı gravity |
+| İş → Ev | — | — | Ev→İş matrisinin transpozu |
+| Diğer | nüfus + iş | nüfus + iş | çift kısıtlı gravity (daha kısa mesafe) |
+
+Gravity: `T_ij = a_i O_i · b_j D_j · exp(-d_ij / d0)`, `a`, `b` Furness iterasyonuyla
+bulunur, böylece satır toplamları O'ya, sütun toplamları D'ye eşit olur. `d0` (İstanbul'da
+10 km) ortalama yolculuk mesafesini belirler.
+
+Saat `h` için matris:
+
+```
+T(h) = günlük_yolculuk × profil[h] × ( s_ev→iş(h)·M_ev→iş + s_iş→ev(h)·M_ev→işᵀ + s_diğer(h)·M_diğer )
+```
+
+* `profil[h]`: İBB saatlik İstanbulkart biniş verisinden (hafta içi) hesaplanır.
+* `s_ev→iş(h)`, `s_iş→ev(h)`: sabah zirvesinde ağırlıkla ev→iş, akşam zirvesinde iş→ev.
+  Bu sayede "nüfusun çoğu X'te oturup Y'de çalışıyor" yapısı sabah X→Y, akşam Y→X akışı üretir.
+
+## 3. X–Y çiftlerinin örneklenmesi
+
+Her simülasyonda K adet (X, Y) çifti `T(h)`'den örneklenir.
+
+* **Orantılı (varsayılan)**: `P(X=i, Y=j) = T_ij(h) / ΣT`. Saat 08:00'de akışın %60'ı X→Y,
+  %30'u Y→Z, %10'u Z→X ise örneklerin yaklaşık %60'ı X→Y olur. Örnek ortalaması, *yolcu
+  ağırlıklı* ortalama yolculuk süresinin yansız tahminidir — optimize ettiğimiz şey tam olarak bu.
+* **Ilımlı (tempered)**: `P ∝ T^α`. α = 0.5 önerilen "geometrik ortalama" fikrine karşılık gelir:
+  baskın yön yine çoğunlukta ama zayıf akışlar daha iyi temsil edilir. Ortalama alınırken
+  `w = T / T^α` ağırlığı kullanılır, böylece metrik yine yolcu ağırlıklı kalır.
+
+Örnekleme iki aşamalıdır: önce `origins_per_sim` kadar başlangıç noktası, sonra her örnek için
+varış noktası. Böylece hesap maliyeti K ile değil başlangıç noktası sayısıyla ölçeklenir.
+
+M simülasyon farklı tohumlarla tekrarlanır; sonuçlar ortalama ± standart sapma olarak verilir.
+Tüm senaryolar **aynı örneklerle** değerlendirilir (common random numbers), böylece senaryo
+farkları örnekleme gürültüsü değildir.
+
+## 4. Toplu taşıma ağı
+
+Frekans tabanlı bir graf, her saat için ayrı kurulur:
+
+* Yürüme erişimi / çıkışı: bölge merkezinden 800 m içindeki duraklar, kuş uçuşu × 1.3, 4.5 km/s.
+* Aktarma: 250 m içindeki duraklar arası yürüme.
+* Biniş: `min(headway/2, 15 dk) + 2 dk ceza`. Headway her hat paterni için GTFS'teki o saatteki
+  sefer sayısından (`60 / sefer`, 3 saatlik kayan ortalama) hesaplanır.
+* Araç içi süre:
+  * GTFS tüm duraklarda saat veriyorsa (raylı sistem, vapur) doğrudan o süreler,
+  * otobüs: `mesafe × 1.3 / min(trafik_hızı(konum, saat) × 0.75, 40 km/s) + 20 sn`,
+  * metrobüs / metro / tramvay: moda göre sabit hız.
+* Sonuç: `min(toplu taşıma, sadece yürüme)`; 180 dakikada erişilemeyen yolculuklar 180 dk sayılır.
+
+Araba süresi: başlangıç–varış doğrusu üzerindeki trafik hızlarının harmonik ortalaması ile
+`mesafe × 1.3 / hız + 5 dk` (park/erişim).
+
+## 5. Metrikler
+
+* ortalama kapıdan kapıya süre,
+* `P(t ≤ Z)`: Z dakikanın altında kalan yolculuk payı,
+* ortalama Z aşımı `E[max(0, t − Z)]`,
+* **araba payı**: arabası olanlar için ikili logit
+  `P(toplu taşıma) = 1 / (1 + exp(−(β (t_araba − t_tt) + ASC)))`, toplam araba payı
+  `araç_sahipliği × (1 − P)`. Trafik azaltımının göstergesidir.
+* Amaç fonksiyonu: `J = ortalama süre + w · ortalama Z aşımı`.
+
+## 6. Yeni hat adayları
+
+1. Baz senaryoda zirve saatlerde her örnek yolculuğun **açığı** hesaplanır:
+   `max(0, t − Z) + 0.5 · max(0, t_tt − t_araba)`.
+2. Açıklar 3 km'lik kaba hücre çiftlerine (koridorlar) toplanır; en kötü koridorlar seçilir
+   (çok kısa ve birbirine çok yakın olanlar elenir).
+3. Koridor için bölge grid'i üzerinde en kısa yol bulunur; kenar maliyeti
+   `uzunluk × (1 − ödül × yoğunluk)` olduğundan yol yoğun (nüfus + iş) bölgelerden geçmeye
+   yönelir. **Hattın hangi bölgelerden geçeceği** böyle belirlenir.
+4. Duraklar otobüs için ~400 m, metro için ~1.2 km aralıkla yerleştirilir; otobüs durağı mevcut
+   bir durağa 150 m'den yakınsa onu kullanır.
+
+## 7. Optimizasyon
+
+1. **Açgözlü (greedy)**: bütçe (ek otobüs sayısı, metro km) izin verdikçe amaç fonksiyonunu en
+   çok düşüren adayı ekle.
+2. **Benzetimli tavlama (simulated annealing)**: durak kaydır, hattı uzat/kısalt, headway değiştir,
+   hat değiştir/ekle/çıkar. Bu adım durakların tam yerini ince ayarlar.
+3. **Sıklık (frekans) dağıtımı**, her dönem için (sabah zirvesi, öğle, akşam zirvesi, akşam):
+   atama ile hat yükleri (biniş) bulunur, sonra sabit filo altında karekök kuralı uygulanır:
+   `araç_l ∝ √(yolcu_l × tur_süresi_l)` (toplam bekleme süresini minimize eden çözüm).
+   Değişiklik ancak o dönemin amaç fonksiyonunu iyileştiriyorsa kabul edilir.
+
+Otobüs filosu ihtiyacı: `⌈tur_süresi / headway⌉`, tur süresi zirve saatteki trafik hızıyla
+hesaplanan gidiş-dönüş süresi + %10 bekleme.
+
+## 8. Bilinen sınırlamalar
+
+* Araç kapasitesi / kalabalık modellenmiyor (yükler raporlanıyor). Sonraki adım: kapasite
+  kısıtlı atama.
+* Gerçek OD verisi yok, gravity ile tahmin ediliyor. İBB İstanbulkart biniş–iniş (OD) verisi
+  veya mobil telefon verisi elde edilirse `Demand` sınıfı doğrudan onunla değiştirilebilir.
+* Araba süresi yol ağı yerine düz çizgi × dolambaç katsayısı ile yaklaşıklanıyor.
+* İBB raylı GTFS verisi 2024'e ait; yeni açılan hatlar (ör. M12, M14) eksik olabilir.
+* Google / Bing trafik haritaları kullanım şartları gereği kazınmıyor; İBB'nin resmi saatlik
+  trafik yoğunluğu verisi kullanılıyor. Başka şehirler için TomTom / HERE gibi lisanslı API'lere
+  `TrafficField` arayüzü üzerinden adaptör yazılabilir.

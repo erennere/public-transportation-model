@@ -1,0 +1,17 @@
+# Pilot area: Üsküdar – Kadıköy – Ataşehir – Ümraniye (Anadolu yakası).
+# Inherits everything from istanbul.yaml except the overrides below.
+extends: istanbul.yaml
+name: istanbul_pilot
+bbox: [28.99, 40.95, 29.20, 41.07]
+
+evaluation:
+  K: 2000
+  origins_per_sim: 200
+  Z_min: 45
+  corridors:
+    - {name: "Ümraniye -> Kadıköy", x: [29.124, 41.026], y: [29.027, 40.991]}
+    - {name: "Çekmeköy yönü (Dudullu) -> Bostancı", x: [29.155, 41.020], y: [29.095, 40.963]}
+    - {name: "Ataşehir -> Üsküdar", x: [29.112, 40.993], y: [29.015, 41.025]}
+
+optimization:
+  budget: {extra_buses: 120, metro_km: 15}

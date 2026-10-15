@@ -1,0 +1,6 @@
+# Synthetic test city: no downloads needed.
+name: synthetic
+synthetic: {half_size_km: 15}
+zones: {cell_size_m: 1000}
+evaluation: {K: 2000, M: 5, origins_per_sim: 200, Z_min: 45}
+optimization: {budget: {extra_buses: 120, metro_km: 20}, anneal_iters: 100}
