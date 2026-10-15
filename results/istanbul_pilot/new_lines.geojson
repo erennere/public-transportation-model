@@ -1,0 +1,5207 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.1849549999927,
+            40.994047000553
+          ],
+          [
+            29.18221245506382,
+            40.9947878665128
+          ],
+          [
+            29.178768336550572,
+            40.992305499298084
+          ],
+          [
+            29.175324476185263,
+            40.98982302162373
+          ],
+          [
+            29.1694719999925,
+            40.98762000055189
+          ],
+          [
+            29.168598447833997,
+            40.98976739412474
+          ],
+          [
+            29.165321747838373,
+            40.99237656527194
+          ],
+          [
+            29.16204478968468,
+            40.99498564854748
+          ],
+          [
+            29.15876757333679,
+            40.99759464392557
+          ],
+          [
+            29.1562117563822,
+            41.00014812722478
+          ],
+          [
+            29.149796058728395,
+            41.004335789294
+          ],
+          [
+            29.1497839999922,
+            41.00450000055461
+          ],
+          [
+            29.1470289999922,
+            41.00743000055498
+          ],
+          [
+            29.142377617420205,
+            41.01063830145126
+          ],
+          [
+            29.137779999992,
+            41.0136090005561
+          ],
+          [
+            29.137534999991995,
+            41.0170490005566
+          ],
+          [
+            29.13231759861151,
+            41.01155287530114
+          ],
+          [
+            29.1298589999919,
+            41.009112000555284
+          ],
+          [
+            29.125496999991896,
+            41.0065460005549
+          ],
+          [
+            29.122122990948963,
+            41.00828374694199
+          ],
+          [
+            29.1190999999918,
+            41.01062300055559
+          ],
+          [
+            29.1167889999917,
+            41.014036000556096
+          ],
+          [
+            29.1133479999916,
+            41.0151190005562
+          ],
+          [
+            29.109020999991603,
+            41.017494000556596
+          ],
+          [
+            29.1067669999915,
+            41.020623000557194
+          ],
+          [
+            29.1038229999915,
+            41.0233130005576
+          ],
+          [
+            29.099161220688945,
+            41.02653725392635
+          ],
+          [
+            29.096209999991302,
+            41.02971600055861
+          ],
+          [
+            29.0931420000112,
+            41.0310949991162
+          ],
+          [
+            29.089660999991203,
+            41.03342800055919
+          ],
+          [
+            29.087397986335898,
+            41.03726702937999
+          ],
+          [
+            29.08275219753973,
+            41.03957282375752
+          ],
+          [
+            29.079469616572716,
+            41.0421796724435
+          ],
+          [
+            29.076522999991003,
+            41.04458000056099
+          ],
+          [
+            29.072277999990902,
+            41.04645200056121
+          ],
+          [
+            29.06962032034731,
+            41.049999687475704
+          ],
+          [
+            29.0660049999908,
+            41.0519040005621
+          ],
+          [
+            29.063052828065572,
+            41.05521258805042
+          ],
+          [
+            29.0592569928218,
+            41.0582139660914
+          ],
+          [
+            29.055661023736597,
+            41.06039997407889
+          ],
+          [
+            29.053199646723392,
+            41.06303127422515
+          ],
+          [
+            29.049914734686297,
+            41.065637325596626
+          ],
+          [
+            29.046629563460804,
+            41.06824328824823
+          ],
+          [
+            29.043332839478154,
+            41.070484540508325
+          ],
+          [
+            29.039889702480608,
+            41.067998020200335
+          ],
+          [
+            29.036446824708737,
+            41.06551138987098
+          ],
+          [
+            29.033451999990103,
+            41.06264800056379
+          ],
+          [
+            29.028857064764736,
+            41.061915478775596
+          ],
+          [
+            29.0232869556627,
+            41.06100001772029
+          ],
+          [
+            29.019389297539494,
+            41.0619906366239
+          ],
+          [
+            29.015947490417272,
+            41.05950336580422
+          ],
+          [
+            29.012505942425275,
+            41.05701598511654
+          ],
+          [
+            29.0096778157258,
+            41.054110437965
+          ],
+          [
+            29.004965531329596,
+            41.053326412617345
+          ],
+          [
+            29.0002169999895,
+            41.0533460005623
+          ],
+          [
+            28.995451765183404,
+            41.05349160112604
+          ],
+          [
+            28.991566102591488,
+            41.05557078211423
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 16.0,
+          "7": 8.0,
+          "8": 8.0,
+          "9": 8.0,
+          "10": 16.0,
+          "11": 7.5,
+          "12": 7.5,
+          "13": 7.5,
+          "14": 7.5,
+          "15": 16.0,
+          "16": 16.0,
+          "17": 8.0,
+          "18": 8.0,
+          "19": 8.0,
+          "20": 16.0,
+          "21": 16.0,
+          "22": 16.0,
+          "23": 16.0
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1849549999927,
+          40.994047000553
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 0,
+        "stop_id": "iett:580092",
+        "name": "3.YOL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.18221245506382,
+          40.9947878665128
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 1,
+        "stop_id": "NB9_2525",
+        "name": "NB9 2525"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.178768336550572,
+          40.992305499298084
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 2,
+        "stop_id": "NB9_2526",
+        "name": "NB9 2526"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.175324476185263,
+          40.98982302162373
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 3,
+        "stop_id": "NB9_2527",
+        "name": "NB9 2527"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1694719999925,
+          40.98762000055189
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 4,
+        "stop_id": "iett:578585",
+        "name": "FERHATPAŞA İSMEK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.168598447833997,
+          40.98976739412474
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 5,
+        "stop_id": "NB9_2528",
+        "name": "NB9 2528"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.165321747838373,
+          40.99237656527194
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 6,
+        "stop_id": "NB9_2529",
+        "name": "NB9 2529"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.16204478968468,
+          40.99498564854748
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 7,
+        "stop_id": "NB9_2530",
+        "name": "NB9 2530"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.15876757333679,
+          40.99759464392557
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 8,
+        "stop_id": "NB9_2531",
+        "name": "NB9 2531"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1562117563822,
+          41.00014812722478
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 9,
+        "stop_id": "rail:272194",
+        "name": "İmes"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.149796058728395,
+          41.004335789294
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 10,
+        "stop_id": "iett:580193",
+        "name": "SELÇUK ECZA 50.YIL ORTAOKULU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1497839999922,
+          41.00450000055461
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 11,
+        "stop_id": "iett:580194",
+        "name": "SELÇUK ECZA 50.YIL ORTAOKULU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1470289999922,
+          41.00743000055498
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 12,
+        "stop_id": "iett:580314",
+        "name": "KUDRET SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.142377617420205,
+          41.01063830145126
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 13,
+        "stop_id": "NB9_2532",
+        "name": "NB9 2532"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.137779999992,
+          41.0136090005561
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 14,
+        "stop_id": "iett:580339",
+        "name": "DOĞANEVLER CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.137534999991995,
+          41.0170490005566
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 15,
+        "stop_id": "iett:580501",
+        "name": "CEMİL MERİÇ MAHALLESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.13231759861151,
+          41.01155287530114
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 16,
+        "stop_id": "NB9_2533",
+        "name": "NB9 2533"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1298589999919,
+          41.009112000555284
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 17,
+        "stop_id": "iett:580258",
+        "name": "AŞIK VEYSEL CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.125496999991896,
+          41.0065460005549
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 18,
+        "stop_id": "iett:580187",
+        "name": "ŞEHİT EMRE ANŞİN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.122122990948963,
+          41.00828374694199
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 19,
+        "stop_id": "NB9_2534",
+        "name": "NB9 2534"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1190999999918,
+          41.01062300055559
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 20,
+        "stop_id": "iett:580307",
+        "name": "SAMANYOLU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1167889999917,
+          41.014036000556096
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 21,
+        "stop_id": "iett:580309",
+        "name": "HARMAN SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1133479999916,
+          41.0151190005562
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 22,
+        "stop_id": "iett:580292",
+        "name": "23 NİSAN KAPTANOĞLU İLKOKULU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.109020999991603,
+          41.017494000556596
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 23,
+        "stop_id": "iett:580591",
+        "name": "HALİLURRAHMAN CAMİİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1067669999915,
+          41.020623000557194
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 24,
+        "stop_id": "iett:580577",
+        "name": "REŞİTPAŞA CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1038229999915,
+          41.0233130005576
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 25,
+        "stop_id": "iett:580483",
+        "name": "75.YIL CUMHURİYET MESLEKİ VE TEKNİK ANADOLU LİSESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.099161220688945,
+          41.02653725392635
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 26,
+        "stop_id": "NB9_2535",
+        "name": "NB9 2535"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.096209999991302,
+          41.02971600055861
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 27,
+        "stop_id": "iett:580320",
+        "name": "ÜMRANİYE BELEDİYESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0931420000112,
+          41.0310949991162
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 28,
+        "stop_id": "iett:5250091",
+        "name": "ÜMRANİYE KAYMAKAMLIĞI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.089660999991203,
+          41.03342800055919
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 29,
+        "stop_id": "iett:580631",
+        "name": "ESTERGON CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.087397986335898,
+          41.03726702937999
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 30,
+        "stop_id": "iett:798718",
+        "name": "VELİ SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.08275219753973,
+          41.03957282375752
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 31,
+        "stop_id": "NB9_2536",
+        "name": "NB9 2536"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.079469616572716,
+          41.0421796724435
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 32,
+        "stop_id": "NB9_2537",
+        "name": "NB9 2537"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.076522999991003,
+          41.04458000056099
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 33,
+        "stop_id": "iett:681243",
+        "name": "İTFAİYE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.072277999990902,
+          41.04645200056121
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 34,
+        "stop_id": "iett:681212",
+        "name": "TESİSLER"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.06962032034731,
+          41.049999687475704
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 35,
+        "stop_id": "NB9_2538",
+        "name": "NB9 2538"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0660049999908,
+          41.0519040005621
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 36,
+        "stop_id": "iett:681494",
+        "name": "ŞEHİT HALİL KANTARCI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.063052828065572,
+          41.05521258805042
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 37,
+        "stop_id": "NB9_2539",
+        "name": "NB9 2539"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0592569928218,
+          41.0582139660914
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 38,
+        "stop_id": "iett:681185",
+        "name": "ÜÇYOL"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.055661023736597,
+          41.06039997407889
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 39,
+        "stop_id": "iett:681184",
+        "name": "LİSE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.053199646723392,
+          41.06303127422515
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 40,
+        "stop_id": "NB9_2540",
+        "name": "NB9 2540"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.049914734686297,
+          41.065637325596626
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 41,
+        "stop_id": "NB9_2541",
+        "name": "NB9 2541"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.046629563460804,
+          41.06824328824823
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 42,
+        "stop_id": "NB9_2542",
+        "name": "NB9 2542"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.043332839478154,
+          41.070484540508325
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 43,
+        "stop_id": "NB9_2543",
+        "name": "NB9 2543"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.039889702480608,
+          41.067998020200335
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 44,
+        "stop_id": "NB9_2544",
+        "name": "NB9 2544"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.036446824708737,
+          41.06551138987098
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 45,
+        "stop_id": "NB9_2545",
+        "name": "NB9 2545"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.033451999990103,
+          41.06264800056379
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 46,
+        "stop_id": "iett:681040",
+        "name": "SİTE YOLU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.028857064764736,
+          41.061915478775596
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 47,
+        "stop_id": "NB9_2546",
+        "name": "NB9 2546"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0232869556627,
+          41.06100001772029
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 48,
+        "stop_id": "iett:680921",
+        "name": "VADİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.019389297539494,
+          41.0619906366239
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 49,
+        "stop_id": "NB9_2547",
+        "name": "NB9 2547"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.015947490417272,
+          41.05950336580422
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 50,
+        "stop_id": "NB9_2548",
+        "name": "NB9 2548"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.012505942425275,
+          41.05701598511654
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 51,
+        "stop_id": "NB9_2549",
+        "name": "NB9 2549"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0096778157258,
+          41.054110437965
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 52,
+        "stop_id": "rail:272200",
+        "name": "Yıldız"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.004965531329596,
+          41.053326412617345
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 53,
+        "stop_id": "NB9_2550",
+        "name": "NB9 2550"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0002169999895,
+          41.0533460005623
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 54,
+        "stop_id": "iett:681098",
+        "name": "FULYA TESİSLERİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.995451765183404,
+          41.05349160112604
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 55,
+        "stop_id": "NB9_2551",
+        "name": "NB9 2551"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.991566102591488,
+          41.05557078211423
+        ]
+      },
+      "properties": {
+        "line": "NB9",
+        "mode": "bus",
+        "stop_seq": 56,
+        "stop_id": "NB9_2552",
+        "name": "NB9 2552"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.04079702988142,
+            40.98063792807045
+          ],
+          [
+            29.05233127934926,
+            40.987300613266555
+          ],
+          [
+            29.063867832549477,
+            40.993962081166465
+          ],
+          [
+            29.075406689956313,
+            41.00062233097173
+          ],
+          [
+            29.086947852043576,
+            41.00728136188381
+          ],
+          [
+            29.098491319284598,
+            41.013939173104
+          ],
+          [
+            29.103307876538764,
+            41.008636954342876
+          ],
+          [
+            29.122050056905433,
+            41.01019219419816
+          ],
+          [
+            29.14127794366259,
+            41.01484403877836
+          ],
+          [
+            29.153880382058187,
+            41.01831086654056
+          ],
+          [
+            29.167962813399367,
+            41.026589843880316
+          ],
+          [
+            29.174905757135555,
+            41.03346263453454
+          ],
+          [
+            29.185422057047624,
+            41.04103697443428
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 10.0,
+          "7": 5.0,
+          "8": 5.0,
+          "9": 5.0,
+          "10": 10.0,
+          "11": 10.0,
+          "12": 10.0,
+          "13": 10.0,
+          "14": 10.0,
+          "15": 10.0,
+          "16": 10.0,
+          "17": 5.0,
+          "18": 5.0,
+          "19": 5.0,
+          "20": 10.0,
+          "21": 10.0,
+          "22": 10.0,
+          "23": 10.0
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.04079702988142,
+          40.98063792807045
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 0,
+        "stop_id": "NM17_2553",
+        "name": "NM17 2553"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.05233127934926,
+          40.987300613266555
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 1,
+        "stop_id": "NM17_2554",
+        "name": "NM17 2554"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.063867832549477,
+          40.993962081166465
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 2,
+        "stop_id": "NM17_2555",
+        "name": "NM17 2555"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.075406689956313,
+          41.00062233097173
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 3,
+        "stop_id": "NM17_2556",
+        "name": "NM17 2556"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.086947852043576,
+          41.00728136188381
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 4,
+        "stop_id": "NM17_2557",
+        "name": "NM17 2557"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.098491319284598,
+          41.013939173104
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 5,
+        "stop_id": "NM17_2558",
+        "name": "NM17 2558"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.103307876538764,
+          41.008636954342876
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 6,
+        "stop_id": "NM17_2559",
+        "name": "NM17 2559"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.122050056905433,
+          41.01019219419816
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 7,
+        "stop_id": "NM17_2560",
+        "name": "NM17 2560"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.14127794366259,
+          41.01484403877836
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 8,
+        "stop_id": "NM17_2561",
+        "name": "NM17 2561"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.153880382058187,
+          41.01831086654056
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 9,
+        "stop_id": "NM17_2562",
+        "name": "NM17 2562"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.167962813399367,
+          41.026589843880316
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 10,
+        "stop_id": "NM17_2563",
+        "name": "NM17 2563"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.174905757135555,
+          41.03346263453454
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 11,
+        "stop_id": "NM17_2564",
+        "name": "NM17 2564"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.185422057047624,
+          41.04103697443428
+        ]
+      },
+      "properties": {
+        "line": "NM17",
+        "mode": "metro",
+        "stop_seq": 12,
+        "stop_id": "NM17_2565",
+        "name": "NM17 2565"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.108049999991504,
+            41.03684500055971
+          ],
+          [
+            29.109730975520804,
+            41.035952000845406
+          ],
+          [
+            29.11374871442653,
+            41.03185953686743
+          ],
+          [
+            29.11363483340673,
+            41.02830016899036
+          ],
+          [
+            29.11352097278033,
+            41.02474079864736
+          ],
+          [
+            29.116466574737704,
+            41.0221111015076
+          ],
+          [
+            29.1196510026536,
+            41.019481128049954
+          ],
+          [
+            29.1228809999918,
+            41.01610200055641
+          ],
+          [
+            29.1259599999918,
+            41.01702800055659
+          ],
+          [
+            29.128190000010903,
+            41.0121839991166
+          ],
+          [
+            29.132618465195424,
+            41.00916849452251
+          ],
+          [
+            29.13585969947926,
+            41.0065901208538
+          ],
+          [
+            29.137994999992003,
+            41.007268000554994
+          ],
+          [
+            29.14262533830608,
+            41.01019546568346
+          ],
+          [
+            29.1476880000101,
+            41.013032999116
+          ],
+          [
+            29.146152161588315,
+            41.014737422161716
+          ],
+          [
+            29.1537849999922,
+            41.0164540005565
+          ],
+          [
+            29.156243951317546,
+            41.020014705373086
+          ],
+          [
+            29.159551400444002,
+            41.02263442029041
+          ],
+          [
+            29.163814870452747,
+            41.023430283143576
+          ],
+          [
+            29.1679889534671,
+            41.0222009751071
+          ],
+          [
+            29.17321424689079,
+            41.02325336079837
+          ],
+          [
+            29.1775209999925,
+            41.02340600055761
+          ],
+          [
+            29.1835019999926,
+            41.0242110005578
+          ],
+          [
+            29.1865326557019,
+            41.0210167741013
+          ],
+          [
+            29.18464659618304,
+            41.017591288748605
+          ],
+          [
+            29.18452895633049,
+            41.01403207767234
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 10.2,
+          "7": 5.1,
+          "8": 5.1,
+          "9": 5.1,
+          "10": 10.2,
+          "11": 6.8,
+          "12": 6.8,
+          "13": 6.8,
+          "14": 6.8,
+          "15": 10.2,
+          "16": 10.2,
+          "17": 5.1,
+          "18": 5.1,
+          "19": 5.1,
+          "20": 10.2,
+          "21": 10.2,
+          "22": 10.2,
+          "23": 10.2
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.108049999991504,
+          41.03684500055971
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 0,
+        "stop_id": "iett:580565",
+        "name": "İNKILAP MAHALLESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.109730975520804,
+          41.035952000845406
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 1,
+        "stop_id": "iett:580334",
+        "name": "İNKILAP MAHALLESİ MUHTARLIĞI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.11374871442653,
+          41.03185953686743
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 2,
+        "stop_id": "NB11_2566",
+        "name": "NB11 2566"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.11363483340673,
+          41.02830016899036
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 3,
+        "stop_id": "NB11_2567",
+        "name": "NB11 2567"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.11352097278033,
+          41.02474079864736
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 4,
+        "stop_id": "NB11_2568",
+        "name": "NB11 2568"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.116466574737704,
+          41.0221111015076
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 5,
+        "stop_id": "iett:580491",
+        "name": "ÜMR.İSKİ-ŞEHİT EMRE BÜYÜKYILDIRIM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1196510026536,
+          41.019481128049954
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 6,
+        "stop_id": "NB11_2569",
+        "name": "NB11 2569"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1228809999918,
+          41.01610200055641
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 7,
+        "stop_id": "iett:580146",
+        "name": "VARAN CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1259599999918,
+          41.01702800055659
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 8,
+        "stop_id": "iett:580160",
+        "name": "FATİH İLKOKULU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.128190000010903,
+          41.0121839991166
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 9,
+        "stop_id": "iett:580183",
+        "name": "ŞEHİT MAHMUT COŞKUNSU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.132618465195424,
+          41.00916849452251
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 10,
+        "stop_id": "NB11_2570",
+        "name": "NB11 2570"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.13585969947926,
+          41.0065901208538
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 11,
+        "stop_id": "NB11_2571",
+        "name": "NB11 2571"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.137994999992003,
+          41.007268000554994
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 12,
+        "stop_id": "iett:580407",
+        "name": "YENİŞEHİR İLKOKULU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.14262533830608,
+          41.01019546568346
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 13,
+        "stop_id": "NB11_2572",
+        "name": "NB11 2572"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1476880000101,
+          41.013032999116
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 14,
+        "stop_id": "iett:5250903",
+        "name": "YEŞİLAY SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.146152161588315,
+          41.014737422161716
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 15,
+        "stop_id": "NB11_2573",
+        "name": "NB11 2573"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1537849999922,
+          41.0164540005565
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 16,
+        "stop_id": "iett:580507",
+        "name": "ÜMRANİYE İMAM HATİP LİSESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.156243951317546,
+          41.020014705373086
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 17,
+        "stop_id": "NB11_2574",
+        "name": "NB11 2574"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.159551400444002,
+          41.02263442029041
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 18,
+        "stop_id": "rail:272198",
+        "name": "Huzur"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.163814870452747,
+          41.023430283143576
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 19,
+        "stop_id": "NB11_2575",
+        "name": "NB11 2575"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1679889534671,
+          41.0222009751071
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 20,
+        "stop_id": "iett:580221",
+        "name": "ÇEKMEKÖY YOLU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.17321424689079,
+          41.02325336079837
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 21,
+        "stop_id": "NB11_2576",
+        "name": "NB11 2576"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1775209999925,
+          41.02340600055761
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 22,
+        "stop_id": "iett:290176",
+        "name": "PLAZALAR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1835019999926,
+          41.0242110005578
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 23,
+        "stop_id": "iett:290041",
+        "name": "SENEM SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1865326557019,
+          41.0210167741013
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 24,
+        "stop_id": "iett:5250020",
+        "name": "NECİP FAZIL KISAKÜREK CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.18464659618304,
+          41.017591288748605
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 25,
+        "stop_id": "NB11_2577",
+        "name": "NB11 2577"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.18452895633049,
+          41.01403207767234
+        ]
+      },
+      "properties": {
+        "line": "NB11",
+        "mode": "bus",
+        "stop_seq": 26,
+        "stop_id": "NB11_2578",
+        "name": "NB11 2578"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.19474115438434,
+            40.96342499099769
+          ],
+          [
+            29.19486143551191,
+            40.96705364739914
+          ],
+          [
+            29.194981738592585,
+            40.97068230121786
+          ],
+          [
+            29.19510206363092,
+            40.974310952453706
+          ],
+          [
+            29.19509048287321,
+            40.97790110085714
+          ],
+          [
+            29.191789823860628,
+            40.980531392382915
+          ],
+          [
+            29.1869559999927,
+            40.98513100055149
+          ],
+          [
+            29.1835319999927,
+            40.9857130005516
+          ],
+          [
+            29.1794269999926,
+            40.9859730005517
+          ],
+          [
+            29.178584567084282,
+            40.99105166752188
+          ],
+          [
+            29.1747719999926,
+            40.994236000553
+          ],
+          [
+            29.171976652021606,
+            40.99619817984739
+          ],
+          [
+            29.168505906949463,
+            40.993696090096726
+          ],
+          [
+            29.165035424102772,
+            40.99119388820083
+          ],
+          [
+            29.1617778000106,
+            40.9892129991171
+          ],
+          [
+            29.157781999992398,
+            40.9856810005516
+          ],
+          [
+            29.152070453425917,
+            40.98278058726322
+          ],
+          [
+            29.150857999992297,
+            40.98085900055089
+          ],
+          [
+            29.147771999992305,
+            40.977465000550296
+          ],
+          [
+            29.144841014274895,
+            40.976804966965695
+          ],
+          [
+            29.1432519999922,
+            40.97538100055
+          ],
+          [
+            29.1378249999921,
+            40.9713880005493
+          ],
+          [
+            29.135404999992097,
+            40.971425000549296
+          ],
+          [
+            29.134519999992104,
+            40.97614600055001
+          ],
+          [
+            29.1355739999921,
+            40.978808000550494
+          ],
+          [
+            29.131725999991996,
+            40.9765030005501
+          ],
+          [
+            29.1288337553805,
+            40.97386778845779
+          ],
+          [
+            29.126647999992002,
+            40.97116800054929
+          ],
+          [
+            29.121572783709713,
+            40.96570021406609
+          ],
+          [
+            29.11843065774605,
+            40.96635705025982
+          ],
+          [
+            29.1145589999918,
+            40.9646370005482
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 20.0,
+          "7": 10.0,
+          "8": 10.0,
+          "9": 10.0,
+          "10": 20.0,
+          "11": 20.1,
+          "12": 20.1,
+          "13": 20.1,
+          "14": 20.1,
+          "15": 20.0,
+          "16": 20.0,
+          "17": 10.0,
+          "18": 10.0,
+          "19": 10.0,
+          "20": 20.0,
+          "21": 20.0,
+          "22": 20.0,
+          "23": 20.0
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.19474115438434,
+          40.96342499099769
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 0,
+        "stop_id": "NB16_2579",
+        "name": "NB16 2579"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.19486143551191,
+          40.96705364739914
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 1,
+        "stop_id": "NB16_2580",
+        "name": "NB16 2580"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.194981738592585,
+          40.97068230121786
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 2,
+        "stop_id": "NB16_2581",
+        "name": "NB16 2581"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.19510206363092,
+          40.974310952453706
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 3,
+        "stop_id": "NB16_2582",
+        "name": "NB16 2582"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.19509048287321,
+          40.97790110085714
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 4,
+        "stop_id": "NB16_2583",
+        "name": "NB16 2583"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.191789823860628,
+          40.980531392382915
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 5,
+        "stop_id": "NB16_2584",
+        "name": "NB16 2584"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1869559999927,
+          40.98513100055149
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 6,
+        "stop_id": "iett:578560",
+        "name": "AKDENİZ CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1835319999927,
+          40.9857130005516
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 7,
+        "stop_id": "iett:578435",
+        "name": "NECMETTİN ERBAKAN PARKI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1794269999926,
+          40.9859730005517
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 8,
+        "stop_id": "iett:578713",
+        "name": "FERHATPAŞA MAHALLE MUHTARLIĞI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.178584567084282,
+          40.99105166752188
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 9,
+        "stop_id": "NB16_2585",
+        "name": "NB16 2585"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1747719999926,
+          40.994236000553
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 10,
+        "stop_id": "iett:580094",
+        "name": "BİLİM SANAYİ İL MÜDÜRLÜĞÜ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.171976652021606,
+          40.99619817984739
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 11,
+        "stop_id": "NB16_2586",
+        "name": "NB16 2586"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.168505906949463,
+          40.993696090096726
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 12,
+        "stop_id": "NB16_2587",
+        "name": "NB16 2587"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.165035424102772,
+          40.99119388820083
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 13,
+        "stop_id": "NB16_2588",
+        "name": "NB16 2588"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1617778000106,
+          40.9892129991171
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 14,
+        "stop_id": "iett:578707",
+        "name": "YENİ ÇAMLICA MERKEZ CAMİİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.157781999992398,
+          40.9856810005516
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 15,
+        "stop_id": "iett:578557",
+        "name": "SELVİ SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.152070453425917,
+          40.98278058726322
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 16,
+        "stop_id": "NB16_2589",
+        "name": "NB16 2589"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.150857999992297,
+          40.98085900055089
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 17,
+        "stop_id": "iett:578733",
+        "name": "FATİH CAMİİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.147771999992305,
+          40.977465000550296
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 18,
+        "stop_id": "iett:578495",
+        "name": "DARÜLACEZE MÜDÜRLÜĞÜ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.144841014274895,
+          40.976804966965695
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 19,
+        "stop_id": "iett:578428",
+        "name": "NAR ÇİÇEĞİ SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1432519999922,
+          40.97538100055
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 20,
+        "stop_id": "iett:578620",
+        "name": "UHUD CAMİİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1378249999921,
+          40.9713880005493
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 21,
+        "stop_id": "iett:510245",
+        "name": "SUDE YAREN UZUNÇAVDAR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.135404999992097,
+          40.971425000549296
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 22,
+        "stop_id": "iett:510430",
+        "name": "ATAMAN CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.134519999992104,
+          40.97614600055001
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 23,
+        "stop_id": "iett:578438",
+        "name": "ŞEHİT ÖĞRETMEN MEHMET FİDAN İLKOKULU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1355739999921,
+          40.978808000550494
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 24,
+        "stop_id": "iett:578574",
+        "name": "GÜMRÜK ÜST KAPI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.131725999991996,
+          40.9765030005501
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 25,
+        "stop_id": "iett:578446",
+        "name": "19 MAYIS CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1288337553805,
+          40.97386778845779
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 26,
+        "stop_id": "NB16_2590",
+        "name": "NB16 2590"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.126647999992002,
+          40.97116800054929
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 27,
+        "stop_id": "iett:510426",
+        "name": "YALIN SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.121572783709713,
+          40.96570021406609
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 28,
+        "stop_id": "NB16_2591",
+        "name": "NB16 2591"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.11843065774605,
+          40.96635705025982
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 29,
+        "stop_id": "NB16_2592",
+        "name": "NB16 2592"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1145589999918,
+          40.9646370005482
+        ]
+      },
+      "properties": {
+        "line": "NB16",
+        "mode": "bus",
+        "stop_seq": 30,
+        "stop_id": "iett:578787",
+        "name": "ALANALDI CADDESİ "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.079138113062324,
+            41.04414149477833
+          ],
+          [
+            29.08167910844205,
+            41.04042504556781
+          ],
+          [
+            29.082519617639683,
+            41.038199498042786
+          ],
+          [
+            29.0872669724068,
+            41.03421703632839
+          ],
+          [
+            29.089811997079003,
+            41.0328610179253
+          ],
+          [
+            29.096209999991302,
+            41.02971600055861
+          ],
+          [
+            29.097996892378887,
+            41.02746245571877
+          ],
+          [
+            29.101167999991404,
+            41.02488900055779
+          ],
+          [
+            29.098429999991396,
+            41.022981000557486
+          ],
+          [
+            29.09515568919448,
+            41.01991420251682
+          ],
+          [
+            29.091573999991304,
+            41.0167830005565
+          ],
+          [
+            29.088409000010202,
+            41.01521199911579
+          ],
+          [
+            29.084887226519623,
+            41.01250050474429
+          ],
+          [
+            29.081464916854106,
+            41.01002905446729
+          ],
+          [
+            29.0777079999911,
+            41.00720800055499
+          ],
+          [
+            29.079820079939093,
+            41.00499209942159
+          ],
+          [
+            29.0850029999912,
+            41.00086000055391
+          ],
+          [
+            29.0866560431358,
+            40.9990169737839
+          ],
+          [
+            29.0886079999913,
+            40.9971980005534
+          ],
+          [
+            29.0922929999914,
+            40.994489000553
+          ],
+          [
+            29.097382435443993,
+            40.9908082038341
+          ],
+          [
+            29.099390957928463,
+            40.98943719852459
+          ],
+          [
+            29.104073999991602,
+            40.98691000055169
+          ],
+          [
+            29.105912541246823,
+            40.98425153347864
+          ],
+          [
+            29.108821969597404,
+            40.98211703140289
+          ],
+          [
+            29.1129619999917,
+            40.9793790005505
+          ],
+          [
+            29.114348999991805,
+            40.97628200055011
+          ],
+          [
+            29.1200119999919,
+            40.97373700054968
+          ],
+          [
+            29.122212033870916,
+            40.97128584573748
+          ],
+          [
+            29.122255000011,
+            40.9681639991176
+          ],
+          [
+            29.118338422333835,
+            40.96629044682318
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 16.0,
+          "7": 8.0,
+          "8": 8.0,
+          "9": 8.0,
+          "10": 16.0,
+          "11": 10.2,
+          "12": 10.2,
+          "13": 10.2,
+          "14": 10.2,
+          "15": 16.0,
+          "16": 16.0,
+          "17": 8.0,
+          "18": 8.0,
+          "19": 8.0,
+          "20": 16.0,
+          "21": 16.0,
+          "22": 16.0,
+          "23": 16.0
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.079138113062324,
+          41.04414149477833
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 0,
+        "stop_id": "NB4_2593",
+        "name": "NB4 2593"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.08167910844205,
+          41.04042504556781
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 1,
+        "stop_id": "NB4_2594",
+        "name": "NB4 2594"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.082519617639683,
+          41.038199498042786
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 2,
+        "stop_id": "NB4_2595",
+        "name": "NB4 2595"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0872669724068,
+          41.03421703632839
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 3,
+        "stop_id": "iett:798992",
+        "name": "MAVERA CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.089811997079003,
+          41.0328610179253
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 4,
+        "stop_id": "iett:580635",
+        "name": "ESTERGON CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.096209999991302,
+          41.02971600055861
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 5,
+        "stop_id": "iett:580320",
+        "name": "ÜMRANİYE BELEDİYESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.097996892378887,
+          41.02746245571877
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 6,
+        "stop_id": "NB4_2596",
+        "name": "NB4 2596"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.101167999991404,
+          41.02488900055779
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 7,
+        "stop_id": "iett:580619",
+        "name": "ÜMRANİYE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.098429999991396,
+          41.022981000557486
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 8,
+        "stop_id": "iett:580274",
+        "name": "KAVAKLIDERE CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.09515568919448,
+          41.01991420251682
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 9,
+        "stop_id": "NB4_2597",
+        "name": "NB4 2597"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.091573999991304,
+          41.0167830005565
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 10,
+        "stop_id": "iett:580592",
+        "name": "NAMIK KEMAL ANADOLU İ.H.L"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.088409000010202,
+          41.01521199911579
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 11,
+        "stop_id": "iett:5250373",
+        "name": "KÜLTÜR SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.084887226519623,
+          41.01250050474429
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 12,
+        "stop_id": "NB4_2598",
+        "name": "NB4 2598"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.081464916854106,
+          41.01002905446729
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 13,
+        "stop_id": "NB4_2599",
+        "name": "NB4 2599"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0777079999911,
+          41.00720800055499
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 14,
+        "stop_id": "iett:681256",
+        "name": "DENİZ SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.079820079939093,
+          41.00499209942159
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 15,
+        "stop_id": "NB4_2600",
+        "name": "NB4 2600"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0850029999912,
+          41.00086000055391
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 16,
+        "stop_id": "iett:578655",
+        "name": "YUNUS EMRE CAMİİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0866560431358,
+          40.9990169737839
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 17,
+        "stop_id": "iett:578653",
+        "name": "ESATPAŞA MAHALLESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0886079999913,
+          40.9971980005534
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 18,
+        "stop_id": "iett:578642",
+        "name": "AŞIK VEYSEL ANADOLU LİSESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0922929999914,
+          40.994489000553
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 19,
+        "stop_id": "iett:578473",
+        "name": "KARACAOĞLAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.097382435443993,
+          40.9908082038341
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 20,
+        "stop_id": "NB4_2601",
+        "name": "NB4 2601"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.099390957928463,
+          40.98943719852459
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 21,
+        "stop_id": "NB4_2602",
+        "name": "NB4 2602"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.104073999991602,
+          40.98691000055169
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 22,
+        "stop_id": "iett:578488",
+        "name": "KARDELEN SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.105912541246823,
+          40.98425153347864
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 23,
+        "stop_id": "NB4_2603",
+        "name": "NB4 2603"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.108821969597404,
+          40.98211703140289
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 24,
+        "stop_id": "iett:578610",
+        "name": "ATAŞEHİR KAYMAKAMLIĞI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1129619999917,
+          40.9793790005505
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 25,
+        "stop_id": "iett:578758",
+        "name": "KÜÇÜKBAKKALKÖY ÇARŞI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.114348999991805,
+          40.97628200055011
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 26,
+        "stop_id": "iett:578757",
+        "name": "NURİ CINGILLIOĞLU MESLEKİ VE TEKNİK ANADOLU LİSESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1200119999919,
+          40.97373700054968
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 27,
+        "stop_id": "iett:578504",
+        "name": "İÇERENKÖY POLİS MERKEZİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.122212033870916,
+          40.97128584573748
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 28,
+        "stop_id": "NB4_2604",
+        "name": "NB4 2604"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.122255000011,
+          40.9681639991176
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 29,
+        "stop_id": "iett:510424",
+        "name": "FINDIKLI MAHALLESİ MUHTARLIĞI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.118338422333835,
+          40.96629044682318
+        ]
+      },
+      "properties": {
+        "line": "NB4",
+        "mode": "bus",
+        "stop_seq": 30,
+        "stop_id": "NB4_2605",
+        "name": "NB4 2605"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.150857999992297,
+            40.98085900055089
+          ],
+          [
+            29.149645551072307,
+            40.98431827613123
+          ],
+          [
+            29.147998242679094,
+            40.987696909197574
+          ],
+          [
+            29.143731943729,
+            40.9899896799371
+          ],
+          [
+            29.1424939999921,
+            40.993991000552896
+          ],
+          [
+            29.1388259999921,
+            40.99610500055319
+          ],
+          [
+            29.133707999992005,
+            40.9976090005535
+          ],
+          [
+            29.131441301398674,
+            41.00087203033729
+          ],
+          [
+            29.1276559999919,
+            41.0037150005545
+          ],
+          [
+            29.125348999991903,
+            41.006598000554895
+          ],
+          [
+            29.121503973896303,
+            41.00877602463397
+          ],
+          [
+            29.1190999999918,
+            41.01062300055559
+          ],
+          [
+            29.114877770468677,
+            41.014044904393636
+          ],
+          [
+            29.11156427311541,
+            41.01667920926219
+          ],
+          [
+            29.108250511952885,
+            41.01931342408773
+          ],
+          [
+            29.104936486943892,
+            41.02194754884361
+          ],
+          [
+            29.101167999991404,
+            41.02488900055779
+          ],
+          [
+            29.0981929999914,
+            41.0229310005575
+          ],
+          [
+            29.09466666260771,
+            41.01956119150929
+          ],
+          [
+            29.091573999991304,
+            41.0167830005565
+          ],
+          [
+            29.088409000010202,
+            41.01521199911579
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 20.0,
+          "7": 10.0,
+          "8": 10.0,
+          "9": 10.0,
+          "10": 20.0,
+          "11": 10.4,
+          "12": 10.4,
+          "13": 10.4,
+          "14": 10.4,
+          "15": 20.0,
+          "16": 20.0,
+          "17": 10.0,
+          "18": 10.0,
+          "19": 10.0,
+          "20": 20.0,
+          "21": 20.0,
+          "22": 20.0,
+          "23": 20.0
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.150857999992297,
+          40.98085900055089
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 0,
+        "stop_id": "iett:578733",
+        "name": "FATİH CAMİİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.149645551072307,
+          40.98431827613123
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 1,
+        "stop_id": "NB1_2606",
+        "name": "NB1 2606"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.147998242679094,
+          40.987696909197574
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 2,
+        "stop_id": "NB1_2607",
+        "name": "NB1 2607"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.143731943729,
+          40.9899896799371
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 3,
+        "stop_id": "iett:5250555",
+        "name": "ATAPARK CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1424939999921,
+          40.993991000552896
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 4,
+        "stop_id": "iett:578586",
+        "name": "PINAR SİTESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1388259999921,
+          40.99610500055319
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 5,
+        "stop_id": "iett:578514",
+        "name": "DUDULLU TERMİNALİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.133707999992005,
+          40.9976090005535
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 6,
+        "stop_id": "iett:578512",
+        "name": "ERYILDIZ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.131441301398674,
+          41.00087203033729
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 7,
+        "stop_id": "NB1_2608",
+        "name": "NB1 2608"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1276559999919,
+          41.0037150005545
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 8,
+        "stop_id": "iett:580254",
+        "name": "YUNUS EMRE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.125348999991903,
+          41.006598000554895
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 9,
+        "stop_id": "iett:580188",
+        "name": "ŞEHİT EMRE ANŞİN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.121503973896303,
+          41.00877602463397
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 10,
+        "stop_id": "NB1_2609",
+        "name": "NB1 2609"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1190999999918,
+          41.01062300055559
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 11,
+        "stop_id": "iett:580307",
+        "name": "SAMANYOLU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.114877770468677,
+          41.014044904393636
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 12,
+        "stop_id": "NB1_2610",
+        "name": "NB1 2610"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.11156427311541,
+          41.01667920926219
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 13,
+        "stop_id": "NB1_2611",
+        "name": "NB1 2611"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.108250511952885,
+          41.01931342408773
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 14,
+        "stop_id": "NB1_2612",
+        "name": "NB1 2612"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.104936486943892,
+          41.02194754884361
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 15,
+        "stop_id": "NB1_2613",
+        "name": "NB1 2613"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.101167999991404,
+          41.02488900055779
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 16,
+        "stop_id": "iett:580619",
+        "name": "ÜMRANİYE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0981929999914,
+          41.0229310005575
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 17,
+        "stop_id": "iett:580273",
+        "name": "KAVAKLIDERE CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.09466666260771,
+          41.01956119150929
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 18,
+        "stop_id": "NB1_2614",
+        "name": "NB1 2614"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.091573999991304,
+          41.0167830005565
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 19,
+        "stop_id": "iett:580592",
+        "name": "NAMIK KEMAL ANADOLU İ.H.L"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.088409000010202,
+          41.01521199911579
+        ]
+      },
+      "properties": {
+        "line": "NB1",
+        "mode": "bus",
+        "stop_seq": 20,
+        "stop_id": "iett:5250373",
+        "name": "KÜLTÜR SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.183340041277646,
+            40.97802532629403
+          ],
+          [
+            29.180035256769873,
+            40.9806581908059
+          ],
+          [
+            29.176846000010496,
+            40.98427999911719
+          ],
+          [
+            29.171380733308457,
+            40.98544447858538
+          ],
+          [
+            29.171816692112476,
+            40.98905190613338
+          ],
+          [
+            29.171935956170163,
+            40.992684600182955
+          ],
+          [
+            29.17211433254481,
+            40.99629742870062
+          ],
+          [
+            29.175589175030478,
+            40.998802158615185
+          ],
+          [
+            29.1789840000105,
+            41.0003969991169
+          ],
+          [
+            29.182539648631153,
+            41.00381128107266
+          ],
+          [
+            29.182867973112998,
+            41.007533025746596
+          ],
+          [
+            29.179228681486396,
+            41.00901452157492
+          ],
+          [
+            29.1756320000105,
+            41.0115069991166
+          ],
+          [
+            29.172615521046954,
+            41.01427998476584
+          ],
+          [
+            29.169862999992404,
+            41.0181200005567
+          ],
+          [
+            29.1660013083153,
+            41.01954509003021
+          ],
+          [
+            29.1614939999923,
+            41.02203500055741
+          ],
+          [
+            29.1590039999923,
+            41.025862000558
+          ],
+          [
+            29.15582584515221,
+            41.01971331311526
+          ],
+          [
+            29.1537849999922,
+            41.0164540005565
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 16.0,
+          "7": 8.0,
+          "8": 8.0,
+          "9": 8.0,
+          "10": 16.0,
+          "11": 13.1,
+          "12": 13.1,
+          "13": 13.1,
+          "14": 13.1,
+          "15": 16.0,
+          "16": 16.0,
+          "17": 8.0,
+          "18": 8.0,
+          "19": 8.0,
+          "20": 16.0,
+          "21": 16.0,
+          "22": 16.0,
+          "23": 16.0
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.183340041277646,
+          40.97802532629403
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 0,
+        "stop_id": "NB10_2615",
+        "name": "NB10 2615"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.180035256769873,
+          40.9806581908059
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 1,
+        "stop_id": "NB10_2616",
+        "name": "NB10 2616"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.176846000010496,
+          40.98427999911719
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 2,
+        "stop_id": "iett:578444",
+        "name": "MAREŞAL FEVZİ ÇAKMAK CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.171380733308457,
+          40.98544447858538
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 3,
+        "stop_id": "NB10_2617",
+        "name": "NB10 2617"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.171816692112476,
+          40.98905190613338
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 4,
+        "stop_id": "NB10_2618",
+        "name": "NB10 2618"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.171935956170163,
+          40.992684600182955
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 5,
+        "stop_id": "NB10_2619",
+        "name": "NB10 2619"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.17211433254481,
+          40.99629742870062
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 6,
+        "stop_id": "NB10_2620",
+        "name": "NB10 2620"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.175589175030478,
+          40.998802158615185
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 7,
+        "stop_id": "NB10_2621",
+        "name": "NB10 2621"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1789840000105,
+          41.0003969991169
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 8,
+        "stop_id": "iett:5251794",
+        "name": "OSB İTFAİYE İSTASYONU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.182539648631153,
+          41.00381128107266
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 9,
+        "stop_id": "NB10_2622",
+        "name": "NB10 2622"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.182867973112998,
+          41.007533025746596
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 10,
+        "stop_id": "iett:580363",
+        "name": "BARAJ YOLU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.179228681486396,
+          41.00901452157492
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 11,
+        "stop_id": "NB10_2623",
+        "name": "NB10 2623"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1756320000105,
+          41.0115069991166
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 12,
+        "stop_id": "iett:5251872",
+        "name": "İDEALİST KENT CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.172615521046954,
+          41.01427998476584
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 13,
+        "stop_id": "NB10_2624",
+        "name": "NB10 2624"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.169862999992404,
+          41.0181200005567
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 14,
+        "stop_id": "iett:580511",
+        "name": "ÇEKMEKÖY SAPAĞI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1660013083153,
+          41.01954509003021
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 15,
+        "stop_id": "NB10_2625",
+        "name": "NB10 2625"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1614939999923,
+          41.02203500055741
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 16,
+        "stop_id": "iett:580611",
+        "name": "AŞAĞI DUDULLU CAMİİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1590039999923,
+          41.025862000558
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 17,
+        "stop_id": "iett:580265",
+        "name": "KARADENİZ CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.15582584515221,
+          41.01971331311526
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 18,
+        "stop_id": "NB10_2626",
+        "name": "NB10 2626"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1537849999922,
+          41.0164540005565
+        ]
+      },
+      "properties": {
+        "line": "NB10",
+        "mode": "bus",
+        "stop_seq": 19,
+        "stop_id": "iett:580507",
+        "name": "ÜMRANİYE İMAM HATİP LİSESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.1133479999916,
+            41.0151190005562
+          ],
+          [
+            29.109740999991597,
+            41.0130110005559
+          ],
+          [
+            29.107605991948905,
+            41.010725996878186
+          ],
+          [
+            29.103078134460333,
+            41.00804152019988
+          ],
+          [
+            29.099697659570758,
+            41.00560112507998
+          ],
+          [
+            29.096317433906595,
+            41.00316062375573
+          ],
+          [
+            29.091824999991296,
+            41.001462000553985
+          ],
+          [
+            29.0908980000112,
+            40.99811199911691
+          ],
+          [
+            29.0912939999914,
+            40.994538000553
+          ],
+          [
+            29.094680290481087,
+            40.99318218408086
+          ],
+          [
+            29.097901317267517,
+            40.99062152987594
+          ],
+          [
+            29.101109999991497,
+            40.98757000055181
+          ],
+          [
+            29.095798000011,
+            40.9865089991172
+          ],
+          [
+            29.09304370334355,
+            40.983203693056375
+          ],
+          [
+            29.0902899999914,
+            40.98112100055079
+          ],
+          [
+            29.0860419999913,
+            40.977374000550206
+          ],
+          [
+            29.08290802320921,
+            40.97588115805329
+          ],
+          [
+            29.079529960929847,
+            40.973440100982195
+          ],
+          [
+            29.0764726675955,
+            40.971409275169485
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 20.0,
+          "7": 10.0,
+          "8": 10.0,
+          "9": 10.0,
+          "10": 20.0,
+          "11": 42.2,
+          "12": 42.2,
+          "13": 42.2,
+          "14": 42.2,
+          "15": 20.0,
+          "16": 20.0,
+          "17": 10.0,
+          "18": 10.0,
+          "19": 10.0,
+          "20": 20.0,
+          "21": 20.0,
+          "22": 20.0,
+          "23": 20.0
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.1133479999916,
+          41.0151190005562
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 0,
+        "stop_id": "iett:580292",
+        "name": "23 NİSAN KAPTANOĞLU İLKOKULU"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.109740999991597,
+          41.0130110005559
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 1,
+        "stop_id": "iett:580295",
+        "name": "ORTANCA SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.107605991948905,
+          41.010725996878186
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 2,
+        "stop_id": "iett:580296",
+        "name": "KOOPERATİF"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.103078134460333,
+          41.00804152019988
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 3,
+        "stop_id": "NB0_2627",
+        "name": "NB0 2627"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.099697659570758,
+          41.00560112507998
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 4,
+        "stop_id": "NB0_2628",
+        "name": "NB0 2628"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.096317433906595,
+          41.00316062375573
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 5,
+        "stop_id": "NB0_2629",
+        "name": "NB0 2629"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.091824999991296,
+          41.001462000553985
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 6,
+        "stop_id": "iett:578640",
+        "name": "3001.CADDE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0908980000112,
+          40.99811199911691
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 7,
+        "stop_id": "iett:578643",
+        "name": "ATAŞEHİR BELEDİYESİ MUSTAFA KEMAL ATAEVİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0912939999914,
+          40.994538000553
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 8,
+        "stop_id": "iett:578632",
+        "name": "FATİH CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.094680290481087,
+          40.99318218408086
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 9,
+        "stop_id": "NB0_2630",
+        "name": "NB0 2630"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.097901317267517,
+          40.99062152987594
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 10,
+        "stop_id": "NB0_2631",
+        "name": "NB0 2631"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.101109999991497,
+          40.98757000055181
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 11,
+        "stop_id": "iett:578811",
+        "name": "DR.NUREDDİN ERK PERİHAN ERK MESLEKİ VE TEKNİK ANADOLU LİSESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.095798000011,
+          40.9865089991172
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 12,
+        "stop_id": "iett:578520",
+        "name": "HABİRE YAHŞİ ANADOLU LİSESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.09304370334355,
+          40.983203693056375
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 13,
+        "stop_id": "NB0_2632",
+        "name": "NB0 2632"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0902899999914,
+          40.98112100055079
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 14,
+        "stop_id": "iett:510878",
+        "name": "SAHRAYICEDİT ATATÜRK CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0860419999913,
+          40.977374000550206
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 15,
+        "stop_id": "iett:510869",
+        "name": "BAYAR CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.08290802320921,
+          40.97588115805329
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 16,
+        "stop_id": "NB0_2633",
+        "name": "NB0 2633"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.079529960929847,
+          40.973440100982195
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 17,
+        "stop_id": "NB0_2634",
+        "name": "NB0 2634"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0764726675955,
+          40.971409275169485
+        ]
+      },
+      "properties": {
+        "line": "NB0",
+        "mode": "bus",
+        "stop_seq": 18,
+        "stop_id": "rail:214373",
+        "name": "Erenköy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.042314000011505,
+            41.01755799911649
+          ],
+          [
+            29.045101972353304,
+            41.0193449777159
+          ],
+          [
+            29.048973865659,
+            41.0210981656998
+          ],
+          [
+            29.0514729746666,
+            41.0237670471275
+          ],
+          [
+            29.055180119632904,
+            41.02623825305762
+          ],
+          [
+            29.0578660344879,
+            41.028852042705594
+          ],
+          [
+            29.061237999990805,
+            41.0318280005589
+          ],
+          [
+            29.0652739999908,
+            41.03221400055899
+          ],
+          [
+            29.070016811554904,
+            41.0364565415787
+          ],
+          [
+            29.070672999990904,
+            41.03905900056
+          ],
+          [
+            29.074628999991,
+            41.0411010005604
+          ],
+          [
+            29.077761999991,
+            41.0432480005607
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 20.0,
+          "7": 10.0,
+          "8": 10.0,
+          "9": 10.0,
+          "10": 20.0,
+          "11": 7.2,
+          "12": 7.2,
+          "13": 7.2,
+          "14": 7.2,
+          "15": 20.0,
+          "16": 20.0,
+          "17": 10.0,
+          "18": 10.0,
+          "19": 10.0,
+          "20": 20.0,
+          "21": 20.0,
+          "22": 20.0,
+          "23": 20.0
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.042314000011505,
+          41.01755799911649
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 0,
+        "stop_id": "iett:681617",
+        "name": "GÜLLÜ BAHÇE"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.045101972353304,
+          41.0193449777159
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 1,
+        "stop_id": "iett:681359",
+        "name": "ALTUNİZADE CAMİİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.048973865659,
+          41.0210981656998
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 2,
+        "stop_id": "iett:806933",
+        "name": "ALTUNİZADE "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0514729746666,
+          41.0237670471275
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 3,
+        "stop_id": "iett:681544",
+        "name": "MİLLET BAHÇESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.055180119632904,
+          41.02623825305762
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 4,
+        "stop_id": "NB5_2635",
+        "name": "NB5 2635"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0578660344879,
+          41.028852042705594
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 5,
+        "stop_id": "iett:681752",
+        "name": "SAĞLIK OCAĞI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.061237999990805,
+          41.0318280005589
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 6,
+        "stop_id": "iett:681632",
+        "name": "HATTAT HASAN ÇELEBİ CADDESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.0652739999908,
+          41.03221400055899
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 7,
+        "stop_id": "iett:681371",
+        "name": "DEREYOLU UZUN SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.070016811554904,
+          41.0364565415787
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 8,
+        "stop_id": "iett:5249976",
+        "name": "SEYİT ONBAŞI SOKAK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.070672999990904,
+          41.03905900056
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 9,
+        "stop_id": "iett:681464",
+        "name": "MEHMET AKİF ERSOY MAHALLESİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.074628999991,
+          41.0411010005604
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 10,
+        "stop_id": "iett:681235",
+        "name": "SAĞLIK OCAĞI"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.077761999991,
+          41.0432480005607
+        ]
+      },
+      "properties": {
+        "line": "NB5",
+        "mode": "bus",
+        "stop_seq": 11,
+        "stop_id": "iett:681482",
+        "name": "ALTINKÖY SİTESİ"
+      }
+    }
+  ]
+}

@@ -50,44 +50,172 @@ def zones_geojson(city: City) -> dict:
     return _fc(feats)
 
 
+RAIL_MODES = ("metro", "rail", "tram", "funicular", "cable")
+NEW_COLORS = ["#e6550d", "#7b3294", "#008837", "#d01c8b", "#2b83ba", "#a6611a", "#1b7837", "#c51b7d",
+              "#5e3c99", "#e66101", "#018571", "#b2182b"]
+
+
+def _short(name: str) -> str:
+    return name.split(":", 1)[-1]
+
+
+def _merc(city: City, x, y):
+    from pyproj import Transformer
+
+    lon, lat = city.proj.to_lonlat(x, y)
+    t = Transformer.from_crs(4326, 3857, always_xy=True)
+    return t.transform(lon, lat)
+
+
 def plot_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title: str = "") -> None:
+    """Static map on the Esri World Street Map basemap (place names, roads, coastline)."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+    from matplotlib.collections import PolyCollection
+    from matplotlib.lines import Line2D
 
     z = city.zones
-    fig, ax = plt.subplots(figsize=(10, 9))
-    from matplotlib.collections import PolyCollection
-
+    fig, ax = plt.subplots(figsize=(13, 10))
     h = z.cell_size / 2
-    squares = [[(x - h, y - h), (x + h, y - h), (x + h, y + h), (x - h, y + h)] for x, y in zip(z.x, z.y)]
-    pc = PolyCollection(squares, array=z.pop, cmap="Greys", alpha=0.55, linewidths=0)
+    sq = []
+    for x, y in zip(z.x, z.y):
+        mx, my = _merc(city, np.array([x - h, x + h, x + h, x - h]), np.array([y - h, y - h, y + h, y + h]))
+        sq.append(list(zip(mx, my)))
+    dens = z.pop / (z.cell_size / 1000) ** 2
+    pc = PolyCollection(sq, array=dens, cmap="YlOrRd", alpha=0.28, linewidths=0, zorder=2)
     ax.add_collection(pc)
-    fig.colorbar(pc, ax=ax, shrink=0.6, label="population per zone")
-    sx, sy = base.stops["x"].to_numpy(), base.stops["y"].to_numpy()
-    styles = {"bus": ("#9aa7b8", 0.4), "brt": ("#d62728", 1.8), "metro": ("#1f77b4", 2.2),
-              "rail": ("#1f77b4", 2.2), "tram": ("#2ca02c", 1.5), "ferry": ("#17becf", 1.0)}
+    fig.colorbar(pc, ax=ax, shrink=0.55, pad=0.01, label="nüfus yoğunluğu (kişi/km², WorldPop 2026)")
+
+    bx, by = _merc(city, base.stops["x"].to_numpy(), base.stops["y"].to_numpy())
+    labelled = set()
     for ln in base.lines:
-        col, lw = styles.get(ln.mode, ("#999999", 0.5))
-        ax.plot(sx[ln.stops], sy[ln.stops], color=col, lw=lw, alpha=0.7 if ln.mode != "bus" else 0.35)
+        xs, ys = bx[ln.stops], by[ln.stops]
+        if ln.mode == "bus":
+            ax.plot(xs, ys, color="#7a8899", lw=0.4, alpha=0.25, zorder=3)
+        elif ln.mode == "ferry":
+            ax.plot(xs, ys, color="#3a9bd9", lw=0.8, ls="--", alpha=0.6, zorder=3)
+        else:
+            col = "#c0392b" if ln.mode == "brt" else "#1f4e9c"
+            ax.plot(xs, ys, color=col, lw=3.0, alpha=0.9, zorder=4, solid_capstyle="round")
+            ax.scatter(xs, ys, s=10, color="white", edgecolor=col, lw=1, zorder=5)
+            nm = _short(ln.name)
+            if nm not in labelled and len(xs) >= 2:
+                labelled.add(nm)
+                k = len(xs) // 2
+                ax.annotate(nm, (xs[k], ys[k]), fontsize=8, fontweight="bold", color=col, zorder=7,
+                            bbox=dict(boxstyle="round,pad=0.15", fc="white", ec=col, lw=0.6, alpha=0.9))
+    handles = [Line2D([], [], color="#1f4e9c", lw=3, label="mevcut metro / Marmaray / tramvay"),
+               Line2D([], [], color="#c0392b", lw=3, label="Metrobüs"),
+               Line2D([], [], color="#7a8899", lw=1, label="mevcut İETT otobüs hatları"),
+               Line2D([], [], color="#3a9bd9", lw=1, ls="--", label="vapur")]
     if opt is not None:
-        ox, oy = opt.stops["x"].to_numpy(), opt.stops["y"].to_numpy()
-        seen = set()
+        ox, oy = _merc(city, opt.stops["x"].to_numpy(), opt.stops["y"].to_numpy())
+        seen = []
         for ln in opt.new_lines:
             if ln.name in seen:
                 continue
-            seen.add(ln.name)
-            col = "#ff7f0e" if ln.mode == "bus" else "#9467bd"
-            ax.plot(ox[ln.stops], oy[ln.stops], color=col, lw=3, marker="o", ms=3.5, label=f"new {ln.mode} {ln.name}")
-        if seen:
-            ax.legend(loc="upper left", fontsize=7)
-    ax.set_aspect("equal")
-    ax.set_xticks([])
-    ax.set_yticks([])
-    ax.set_title(title)
+            seen.append(ln.name)
+            col = NEW_COLORS[(len(seen) - 1) % len(NEW_COLORS)]
+            ls = "-" if ln.mode == "bus" else (0, (4, 1.5))
+            ax.plot(ox[ln.stops], oy[ln.stops], color=col, lw=4 if ln.mode != "bus" else 3, ls=ls, zorder=8)
+            ax.scatter(ox[ln.stops], oy[ln.stops], s=22 if ln.mode != "bus" else 9, color=col,
+                       edgecolor="white", lw=0.8, zorder=9)
+            kind = "metro" if ln.mode == "metro" else "otobüs"
+            ax.annotate(f"{ln.name}", (ox[ln.stops[0]], oy[ln.stops[0]]), fontsize=8, fontweight="bold",
+                        color="white", zorder=10, bbox=dict(boxstyle="round,pad=0.2", fc=col, ec="none"))
+            handles.append(Line2D([], [], color=col, lw=3, ls=ls, marker="o", ms=4, label=f"YENİ {kind}: {ln.name}"))
+    xs_all = np.concatenate([[p[0] for p in s_] for s_ in sq])
+    ys_all = np.concatenate([[p[1] for p in s_] for s_ in sq])
+    ax.set_xlim(xs_all.min(), xs_all.max())
+    ax.set_ylim(ys_all.min(), ys_all.max())
+    try:
+        import contextily as cx
+        cx.add_basemap(ax, crs="EPSG:3857", source=cx.providers.Esri.WorldStreetMap, zorder=1,
+                       attribution_size=6)
+    except Exception as e:  # offline: draw without basemap
+        ax.text(0.01, 0.01, f"basemap unavailable: {e}", transform=ax.transAxes, fontsize=6)
+    ax.legend(handles=handles, loc="lower left", fontsize=7.5, framealpha=0.92)
+    ax.set_axis_off()
+    ax.set_title(title, fontsize=13)
     fig.tight_layout()
-    fig.savefig(path, dpi=130)
+    fig.savefig(path, dpi=150)
     plt.close(fig)
+
+
+def web_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title: str = "") -> None:
+    """Interactive Leaflet map (zoom, layer toggles, stop pop-ups)."""
+    import folium
+    import branca.colormap as bcm
+
+    z = city.zones
+    lon, lat = city.proj.to_lonlat(z.x, z.y)
+    m = folium.Map(location=[float(lat.mean()), float(lon.mean())], zoom_start=12, tiles=None, control_scale=True)
+    folium.TileLayer("CartoDB positron", name="Harita (açık)").add_to(m)
+    folium.TileLayer("OpenStreetMap", name="OpenStreetMap").add_to(m)
+
+    dens = z.pop / (z.cell_size / 1000) ** 2
+    cmap = bcm.LinearColormap(["#ffffcc", "#fd8d3c", "#bd0026"], vmin=0, vmax=float(np.percentile(dens, 98)),
+                              caption="Nüfus yoğunluğu (kişi/km²)")
+    g_pop = folium.FeatureGroup(name="Nüfus (WorldPop 2026)", show=True)
+    h = z.cell_size / 2
+    for i in range(len(z)):
+        lo, la = city.proj.to_lonlat([z.x[i] - h, z.x[i] + h], [z.y[i] - h, z.y[i] + h])
+        folium.Rectangle([[float(la[0]), float(lo[0])], [float(la[1]), float(lo[1])]], weight=0, fill=True,
+                         fill_color=cmap(min(dens[i], cmap.vmax)), fill_opacity=0.4,
+                         tooltip=f"nüfus {z.pop[i]:,.0f} · iş endeksi {z.jobs[i]:,.0f}").add_to(g_pop)
+    g_pop.add_to(m)
+    cmap.add_to(m)
+
+    slon, slat = city.proj.to_lonlat(base.stops["x"].to_numpy(), base.stops["y"].to_numpy())
+    g_rail = folium.FeatureGroup(name="Mevcut raylı sistem + Metrobüs", show=True)
+    g_bus = folium.FeatureGroup(name="Mevcut otobüs hatları", show=False)
+    g_ferry = folium.FeatureGroup(name="Vapur", show=False)
+    seen = set()
+    for ln in base.lines:
+        if ln.name in seen:
+            continue
+        seen.add(ln.name)
+        coords = [[float(slat[i]), float(slon[i])] for i in ln.stops]
+        if ln.mode == "bus":
+            folium.PolyLine(coords, color="#6b7a8f", weight=1.5, opacity=0.5, tooltip=_short(ln.name)).add_to(g_bus)
+        elif ln.mode == "ferry":
+            folium.PolyLine(coords, color="#3a9bd9", weight=2, dash_array="6", tooltip=_short(ln.name)).add_to(g_ferry)
+        else:
+            col = "#c0392b" if ln.mode == "brt" else "#1f4e9c"
+            folium.PolyLine(coords, color=col, weight=5, opacity=0.85, tooltip=_short(ln.name)).add_to(g_rail)
+    for g in (g_bus, g_ferry, g_rail):
+        g.add_to(m)
+
+    if opt is not None:
+        olon, olat = city.proj.to_lonlat(opt.stops["x"].to_numpy(), opt.stops["y"].to_numpy())
+        names = opt.stops["name"].to_numpy()
+        seen_new = []
+        for ln in opt.new_lines:
+            if ln.name in seen_new:
+                continue
+            seen_new.append(ln.name)
+            col = NEW_COLORS[(len(seen_new) - 1) % len(NEW_COLORS)]
+            kind = "metro" if ln.mode == "metro" else "otobüs"
+            hw = np.nanmin(ln.headway_min)
+            g = folium.FeatureGroup(name=f"YENİ {kind}: {ln.name}", show=True)
+            coords = [[float(olat[i]), float(olon[i])] for i in ln.stops]
+            folium.PolyLine(coords, color=col, weight=6, opacity=0.95,
+                            dash_array=None if ln.mode == "bus" else "10 4",
+                            tooltip=f"YENİ {kind} {ln.name} · {len(ln.stops)} durak · zirve sıklığı {hw:.0f} dk").add_to(g)
+            for k, i in enumerate(ln.stops):
+                existing = not str(opt.stops["stop_id"].iat[i]).startswith(ln.name)
+                label = f"{ln.name} durak {k + 1}" + (f" (mevcut durak: {names[i]})" if existing else " (yeni durak)")
+                folium.CircleMarker([float(olat[i]), float(olon[i])], radius=4 if ln.mode == "bus" else 6,
+                                    color="white", weight=1.5, fill=True, fill_color=col, fill_opacity=1,
+                                    tooltip=label).add_to(g)
+            g.add_to(m)
+    folium.LayerControl(collapsed=False).add_to(m)
+    if title:
+        m.get_root().html.add_child(folium.Element(
+            f'<div style="position:fixed;top:10px;left:60px;z-index:9999;background:white;padding:6px 10px;'
+            f'border-radius:6px;font:600 14px sans-serif;box-shadow:0 1px 4px rgba(0,0,0,.3)">{title}</div>'))
+    m.save(str(path))
 
 
 def write_json(obj, path: Path) -> None:

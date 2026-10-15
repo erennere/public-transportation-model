@@ -60,9 +60,15 @@ ptopt evaluate --config configs/istanbul_pilot.yaml --hours 8 18
 ptopt optimize --config configs/istanbul_pilot.yaml
 ```
 
-Çıktılar `results/<şehir>/` altında: `summary.md`, `optimisation.json`, `new_lines.geojson`
-(QGIS / geojson.io ile açılabilir), `network_optimised.geojson`, `zones.geojson`,
-`map_base.png`, `map_optimised.png`.
+Çıktılar `results/<şehir>/` altında:
+
+* `map_optimised.html`: interaktif harita (OpenStreetMap altlığı, katman aç/kapa, yeni durakların
+  üzerine gelince mevcut durak mı yeni durak mı olduğu). Tarayıcıda açın.
+* `map_optimised.png` / `map_base.png`: statik harita (Esri World Street Map altlığı).
+* `summary.md`, `optimisation.json`: metrikler, yeni hatlar, bütçe.
+* `new_lines.geojson`, `network_optimised.geojson`, `zones.geojson`: QGIS / geojson.io için.
+
+Haritaları optimizasyonu tekrarlamadan yeniden çizmek için `ptopt map --config ...`.
 
 İndirme gerektirmeyen deneme: `ptopt optimize --config configs/synthetic.yaml`.
 

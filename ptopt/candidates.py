@@ -75,17 +75,47 @@ def materialize(base: Scenario, cands: list[Candidate], snap_m: float) -> Scenar
     return sc
 
 
-def _zone_graph(city: City, reward: float):
+def _zone_graph(city: City, reward: float, mode: str = "metro"):
+    """Zone adjacency graph whose edge cost favours dense zones.
+
+    For buses an edge must be drivable: either every point along it lies near
+    an existing stop (stops sit on roads, so this keeps lines on land), or an
+    existing bus line already connects the two zones (bridges, highways)."""
     z = city.zones
     pts = np.column_stack([z.x, z.y])
     tree = cKDTree(pts)
     m = tree.sparse_distance_matrix(tree, z.cell_size * 1.5, output_type="coo_matrix")
     keep = m.row != m.col
     r, c, d = m.row[keep], m.col[keep], m.data[keep]
+    if mode == "bus":
+        st = city.base.stops[["x", "y"]].to_numpy()
+        stree = cKDTree(st)
+        ok = np.ones(len(r), bool)
+        for f in (0.25, 0.5, 0.75):
+            px = z.x[r] + f * (z.x[c] - z.x[r])
+            py = z.y[r] + f * (z.y[c] - z.y[r])
+            dist, _ = stree.query(np.column_stack([px, py]))
+            ok &= dist <= 500
+        r, c, d = r[ok], c[ok], d[ok]
+        # zone pairs linked by consecutive stops of existing road lines
+        _, zs = tree.query(st)
+        er, ec = [], []
+        for ln in city.base.lines:
+            if ln.mode in ("bus", "brt"):
+                a, b = zs[ln.stops[:-1]], zs[ln.stops[1:]]
+                diff = a != b
+                er.append(a[diff])
+                ec.append(b[diff])
+        if er:
+            er, ec = np.concatenate(er), np.concatenate(ec)
+            ed = np.hypot(z.x[er] - z.x[ec], z.y[er] - z.y[ec])
+            r, c, d = np.concatenate([r, er, ec]), np.concatenate([c, ec, er]), np.concatenate([d, ed, ed])
     act = z.pop + z.jobs * (z.pop.sum() / max(z.jobs.sum(), 1e-12))
     dens = np.clip(act / max(np.percentile(act, 95), 1e-12), 0, 1)
     cost = d * (1.0 - reward * 0.5 * (dens[r] + dens[c]))
-    return coo_matrix((cost, (r, c)), shape=(len(z), len(z))).tocsr()
+    G = coo_matrix((cost, (r, c)), shape=(len(z), len(z))).tocsr()
+    G.sum_duplicates()
+    return G
 
 
 def _path(G, o: int, d: int) -> list[int]:
@@ -152,27 +182,26 @@ def generate_candidates(city: City, ev: Evaluator, scenario: Scenario | None = N
         if len(corridors) >= cc["n_corridors"]:
             break
 
-    G = _zone_graph(city, cc["density_reward"])
+    graphs = {"bus": _zone_graph(city, cc["density_reward"], "bus"),
+              "metro": _zone_graph(city, cc["density_reward"], "metro")}
     tree = cKDTree(np.column_stack([z.x, z.y]))
     cands: list[Candidate] = []
     for n, (ox, oy, dx, dy) in enumerate(corridors):
         oi = int(tree.query([ox, oy])[1])
         di = int(tree.query([dx, dy])[1])
-        path = _path(G, oi, di)
-        if len(path) < 2:
-            continue
-        ls = LineString(np.column_stack([z.x[path], z.y[path]])).simplify(z.cell_size * 0.75)
-        px, py = np.asarray(ls.xy[0]), np.asarray(ls.xy[1])
-        length = polyline_length(px, py)
-        bx, by = resample_polyline(px, py, cc["bus_stop_spacing_m"])
-        cands.append(Candidate(f"NB{n}", "bus", bx, by,
-                               default_headways(cc["default_bus_headway_min"],
-                                                cc["default_bus_headway_min"] * 2),
-                               meta={"corridor": n, "path_zones": [int(p) for p in path]}))
-        if length >= 5000:
-            mx, my = resample_polyline(px, py, cc["metro_station_spacing_m"])
-            cands.append(Candidate(f"NM{n}", "metro", mx, my,
-                                   default_headways(cc["default_metro_headway_min"],
-                                                    cc["default_metro_headway_min"] * 2),
+        for mode, prefix, spacing, hw in (
+                ("bus", "NB", cc["bus_stop_spacing_m"], cc["default_bus_headway_min"]),
+                ("metro", "NM", cc["metro_station_spacing_m"], cc["default_metro_headway_min"])):
+            path = _path(graphs[mode], oi, di)
+            if len(path) < 2:
+                continue
+            ls = LineString(np.column_stack([z.x[path], z.y[path]]))
+            if mode == "metro":  # straighter alignment; buses follow the drivable zone path
+                ls = ls.simplify(z.cell_size * 0.75)
+            px, py = np.asarray(ls.xy[0]), np.asarray(ls.xy[1])
+            if mode == "metro" and polyline_length(px, py) < 5000:
+                continue
+            sx, sy = resample_polyline(px, py, spacing)
+            cands.append(Candidate(f"{prefix}{n}", mode, sx, sy, default_headways(hw, hw * 2),
                                    meta={"corridor": n, "path_zones": [int(p) for p in path]}))
     return cands

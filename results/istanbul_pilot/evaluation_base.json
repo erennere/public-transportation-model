@@ -1,0 +1,78 @@
+{
+  "objective": 68.46222598720774,
+  "Z_min": 45.0,
+  "hours": {
+    "8": {
+      "mean_t": 53.995520671327995,
+      "mean_t_sd": 1.2771223836593522,
+      "share_le_z": 0.37139999999999995,
+      "share_le_z_sd": 0.023182428690713165,
+      "mean_excess": 13.840839505778968,
+      "mean_excess_sd": 0.940632795394261,
+      "car_share": 0.3666830126203465,
+      "car_share_sd": 0.0018138286460725728,
+      "mean_car_t": 23.569363458446144,
+      "mean_car_t_sd": 0.40109039993344786,
+      "objective": 67.83636017710697,
+      "objective_sd": 2.210417702132466
+    },
+    "18": {
+      "mean_t": 54.736989017142285,
+      "mean_t_sd": 0.9352083994656226,
+      "share_le_z": 0.352,
+      "share_le_z_sd": 0.01894399641047263,
+      "mean_excess": 14.351102780166224,
+      "mean_excess_sd": 0.6760905499086982,
+      "car_share": 0.3645527407411987,
+      "car_share_sd": 0.001276746081901329,
+      "mean_car_t": 24.940328377814556,
+      "mean_car_t_sd": 0.5734501158182619,
+      "objective": 69.08809179730852,
+      "objective_sd": 1.5993547974355298
+    }
+  },
+  "corridors": [
+    {
+      "corridor": "Ümraniye -> Kadıköy",
+      "hour": 8,
+      "transit_min": 57.156845008095914,
+      "car_min": 34.97575168209218,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Çekmeköy yönü (Dudullu) -> Bostancı",
+      "hour": 8,
+      "transit_min": 33.546548428029816,
+      "car_min": 37.46407100267757,
+      "meets_Z": true
+    },
+    {
+      "corridor": "Ataşehir -> Üsküdar",
+      "hour": 8,
+      "transit_min": 61.80521128237892,
+      "car_min": 31.095975329688997,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Ümraniye -> Kadıköy",
+      "hour": 18,
+      "transit_min": 57.494537975505864,
+      "car_min": 34.73682112846063,
+      "meets_Z": false
+    },
+    {
+      "corridor": "Çekmeköy yönü (Dudullu) -> Bostancı",
+      "hour": 18,
+      "transit_min": 33.546548428029816,
+      "car_min": 39.362468684688,
+      "meets_Z": true
+    },
+    {
+      "corridor": "Ataşehir -> Üsküdar",
+      "hour": 18,
+      "transit_min": 63.712862045442314,
+      "car_min": 32.41449925647673,
+      "meets_Z": false
+    }
+  ]
+}

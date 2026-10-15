@@ -19,6 +19,8 @@ dependencies = [
   "pyyaml>=6.0",
   "osmium>=4.0",
   "matplotlib>=3.8",
+  "contextily>=1.5",
+  "folium>=0.15",
 ]
 
 [project.optional-dependencies]

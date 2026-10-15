@@ -215,27 +215,27 @@ def optimize_frequencies(city: City, scenario: Scenario, K=None, M=None, log_cb=
             for s in cur.sims:
                 for lid, (b, _) in s.loads.items():
                     loads[lid] = loads.get(lid, 0.0) + b / len(cur.sims)
-            groups: dict[tuple[str, str], list] = {}
-            for ln in sc.lines:
-                if np.isfinite(ln.headway_min[rep_h]):
-                    groups.setdefault((ln.mode, ln.name), []).append(ln)
             trial = sc.copy()
-            tl = {ln.line_id: ln for ln in trial.lines}
-            for mode in {m for m, _ in groups}:
-                keys = [k for k in groups if k[0] == mode]
-                P = np.array([sum(loads.get(ln.line_id, 0.0) for ln in groups[k]) for k in keys])
-                C = np.array([line_cycle_minutes(groups[k][0], sx, sy, city.traffic, rep_h, net) for k in keys])
-                H = np.array([groups[k][0].headway_min[rep_h] for k in keys])
+            # vehicles are only interchangeable within a pool (e.g. city buses);
+            # metro / tram rolling stock is line specific
+            active = [ln for ln in trial.lines
+                      if np.isfinite(ln.headway_min[rep_h]) and ln.mode in oc["frequency_modes"]]
+            for mode in {ln.mode for ln in active}:
+                group = [ln for ln in active if ln.mode == mode]
+                # each pattern is one direction: vehicles needed = one-way time (+layover) / headway
+                P = np.array([loads.get(ln.line_id, 0.0) for ln in group])
+                C = np.array([line_cycle_minutes(ln, sx, sy, city.traffic, rep_h, net) / 2 for ln in group])
+                H = np.array([ln.headway_min[rep_h] for ln in group])
                 fleet = (C / H).sum()
                 score = np.sqrt(np.maximum(P, 1e-3) * C)
-                n_new = fleet * score / score.sum()
-                h_target = C / np.maximum(n_new, 1e-6)
+                h_target = C / np.maximum(fleet * score / score.sum(), 1e-6)
                 h_new = np.clip(np.sqrt(H * h_target), oc["min_headway_min"], oc["max_headway_min"])
-                for k, hn in zip(keys, h_new):
-                    for ln in groups[k]:
-                        for h in hours:
-                            if np.isfinite(tl[ln.line_id].headway_min[h]):
-                                tl[ln.line_id].headway_min[h] = hn
+                # clipping changes the fleet; rescale so vehicles are conserved
+                h_new *= (C / h_new).sum() / fleet
+                for ln, hn, h0 in zip(group, h_new, H):
+                    for h in hours:  # scale the whole period, keeping its hour-to-hour shape
+                        if np.isfinite(ln.headway_min[h]):
+                            ln.headway_min[h] *= hn / h0
             res = ev.evaluate(trial, loads=True)
             if res.objective < cur.objective:
                 sc, cur = trial, res

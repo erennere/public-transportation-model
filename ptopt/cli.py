@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import collections
 import logging
+import pickle
 import time
 from pathlib import Path
 
@@ -19,7 +20,7 @@ from .candidates import generate_candidates
 from .city import download_all, load_city
 from .config import load_config
 from .optimize import Optimizer, optimize_frequencies
-from .report import plot_map, scenario_geojson, summary_markdown, write_json, zones_geojson
+from .report import plot_map, scenario_geojson, summary_markdown, web_map, write_json, zones_geojson
 from .simulate import Evaluator, corridor_times
 
 log = logging.getLogger("ptopt")
@@ -51,7 +52,8 @@ def cmd_build(args):
     out = Path(args.out or f"results/{city.cfg['name']}")
     write_json(zones_geojson(city), out / "zones.geojson")
     write_json(scenario_geojson(city, city.base), out / "network_base.geojson")
-    plot_map(city, city.base, None, out / "map_base.png", f"{city.cfg['name']}: population and network")
+    plot_map(city, city.base, None, out / "map_base.png", f"{city.cfg['name']}: nüfus ve mevcut ağ")
+    web_map(city, city.base, None, out / "map_base.html", f"{city.cfg['name']}: mevcut ağ")
     log.info("hourly demand profile: %s", np.round(city.hourly_profile * 100, 1).tolist())
 
 
@@ -105,11 +107,28 @@ def cmd_optimize(args):
     write_json(report, out / "optimisation.json")
     write_json(scenario_geojson(city, sc, only_new=True), out / "new_lines.geojson")
     write_json(scenario_geojson(city, sc), out / "network_optimised.geojson")
-    plot_map(city, city.base, sc, out / "map_optimised.png", f"{cfg['name']}: proposed new lines")
+    with open(out / "scenario_optimised.pkl", "wb") as f:
+        pickle.dump(sc, f)
+    _maps(city, sc, out)
     md = summary_markdown(base, final, cb, co, sel_info)
     md += f"\nBudget used: {buses} extra buses, {km:.1f} metro km.\n"
     (out / "summary.md").write_text(md, encoding="utf-8")
     print(md)
+
+
+def _maps(city, sc, out):
+    name = city.cfg["name"]
+    plot_map(city, city.base, sc, out / "map_optimised.png", f"{name}: önerilen yeni hatlar")
+    web_map(city, city.base, sc, out / "map_optimised.html", f"{name}: önerilen yeni hatlar")
+
+
+def cmd_map(args):
+    """Redraw maps from a saved optimisation result."""
+    city = _city(args)
+    out = Path(args.out or f"results/{city.cfg['name']}")
+    with open(out / "scenario_optimised.pkl", "rb") as f:
+        sc = pickle.load(f)
+    _maps(city, sc, out)
 
 
 def main(argv=None):
@@ -117,7 +136,7 @@ def main(argv=None):
     p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="cmd", required=True)
     for name, fn in (("download", cmd_download), ("build", cmd_build), ("evaluate", cmd_evaluate),
-                     ("optimize", cmd_optimize)):
+                     ("optimize", cmd_optimize), ("map", cmd_map)):
         s = sub.add_parser(name)
         s.add_argument("--config", required=True)
         s.add_argument("--out")

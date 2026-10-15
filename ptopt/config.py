@@ -106,6 +106,7 @@ DEFAULTS: dict = {
         "periods": {"am_peak": [7, 8, 9], "midday": [11, 12, 13, 14], "pm_peak": [17, 18, 19],
                     "evening": [20, 21, 22]},
         "frequency_iterations": 3,
+        "frequency_modes": ["bus"],
         "min_headway_min": 2.0,
         "max_headway_min": 30.0,
         "eval_K": 600,
