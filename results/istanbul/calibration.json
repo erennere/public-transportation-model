@@ -1,51 +1,56 @@
 {
   "car": {
     "before": {
-      "n": 600,
-      "median_ratio": 1.0984815085894233,
-      "median_abs_pct_err": 17.425667100623883,
-      "mean_model_min": 35.651059432001674,
-      "mean_obs_min": 31.64779166666667
+      "n": 1600,
+      "median_ratio": 1.1272741812270497,
+      "median_abs_pct_err": 19.420842752613165,
+      "mean_model_min": 32.90636308020887,
+      "mean_obs_min": 27.723796874999998
     },
     "after": {
-      "n": 600,
-      "median_ratio": 1.013922006286715,
-      "median_abs_pct_err": 12.134184575567875,
-      "mean_model_min": 33.200833671939705,
-      "mean_obs_min": 31.64779166666667
+      "n": 1600,
+      "median_ratio": 1.005334595757374,
+      "median_abs_pct_err": 11.61863662419237,
+      "mean_model_min": 29.049006555688504,
+      "mean_obs_min": 27.723796874999998
     },
-    "global_speed_factor": 1.124039230872581
+    "global_speed_factor": 1.1696724699447922
   },
   "transit": {
     "params": {
-      "bus_speed_factor": 0.9999805287006585,
-      "dwell_s": 18.328767731303685,
-      "boarding_penalty_min": 0.36333041801121857,
-      "max_wait_min": 4.028321971689629,
-      "walk_detour": 1.333126240077539,
-      "max_access_m": 1499.2286806257312,
-      "rail_speed_scale": 0.9012576255891701
+      "bus_speed_factor": 0.9925609616438027,
+      "dwell_s": 24.092785580102916,
+      "boarding_penalty_min": 0.028480431387543696,
+      "max_wait_min": 4.019329821312058,
+      "walk_detour": 1.3422122521443893,
+      "max_access_m": 1490.4587640740067,
+      "rail_speed_scale": 0.90038080696042
     },
     "stats": {
       "before": {
-        "n": 598,
-        "median_ratio": 1.1566166119033832,
-        "median_abs_pct_err": 17.358884275248226,
-        "mean_model_min": 70.93524381299316,
-        "mean_obs_min": 60.56535674470457
+        "n": 1595,
+        "median_ratio": 1.1483387973602177,
+        "median_abs_pct_err": 16.503418557108173,
+        "mean_model_min": 70.84847695760995,
+        "mean_obs_min": 59.85080459770114
       },
       "after": {
-        "n": 598,
-        "median_ratio": 0.9856242102490371,
-        "median_abs_pct_err": 10.902165089488891,
-        "mean_model_min": 59.24811950852245,
-        "mean_obs_min": 60.56535674470457
+        "n": 1595,
+        "median_ratio": 0.993452607212456,
+        "median_abs_pct_err": 11.710094277085403,
+        "mean_model_min": 59.36685036597859,
+        "mean_obs_min": 59.85080459770114
       }
     }
   },
-  "n_trips": 600,
+  "n_trips": 1600,
   "hours": [
     8,
-    18
+    10,
+    12,
+    14,
+    16,
+    18,
+    20
   ]
 }
