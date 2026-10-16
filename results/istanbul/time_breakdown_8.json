@@ -1,0 +1,124 @@
+{
+  "bugün": {
+    "hour": 8,
+    "all": {
+      "n": 2000,
+      "mean_total": 59.96157142752819,
+      "access_egress": 11.350803682826218,
+      "transfer_walk": 1.6161640045782966,
+      "wait": 6.714235882614835,
+      "in_vehicle": 37.13036785750886,
+      "boardings_per_transit_trip": 2.671680497925311,
+      "share_walk_only": 0.0185,
+      "share_unreachable": 0.0175
+    },
+    "bands": {
+      "0-5 km": {
+        "n": 467,
+        "mean_total": 28.187017004690183,
+        "access_egress": 11.875437445817258,
+        "transfer_walk": 0.4894613458715594,
+        "wait": 4.213252484068006,
+        "in_vehicle": 11.60886572893336,
+        "boardings_per_transit_trip": 1.5604651162790697,
+        "share_walk_only": 0.07922912205567452,
+        "share_unreachable": 0.0
+      },
+      "5-10 km": {
+        "n": 632,
+        "mean_total": 48.78269389241192,
+        "access_egress": 11.35482722029572,
+        "transfer_walk": 1.179560792867235,
+        "wait": 5.869881730523468,
+        "in_vehicle": 28.099943136067274,
+        "boardings_per_transit_trip": 2.315705128205128,
+        "share_walk_only": 0.0,
+        "share_unreachable": 0.012658227848101266
+      },
+      "10-20 km": {
+        "n": 637,
+        "mean_total": 72.76069956960386,
+        "access_egress": 11.07364698905376,
+        "transfer_walk": 2.1890145802880436,
+        "wait": 7.94039110143768,
+        "in_vehicle": 47.88417751106928,
+        "boardings_per_transit_trip": 3.184294871794872,
+        "share_walk_only": 0.0,
+        "share_unreachable": 0.02040816326530612
+      },
+      "20-200 km": {
+        "n": 264,
+        "mean_total": 112.04764298493973,
+        "access_egress": 11.08187175455166,
+        "transfer_walk": 3.272215348102267,
+        "wait": 10.201092688876047,
+        "in_vehicle": 77.9470086479552,
+        "boardings_per_transit_trip": 4.192,
+        "share_walk_only": 0.0,
+        "share_unreachable": 0.05303030303030303
+      }
+    },
+    "mean_trip_km": 10.96198898146904
+  },
+  "senaryo": {
+    "hour": 8,
+    "all": {
+      "n": 2000,
+      "mean_total": 57.3214127029287,
+      "access_egress": 10.754037839873332,
+      "transfer_walk": 1.7463575731281542,
+      "wait": 6.339568235690274,
+      "in_vehicle": 35.51144905423694,
+      "boardings_per_transit_trip": 2.7083118224057823,
+      "share_walk_only": 0.015,
+      "share_unreachable": 0.0165
+    },
+    "bands": {
+      "0-5 km": {
+        "n": 467,
+        "mean_total": 26.644559593557233,
+        "access_egress": 10.976408586759575,
+        "transfer_walk": 0.6070709761645505,
+        "wait": 3.8861330744708553,
+        "in_vehicle": 11.17494695616225,
+        "boardings_per_transit_trip": 1.6247139588100687,
+        "share_walk_only": 0.06423982869379015,
+        "share_unreachable": 0.0
+      },
+      "5-10 km": {
+        "n": 632,
+        "mean_total": 46.68371232126042,
+        "access_egress": 10.860613450975052,
+        "transfer_walk": 1.3431503006908105,
+        "wait": 5.643734791094756,
+        "in_vehicle": 26.842542892423864,
+        "boardings_per_transit_trip": 2.4128,
+        "share_walk_only": 0.0,
+        "share_unreachable": 0.011075949367088608
+      },
+      "10-20 km": {
+        "n": 637,
+        "mean_total": 69.47630523870137,
+        "access_egress": 10.464646336787576,
+        "transfer_walk": 2.296908501328034,
+        "wait": 7.413453870868319,
+        "in_vehicle": 45.91040171025119,
+        "boardings_per_transit_trip": 3.1792,
+        "share_walk_only": 0.0,
+        "share_unreachable": 0.018838304552590265
+      },
+      "20-200 km": {
+        "n": 264,
+        "mean_total": 107.72463428627577,
+        "access_egress": 10.803808530984934,
+        "transfer_walk": 3.398527632594368,
+        "wait": 9.754173567756272,
+        "in_vehicle": 74.22267000948564,
+        "boardings_per_transit_trip": 4.164,
+        "share_walk_only": 0.0,
+        "share_unreachable": 0.05303030303030303
+      }
+    },
+    "mean_trip_km": 10.96198898146904
+  }
+}
