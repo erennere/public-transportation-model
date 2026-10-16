@@ -153,6 +153,24 @@ def frontier_markdown(rep: dict, target: float) -> str:
     return "\n".join(lines) + "\n"
 
 
+def cmd_reallocate(args):
+    """Fleet-neutral bus frequency reallocation (square-root rule) on a saved scenario."""
+    city = _city(args)
+    with open(args.scenario, "rb") as f:
+        sc = pickle.load(f)
+    full = Evaluator(city)
+    before = full.evaluate(sc).summary()
+    sc2, rep = optimize_frequencies(city, sc, log_cb=lambda r: log.info("frequencies %s", r))
+    after = full.evaluate(sc2).summary()
+    out = Path(args.out or Path(args.scenario).parent.with_name(Path(args.scenario).parent.name + "_realloc"))
+    out.mkdir(parents=True, exist_ok=True)
+    with open(out / "scenario.pkl", "wb") as f:
+        pickle.dump(sc2, f)
+    write_json({"before": before, "after": after, "periods": rep}, out / "summary.json")
+    for h in before["hours"]:
+        print(f"{h}:00  {before['hours'][h]['mean_t']:.1f} -> {after['hours'][h]['mean_t']:.1f} dk")
+
+
 def cmd_explain(args):
     """Where the time goes: walk / wait / ride per distance band, today vs a saved scenario."""
     from .analysis import time_breakdown
@@ -269,7 +287,7 @@ def main(argv=None):
     sub = p.add_subparsers(dest="cmd", required=True)
     for name, fn in (("download", cmd_download), ("build", cmd_build), ("evaluate", cmd_evaluate),
                      ("optimize", cmd_optimize), ("map", cmd_map), ("calibrate", cmd_calibrate),
-                     ("frontier", cmd_frontier), ("explain", cmd_explain)):
+                     ("frontier", cmd_frontier), ("explain", cmd_explain), ("reallocate", cmd_reallocate)):
         s = sub.add_parser(name)
         s.add_argument("--config", required=True)
         s.add_argument("--out")
@@ -279,8 +297,9 @@ def main(argv=None):
         s.add_argument("--M", type=int)
         if name == "optimize":
             s.add_argument("--skip-frequencies", action="store_true")
-        if name == "explain":
-            s.add_argument("--scenario", help="pickled scenario, e.g. results/istanbul/frontier/level_100/scenario.pkl")
+        if name in ("explain", "reallocate"):
+            s.add_argument("--scenario", required=name == "reallocate",
+                           help="pickled scenario, e.g. results/istanbul/frontier/level_100/scenario.pkl")
         s.set_defaults(fn=fn)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO,
