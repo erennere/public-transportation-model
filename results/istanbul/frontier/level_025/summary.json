@@ -1,0 +1,50 @@
+{
+  "level": 0.25,
+  "actions": [
+    "yeni otobüs NB26 (28.8 km)",
+    "yeni otobüs NB22 (9.2 km)",
+    "M5 uzatma X3_M5_a (+8.0 km)",
+    "yeni otobüs NB30 (29.3 km)",
+    "yeni metro NM4 (13.0 km)",
+    "NB26 sıklık ×1.49 (+10 otobüs)",
+    "NB26 sıklık ×1.49 (+15 otobüs)",
+    "yeni metro NM33 (26.6 km)",
+    "yeni otobüs NB14 (28.4 km)"
+  ],
+  "evaluation": {
+    "objective": 67.78104216032618,
+    "Z_min": 60.0,
+    "hours": {
+      "8": {
+        "mean_t": 56.45136398561399,
+        "mean_t_sd": 0.6662721715100565,
+        "share_le_z": 0.6239999999999999,
+        "share_le_z_sd": 0.008003471469028649,
+        "mean_excess": 9.538586136912581,
+        "mean_excess_sd": 0.4831610542978498,
+        "car_share": 0.3560091022482104,
+        "car_share_sd": 0.0009886948948232216,
+        "mean_car_t": 31.460947206250268,
+        "mean_car_t_sd": 0.3511667586106504,
+        "objective": 65.98995012252658,
+        "objective_sd": 1.1288961977074523
+      },
+      "18": {
+        "mean_t": 58.82332409812553,
+        "mean_t_sd": 0.657915563924331,
+        "share_le_z": 0.5908666666666667,
+        "share_le_z_sd": 0.010550408101638117,
+        "mean_excess": 10.74881010000026,
+        "mean_excess_sd": 0.4315918741860582,
+        "car_share": 0.34954366392204306,
+        "car_share_sd": 0.002161521712880598,
+        "mean_car_t": 35.695970652449816,
+        "mean_car_t_sd": 0.7674877453579906,
+        "objective": 69.57213419812578,
+        "objective_sd": 1.0722848801737168
+      }
+    }
+  },
+  "buses": 85,
+  "rail_km": 47.64
+}
