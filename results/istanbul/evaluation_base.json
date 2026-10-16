@@ -1,77 +1,77 @@
 {
-  "objective": 105.92622592615393,
+  "objective": 69.9519995066974,
   "Z_min": 60.0,
   "hours": {
     "8": {
-      "mean_t": 78.60551062449315,
-      "mean_t_sd": 1.3422489183534647,
-      "share_le_z": 0.3665333333333334,
-      "share_le_z_sd": 0.013865624960871962,
-      "mean_excess": 25.318532354202137,
-      "mean_excess_sd": 1.190695048860559,
-      "car_share": 0.3763145282425822,
-      "car_share_sd": 0.0012181829612679118,
-      "mean_car_t": 34.4987291801441,
-      "mean_car_t_sd": 0.47860291241956104,
-      "objective": 103.9240429786953,
-      "objective_sd": 2.5301499072602236
+      "mean_t": 57.645014291696135,
+      "mean_t_sd": 0.7521596217454037,
+      "share_le_z": 0.6078666666666667,
+      "share_le_z_sd": 0.0079393534581434,
+      "mean_excess": 10.33820511659978,
+      "mean_excess_sd": 0.5812193621419737,
+      "car_share": 0.35846347679773366,
+      "car_share_sd": 0.0011739965646317253,
+      "mean_car_t": 31.460947206250268,
+      "mean_car_t_sd": 0.3511667586106504,
+      "objective": 67.98321940829592,
+      "objective_sd": 1.3094449716826166
     },
     "18": {
-      "mean_t": 80.8199288845173,
-      "mean_t_sd": 1.3517043252751748,
-      "share_le_z": 0.34299999999999997,
-      "share_le_z_sd": 0.021557416872673357,
-      "mean_excess": 27.108479989095294,
-      "mean_excess_sd": 1.0515234830866622,
-      "car_share": 0.37345408842643124,
-      "car_share_sd": 0.001301570357177697,
-      "mean_car_t": 36.981298027518065,
-      "mean_car_t_sd": 0.729654345628674,
-      "objective": 107.92840887361258,
-      "objective_sd": 2.402523052284611
+      "mean_t": 60.23496418449952,
+      "mean_t_sd": 0.6998159820665936,
+      "share_le_z": 0.5702666666666667,
+      "share_le_z_sd": 0.011434353695965684,
+      "mean_excess": 11.68581542059938,
+      "mean_excess_sd": 0.4104160121779589,
+      "car_share": 0.3535011219869271,
+      "car_share_sd": 0.0019816067163401464,
+      "mean_car_t": 35.695970652449816,
+      "mean_car_t_sd": 0.7674877453579906,
+      "objective": 71.92077960509889,
+      "objective_sd": 1.0927426992584726
     }
   },
   "corridors": [
     {
       "corridor": "Esenyurt -> Levent",
       "hour": 8,
-      "transit_min": 134.43848039544608,
-      "car_min": 95.89701342394015,
+      "transit_min": 109.49876799083707,
+      "car_min": 75.73060981607766,
       "meets_Z": false
     },
     {
       "corridor": "Ümraniye -> Kadıköy",
       "hour": 8,
-      "transit_min": 61.51896999140792,
-      "car_min": 35.01661338086418,
-      "meets_Z": false
+      "transit_min": 51.7846939430786,
+      "car_min": 33.40348328238012,
+      "meets_Z": true
     },
     {
       "corridor": "Pendik -> Ataşehir",
       "hour": 8,
-      "transit_min": 80.53203801088974,
-      "car_min": 49.108420513148594,
+      "transit_min": 68.05895620219152,
+      "car_min": 52.98380400785199,
       "meets_Z": false
     },
     {
       "corridor": "Esenyurt -> Levent",
       "hour": 18,
-      "transit_min": 137.1701620243679,
-      "car_min": 94.42285233140097,
+      "transit_min": 115.85641181942952,
+      "car_min": 83.61864656845658,
       "meets_Z": false
     },
     {
       "corridor": "Ümraniye -> Kadıköy",
       "hour": 18,
-      "transit_min": 61.856662958817864,
-      "car_min": 34.41057180219459,
-      "meets_Z": false
+      "transit_min": 51.62644611345778,
+      "car_min": 32.834442467473096,
+      "meets_Z": true
     },
     {
       "corridor": "Pendik -> Ataşehir",
       "hour": 18,
-      "transit_min": 84.1055723326633,
-      "car_min": 49.66604877393518,
+      "transit_min": 70.08869462566942,
+      "car_min": 65.40930953291834,
       "meets_Z": false
     }
   ]
