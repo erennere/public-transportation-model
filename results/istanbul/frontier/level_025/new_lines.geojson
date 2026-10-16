@@ -4579,24 +4579,24 @@
           "3": null,
           "4": null,
           "5": null,
-          "6": 9.0,
-          "7": 4.5,
-          "8": 4.5,
-          "9": 4.5,
-          "10": 9.0,
-          "11": 9.0,
-          "12": 9.0,
-          "13": 9.0,
-          "14": 9.0,
-          "15": 9.0,
-          "16": 9.0,
-          "17": 4.5,
-          "18": 4.5,
-          "19": 4.5,
-          "20": 9.0,
-          "21": 9.0,
-          "22": 9.0,
-          "23": 9.0
+          "6": 10.0,
+          "7": 5.0,
+          "8": 5.0,
+          "9": 5.0,
+          "10": 10.0,
+          "11": 10.0,
+          "12": 10.0,
+          "13": 10.0,
+          "14": 10.0,
+          "15": 10.0,
+          "16": 10.0,
+          "17": 5.0,
+          "18": 5.0,
+          "19": 5.0,
+          "20": 10.0,
+          "21": 10.0,
+          "22": 10.0,
+          "23": 10.0
         }
       }
     },
@@ -7371,24 +7371,24 @@
           "3": null,
           "4": null,
           "5": null,
-          "6": 20.0,
-          "7": 10.0,
-          "8": 10.0,
-          "9": 10.0,
-          "10": 20.0,
-          "11": 20.0,
-          "12": 20.0,
-          "13": 20.0,
-          "14": 20.0,
-          "15": 20.0,
-          "16": 20.0,
-          "17": 10.0,
-          "18": 10.0,
-          "19": 10.0,
-          "20": 20.0,
-          "21": 20.0,
-          "22": 20.0,
-          "23": 20.0
+          "6": 10.0,
+          "7": 5.0,
+          "8": 5.0,
+          "9": 5.0,
+          "10": 10.0,
+          "11": 10.0,
+          "12": 10.0,
+          "13": 10.0,
+          "14": 10.0,
+          "15": 10.0,
+          "16": 10.0,
+          "17": 5.0,
+          "18": 5.0,
+          "19": 5.0,
+          "20": 10.0,
+          "21": 10.0,
+          "22": 10.0,
+          "23": 10.0
         }
       }
     },
@@ -13902,528 +13902,6 @@
         "type": "LineString",
         "coordinates": [
           [
-            28.62507674457929,
-            41.0502653470542
-          ],
-          [
-            28.63785137189843,
-            41.045201565454505
-          ],
-          [
-            28.650878144306088,
-            41.040984928878046
-          ],
-          [
-            28.665286822986893,
-            41.04138322809635
-          ],
-          [
-            28.67969561503309,
-            41.041779721731515
-          ],
-          [
-            28.694104519141472,
-            41.04217440972349
-          ],
-          [
-            28.708513534008723,
-            41.042567292012784
-          ],
-          [
-            28.722922658331445,
-            41.04295836854027
-          ],
-          [
-            28.737331890806136,
-            41.043347639247344
-          ],
-          [
-            28.751741230129205,
-            41.04373510407591
-          ],
-          [
-            28.766150674996968,
-            41.04412076296825
-          ],
-          [
-            28.78056022410566,
-            41.04450461586721
-          ],
-          [
-            28.794969876151413,
-            41.04488666271602
-          ],
-          [
-            28.80937962983028,
-            41.04526690345847
-          ],
-          [
-            28.82378948383821,
-            41.04564533803874
-          ],
-          [
-            28.838199436871083,
-            41.04602196640153
-          ],
-          [
-            28.852609487624683,
-            41.046396788492
-          ],
-          [
-            28.86618306781737,
-            41.04853922089778
-          ],
-          [
-            28.877633641956535,
-            41.05517376422287
-          ],
-          [
-            28.889086500671507,
-            41.06180711205476
-          ],
-          [
-            28.90054164443795,
-            41.06843926360901
-          ],
-          [
-            28.911999073731096,
-            41.07507021810108
-          ],
-          [
-            28.92345878902573,
-            41.08169997474634
-          ]
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "new": true,
-        "headway_min": {
-          "0": null,
-          "1": null,
-          "2": null,
-          "3": null,
-          "4": null,
-          "5": null,
-          "6": 10.0,
-          "7": 5.0,
-          "8": 5.0,
-          "9": 5.0,
-          "10": 10.0,
-          "11": 10.0,
-          "12": 10.0,
-          "13": 10.0,
-          "14": 10.0,
-          "15": 10.0,
-          "16": 10.0,
-          "17": 5.0,
-          "18": 5.0,
-          "19": 5.0,
-          "20": 10.0,
-          "21": 10.0,
-          "22": 10.0,
-          "23": 10.0
-        }
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.62507674457929,
-          41.0502653470542
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 0,
-        "stop_id": "NM33_14556",
-        "name": "NM33 14556"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.63785137189843,
-          41.045201565454505
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 1,
-        "stop_id": "NM33_14557",
-        "name": "NM33 14557"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.650878144306088,
-          41.040984928878046
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 2,
-        "stop_id": "NM33_14558",
-        "name": "NM33 14558"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.665286822986893,
-          41.04138322809635
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 3,
-        "stop_id": "NM33_14559",
-        "name": "NM33 14559"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.67969561503309,
-          41.041779721731515
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 4,
-        "stop_id": "NM33_14560",
-        "name": "NM33 14560"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.694104519141472,
-          41.04217440972349
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 5,
-        "stop_id": "NM33_14561",
-        "name": "NM33 14561"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.708513534008723,
-          41.042567292012784
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 6,
-        "stop_id": "NM33_14562",
-        "name": "NM33 14562"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.722922658331445,
-          41.04295836854027
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 7,
-        "stop_id": "NM33_14563",
-        "name": "NM33 14563"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.737331890806136,
-          41.043347639247344
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 8,
-        "stop_id": "NM33_14564",
-        "name": "NM33 14564"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.751741230129205,
-          41.04373510407591
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 9,
-        "stop_id": "NM33_14565",
-        "name": "NM33 14565"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.766150674996968,
-          41.04412076296825
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 10,
-        "stop_id": "NM33_14566",
-        "name": "NM33 14566"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.78056022410566,
-          41.04450461586721
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 11,
-        "stop_id": "NM33_14567",
-        "name": "NM33 14567"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.794969876151413,
-          41.04488666271602
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 12,
-        "stop_id": "NM33_14568",
-        "name": "NM33 14568"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.80937962983028,
-          41.04526690345847
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 13,
-        "stop_id": "NM33_14569",
-        "name": "NM33 14569"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.82378948383821,
-          41.04564533803874
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 14,
-        "stop_id": "NM33_14570",
-        "name": "NM33 14570"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.838199436871083,
-          41.04602196640153
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 15,
-        "stop_id": "NM33_14571",
-        "name": "NM33 14571"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.852609487624683,
-          41.046396788492
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 16,
-        "stop_id": "NM33_14572",
-        "name": "NM33 14572"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.86618306781737,
-          41.04853922089778
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 17,
-        "stop_id": "NM33_14573",
-        "name": "NM33 14573"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.877633641956535,
-          41.05517376422287
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 18,
-        "stop_id": "NM33_14574",
-        "name": "NM33 14574"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.889086500671507,
-          41.06180711205476
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 19,
-        "stop_id": "NM33_14575",
-        "name": "NM33 14575"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.90054164443795,
-          41.06843926360901
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 20,
-        "stop_id": "NM33_14576",
-        "name": "NM33 14576"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.911999073731096,
-          41.07507021810108
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 21,
-        "stop_id": "NM33_14577",
-        "name": "NM33 14577"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.92345878902573,
-          41.08169997474634
-        ]
-      },
-      "properties": {
-        "line": "NM33",
-        "mode": "metro",
-        "stop_seq": 22,
-        "stop_id": "NM33_14578",
-        "name": "NM33 14578"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
             29.0237805,
             40.980566700000004
           ],
@@ -19618,7 +19096,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "new": true,
         "headway_min": {
@@ -19659,11 +19137,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 0,
-        "stop_id": "NB14_14579",
-        "name": "NB14 14579"
+        "stop_id": "NB8_14556",
+        "name": "NB8 14556"
       }
     },
     {
@@ -19676,11 +19154,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 1,
-        "stop_id": "NB14_14580",
-        "name": "NB14 14580"
+        "stop_id": "NB8_14557",
+        "name": "NB8 14557"
       }
     },
     {
@@ -19693,11 +19171,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 2,
-        "stop_id": "NB14_14581",
-        "name": "NB14 14581"
+        "stop_id": "NB8_14558",
+        "name": "NB8 14558"
       }
     },
     {
@@ -19710,11 +19188,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 3,
-        "stop_id": "NB14_14582",
-        "name": "NB14 14582"
+        "stop_id": "NB8_14559",
+        "name": "NB8 14559"
       }
     },
     {
@@ -19727,7 +19205,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 4,
         "stop_id": "osm:78",
@@ -19744,7 +19222,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 5,
         "stop_id": "iett:510966",
@@ -19761,7 +19239,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 6,
         "stop_id": "iett:510801",
@@ -19778,7 +19256,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 7,
         "stop_id": "iett:510803",
@@ -19795,7 +19273,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 8,
         "stop_id": "iett:510690",
@@ -19812,7 +19290,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 9,
         "stop_id": "iett:681714",
@@ -19829,11 +19307,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 10,
-        "stop_id": "NB14_14583",
-        "name": "NB14 14583"
+        "stop_id": "NB8_14560",
+        "name": "NB8 14560"
       }
     },
     {
@@ -19846,7 +19324,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 11,
         "stop_id": "iett:681580",
@@ -19863,7 +19341,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 12,
         "stop_id": "iett:681584",
@@ -19880,7 +19358,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 13,
         "stop_id": "iett:681585",
@@ -19897,11 +19375,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 14,
-        "stop_id": "NB14_14584",
-        "name": "NB14 14584"
+        "stop_id": "NB8_14561",
+        "name": "NB8 14561"
       }
     },
     {
@@ -19914,11 +19392,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 15,
-        "stop_id": "NB14_14585",
-        "name": "NB14 14585"
+        "stop_id": "NB8_14562",
+        "name": "NB8 14562"
       }
     },
     {
@@ -19931,11 +19409,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 16,
-        "stop_id": "NB14_14586",
-        "name": "NB14 14586"
+        "stop_id": "NB8_14563",
+        "name": "NB8 14563"
       }
     },
     {
@@ -19948,7 +19426,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 17,
         "stop_id": "iett:681534",
@@ -19965,7 +19443,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 18,
         "stop_id": "iett:681537",
@@ -19982,11 +19460,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 19,
-        "stop_id": "NB14_14587",
-        "name": "NB14 14587"
+        "stop_id": "NB8_14564",
+        "name": "NB8 14564"
       }
     },
     {
@@ -19999,11 +19477,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 20,
-        "stop_id": "NB14_14588",
-        "name": "NB14 14588"
+        "stop_id": "NB8_14565",
+        "name": "NB8 14565"
       }
     },
     {
@@ -20016,7 +19494,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 21,
         "stop_id": "iett:681345",
@@ -20033,11 +19511,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 22,
-        "stop_id": "NB14_14589",
-        "name": "NB14 14589"
+        "stop_id": "NB8_14566",
+        "name": "NB8 14566"
       }
     },
     {
@@ -20050,7 +19528,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 23,
         "stop_id": "iett:806958",
@@ -20067,7 +19545,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 24,
         "stop_id": "iett:681307",
@@ -20084,7 +19562,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 25,
         "stop_id": "iett:681421",
@@ -20101,11 +19579,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 26,
-        "stop_id": "NB14_14590",
-        "name": "NB14 14590"
+        "stop_id": "NB8_14567",
+        "name": "NB8 14567"
       }
     },
     {
@@ -20118,11 +19596,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 27,
-        "stop_id": "NB14_14591",
-        "name": "NB14 14591"
+        "stop_id": "NB8_14568",
+        "name": "NB8 14568"
       }
     },
     {
@@ -20135,11 +19613,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 28,
-        "stop_id": "NB14_14592",
-        "name": "NB14 14592"
+        "stop_id": "NB8_14569",
+        "name": "NB8 14569"
       }
     },
     {
@@ -20152,7 +19630,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 29,
         "stop_id": "iett:681048",
@@ -20169,11 +19647,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 30,
-        "stop_id": "NB14_14593",
-        "name": "NB14 14593"
+        "stop_id": "NB8_14570",
+        "name": "NB8 14570"
       }
     },
     {
@@ -20186,7 +19664,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 31,
         "stop_id": "iett:681122",
@@ -20203,11 +19681,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 32,
-        "stop_id": "NB14_14594",
-        "name": "NB14 14594"
+        "stop_id": "NB8_14571",
+        "name": "NB8 14571"
       }
     },
     {
@@ -20220,11 +19698,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 33,
-        "stop_id": "NB14_14595",
-        "name": "NB14 14595"
+        "stop_id": "NB8_14572",
+        "name": "NB8 14572"
       }
     },
     {
@@ -20237,7 +19715,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 34,
         "stop_id": "osm:681",
@@ -20254,7 +19732,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 35,
         "stop_id": "iett:680950",
@@ -20271,7 +19749,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 36,
         "stop_id": "iett:680954",
@@ -20288,7 +19766,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 37,
         "stop_id": "iett:681059",
@@ -20305,7 +19783,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 38,
         "stop_id": "iett:680887",
@@ -20322,11 +19800,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 39,
-        "stop_id": "NB14_14596",
-        "name": "NB14 14596"
+        "stop_id": "NB8_14573",
+        "name": "NB8 14573"
       }
     },
     {
@@ -20339,7 +19817,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 40,
         "stop_id": "iett:579997",
@@ -20356,7 +19834,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 41,
         "stop_id": "iett:5251922",
@@ -20373,7 +19851,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 42,
         "stop_id": "iett:800821",
@@ -20390,7 +19868,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 43,
         "stop_id": "iett:579941",
@@ -20407,11 +19885,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 44,
-        "stop_id": "NB14_14597",
-        "name": "NB14 14597"
+        "stop_id": "NB8_14574",
+        "name": "NB8 14574"
       }
     },
     {
@@ -20424,7 +19902,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 45,
         "stop_id": "iett:579963",
@@ -20441,7 +19919,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 46,
         "stop_id": "iett:579960",
@@ -20458,7 +19936,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 47,
         "stop_id": "iett:580002",
@@ -20475,7 +19953,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 48,
         "stop_id": "iett:579955",
@@ -20492,7 +19970,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 49,
         "stop_id": "iett:579954",
@@ -20509,11 +19987,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 50,
-        "stop_id": "NB14_14598",
-        "name": "NB14 14598"
+        "stop_id": "NB8_14575",
+        "name": "NB8 14575"
       }
     },
     {
@@ -20526,7 +20004,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 51,
         "stop_id": "iett:659181",
@@ -20543,7 +20021,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 52,
         "stop_id": "iett:659182",
@@ -20560,7 +20038,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 53,
         "stop_id": "iett:579951",
@@ -20577,11 +20055,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 54,
-        "stop_id": "NB14_14599",
-        "name": "NB14 14599"
+        "stop_id": "NB8_14576",
+        "name": "NB8 14576"
       }
     },
     {
@@ -20594,7 +20072,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 55,
         "stop_id": "iett:5250509",
@@ -20611,7 +20089,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 56,
         "stop_id": "iett:579784",
@@ -20628,7 +20106,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 57,
         "stop_id": "iett:579782",
@@ -20645,7 +20123,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 58,
         "stop_id": "iett:579631",
@@ -20662,7 +20140,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 59,
         "stop_id": "iett:579779",
@@ -20679,7 +20157,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 60,
         "stop_id": "iett:579733",
@@ -20696,7 +20174,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 61,
         "stop_id": "iett:291747",
@@ -20713,7 +20191,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 62,
         "stop_id": "iett:291751",
@@ -20730,7 +20208,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 63,
         "stop_id": "iett:292150",
@@ -20747,11 +20225,11 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 64,
-        "stop_id": "NB14_14600",
-        "name": "NB14 14600"
+        "stop_id": "NB8_14577",
+        "name": "NB8 14577"
       }
     },
     {
@@ -20764,7 +20242,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 65,
         "stop_id": "iett:292019",
@@ -20781,7 +20259,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 66,
         "stop_id": "iett:292089",
@@ -20798,7 +20276,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 67,
         "stop_id": "iett:291893",
@@ -20815,7 +20293,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 68,
         "stop_id": "iett:291890",
@@ -20832,7 +20310,7 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 69,
         "stop_id": "iett:291888",
@@ -20849,11 +20327,533 @@
         ]
       },
       "properties": {
-        "line": "NB14",
+        "line": "NB8",
         "mode": "bus",
         "stop_seq": 70,
         "stop_id": "iett:291878",
         "name": "MİMAR SİNAN CAMİİ"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            28.62507674457929,
+            41.0502653470542
+          ],
+          [
+            28.63785137189843,
+            41.045201565454505
+          ],
+          [
+            28.650878144306088,
+            41.040984928878046
+          ],
+          [
+            28.665286822986893,
+            41.04138322809635
+          ],
+          [
+            28.67969561503309,
+            41.041779721731515
+          ],
+          [
+            28.694104519141472,
+            41.04217440972349
+          ],
+          [
+            28.708513534008723,
+            41.042567292012784
+          ],
+          [
+            28.722922658331445,
+            41.04295836854027
+          ],
+          [
+            28.737331890806136,
+            41.043347639247344
+          ],
+          [
+            28.751741230129205,
+            41.04373510407591
+          ],
+          [
+            28.766150674996968,
+            41.04412076296825
+          ],
+          [
+            28.78056022410566,
+            41.04450461586721
+          ],
+          [
+            28.794969876151413,
+            41.04488666271602
+          ],
+          [
+            28.80937962983028,
+            41.04526690345847
+          ],
+          [
+            28.82378948383821,
+            41.04564533803874
+          ],
+          [
+            28.838199436871083,
+            41.04602196640153
+          ],
+          [
+            28.852609487624683,
+            41.046396788492
+          ],
+          [
+            28.86618306781737,
+            41.04853922089778
+          ],
+          [
+            28.877633641956535,
+            41.05517376422287
+          ],
+          [
+            28.889086500671507,
+            41.06180711205476
+          ],
+          [
+            28.90054164443795,
+            41.06843926360901
+          ],
+          [
+            28.911999073731096,
+            41.07507021810108
+          ],
+          [
+            28.92345878902573,
+            41.08169997474634
+          ]
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "new": true,
+        "headway_min": {
+          "0": null,
+          "1": null,
+          "2": null,
+          "3": null,
+          "4": null,
+          "5": null,
+          "6": 10.0,
+          "7": 5.0,
+          "8": 5.0,
+          "9": 5.0,
+          "10": 10.0,
+          "11": 10.0,
+          "12": 10.0,
+          "13": 10.0,
+          "14": 10.0,
+          "15": 10.0,
+          "16": 10.0,
+          "17": 5.0,
+          "18": 5.0,
+          "19": 5.0,
+          "20": 10.0,
+          "21": 10.0,
+          "22": 10.0,
+          "23": 10.0
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.62507674457929,
+          41.0502653470542
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 0,
+        "stop_id": "NM38_14578",
+        "name": "NM38 14578"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.63785137189843,
+          41.045201565454505
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 1,
+        "stop_id": "NM38_14579",
+        "name": "NM38 14579"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.650878144306088,
+          41.040984928878046
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 2,
+        "stop_id": "NM38_14580",
+        "name": "NM38 14580"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.665286822986893,
+          41.04138322809635
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 3,
+        "stop_id": "NM38_14581",
+        "name": "NM38 14581"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.67969561503309,
+          41.041779721731515
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 4,
+        "stop_id": "NM38_14582",
+        "name": "NM38 14582"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.694104519141472,
+          41.04217440972349
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 5,
+        "stop_id": "NM38_14583",
+        "name": "NM38 14583"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.708513534008723,
+          41.042567292012784
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 6,
+        "stop_id": "NM38_14584",
+        "name": "NM38 14584"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.722922658331445,
+          41.04295836854027
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 7,
+        "stop_id": "NM38_14585",
+        "name": "NM38 14585"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.737331890806136,
+          41.043347639247344
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 8,
+        "stop_id": "NM38_14586",
+        "name": "NM38 14586"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.751741230129205,
+          41.04373510407591
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 9,
+        "stop_id": "NM38_14587",
+        "name": "NM38 14587"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.766150674996968,
+          41.04412076296825
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 10,
+        "stop_id": "NM38_14588",
+        "name": "NM38 14588"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.78056022410566,
+          41.04450461586721
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 11,
+        "stop_id": "NM38_14589",
+        "name": "NM38 14589"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.794969876151413,
+          41.04488666271602
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 12,
+        "stop_id": "NM38_14590",
+        "name": "NM38 14590"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.80937962983028,
+          41.04526690345847
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 13,
+        "stop_id": "NM38_14591",
+        "name": "NM38 14591"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.82378948383821,
+          41.04564533803874
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 14,
+        "stop_id": "NM38_14592",
+        "name": "NM38 14592"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.838199436871083,
+          41.04602196640153
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 15,
+        "stop_id": "NM38_14593",
+        "name": "NM38 14593"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.852609487624683,
+          41.046396788492
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 16,
+        "stop_id": "NM38_14594",
+        "name": "NM38 14594"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.86618306781737,
+          41.04853922089778
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 17,
+        "stop_id": "NM38_14595",
+        "name": "NM38 14595"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.877633641956535,
+          41.05517376422287
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 18,
+        "stop_id": "NM38_14596",
+        "name": "NM38 14596"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.889086500671507,
+          41.06180711205476
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 19,
+        "stop_id": "NM38_14597",
+        "name": "NM38 14597"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.90054164443795,
+          41.06843926360901
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 20,
+        "stop_id": "NM38_14598",
+        "name": "NM38 14598"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.911999073731096,
+          41.07507021810108
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 21,
+        "stop_id": "NM38_14599",
+        "name": "NM38 14599"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.92345878902573,
+          41.08169997474634
+        ]
+      },
+      "properties": {
+        "line": "NM38",
+        "mode": "metro",
+        "stop_seq": 22,
+        "stop_id": "NM38_14600",
+        "name": "NM38 14600"
       }
     }
   ]
