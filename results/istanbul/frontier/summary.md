@@ -63,3 +63,6 @@ Notlar:
 * Bu bütçe sınırlarıyla (filonun %20'si, raylı ağın %30'u) ortalama ~2.6–3 dk iyileşme mümkün;
   eğri bütçenin %50'sinden sonra belirgin şekilde düzleşiyor. 50 dk hedefi bu araçlarla
   ulaşılamıyor: sürenin en büyük kısmı trafikteki otobüslerde geçen araç içi süre (37 dk).
+
+> Bu koşu yalnızca 08:00 ve 18:00 ile ve o iki saate göre yapılan kalibrasyonla yapıldı.
+> Güncel sonuçlar (08:00–20:00 her 2 saatte, hedef 50 dk) `results/istanbul/frontier_50dk/` altında.

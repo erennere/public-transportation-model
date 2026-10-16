@@ -65,12 +65,15 @@ ptopt optimize --config configs/istanbul_pilot.yaml
 # 5) modeli Google / TomTom süreleriyle kalibre et (API anahtarı gerekir)
 ptopt calibrate --config configs/istanbul.yaml
 
-# 6) bütçe–süre eğrisi: bugünkü filonun %20'si kadar ek otobüs ve raylı ağın %30'u kadar
-#    yeni hat / uzatma ile ortalama süre nereye iner?
+# 6) bütçe–süre eğrisi: günlük ortalama (08–20, 2 saatte bir) 50 dakikaya inene kadar
+#    yatırım ekle; hangi yatırımla hedefe ulaşıldığını raporla
 ptopt frontier --config configs/istanbul.yaml
+
+# 7) süre nereye gidiyor? (yürüme / bekleme / araç içi / aktarma)
+ptopt explain --config configs/istanbul.yaml --scenario results/istanbul/frontier_50dk/target/scenario.pkl
 ```
 
-`ptopt frontier` çıktıları `results/<şehir>/frontier/` altında: `summary.md`, `frontier.png`
+`ptopt frontier` çıktıları `results/<şehir>/<frontier.out_dir>/` altında: `summary.md`, `frontier.png`
 (yatırım–süre eğrisi), `frontier.csv` (her adım), `level_025` … `level_100` (bütçenin o payı
 harcandığında harita, GeoJSON, tam değerlendirme).
 

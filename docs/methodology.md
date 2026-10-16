@@ -107,6 +107,12 @@ Sonuç `data/processed/calibration_<şehir>.json`'a yazılır ve sonraki tüm ko
   `araç_sahipliği × (1 − P)`. Trafik azaltımının göstergesidir.
 * Amaç fonksiyonu: `J = ortalama süre + w · ortalama Z aşımı`.
 
+Değerlendirme 08:00'den 20:00'e kadar **her iki saatte bir** (8, 10, 12, 14, 16, 18, 20) yapılır.
+Her saatin talep yönü (sabah ev→iş, akşam iş→ev), trafik hızları ve sefer sıklıkları o saate
+aittir. **Günlük ortalama**, her saatin değeri o saatte yola çıkan yolcu sayısıyla (İstanbulkart
+saatlik profili) ağırlıklandırılarak hesaplanır; yoğun 08:00 ve 18:00, sakin 12:00'den daha çok
+sayılır. Optimizasyonun amaç fonksiyonu bu günlük ortalamadır.
+
 ## 6. Yeni hat adayları
 
 1. Baz senaryoda zirve saatlerde her örnek yolculuğun **açığı** hesaplanır:
@@ -142,20 +148,29 @@ hesaplanan gidiş-dönüş süresi + %10 bekleme.
 
 ## 8. Bütçe–süre eğrisi (`ptopt frontier`)
 
-Bütçe bugünkü ağa göre tanımlanır: ek otobüs ≤ zirve filonun %20'si, yeni raylı km ≤ raylı ağ
-uzunluğunun %30'u. Her adımda dört tür yatırım aday olur:
+Bütçe bugünkü ağa göre tanımlanır (ek otobüs: zirve filonun bir payı, yeni raylı km: raylı ağ
+uzunluğunun bir payı). İki kullanım vardır:
+
+* **Sabit bütçe** (örn. filonun %20'si, raylı ağın %30'u): bu bütçeyle süre nereye iner?
+* **Hedef arama** (`target_min`, `stop_at_target`): bütçe üst sınırı geniş tutulur (filonun
+  %100'ü, raylı ağın %200'ü) ve günlük ortalama hedefe (50 dk) indiği anda durulur. Sonuç,
+  hedef için gereken yatırımı gösterir; hedefe ulaşma tam örneklemle doğrulanır.
+
+Her adımda dört tür yatırım aday olur:
 
 1. yeni metro hattı (koridor üzerinde, 1.2 km istasyon aralığı),
 2. mevcut metro / raylı hattın bir ucundan 4 veya 8 km uzatılması (aktarma olmadan devam eder;
    yön, ileri 120°'lik koni içinde en yoğun nüfus+iş bölgelerine göre seçilir),
 3. yeni otobüs hattı (sokaklar üzerinde),
-4. en yoğun otobüs hatlarına %50 ek araç (headway × 0.67).
+4. en yoğun otobüs hatlarına ek araç (headway × 0.5, yani araç sayısı iki katı).
 
 Seçim, normalleştirilmiş maliyet başına amaç fonksiyonu kazancına göre yapılır
 (`maliyet = ek_otobüs / otobüs_bütçesi + km / km_bütçesi`). Her aday önce küçük bir örneklemle
-taranır, en iyi 6 aday daha büyük örneklemle yeniden değerlendirilir. Ağ büyüdükçe yeni hat adayları
-güncel ağın açıklarından yeniden üretilir. Bütçenin %25/50/75/100'ü harcandığında tam değerlendirme
-yapılır ve harita çizilir.
+(bir kaç temsilci saatte) taranır; en iyiler tüm saatlerde daha büyük örneklemle yeniden
+değerlendirilir. Her adımda farklı hat / koridorlara ait birkaç iyi yatırım birlikte alınabilir
+(birlikte daha iyiyse). Ağ büyüdükçe yeni hat adayları güncel ağın açıklarından yeniden üretilir.
+Belirli bütçe kullanım seviyelerinde ve hedefe ulaşıldığında tam değerlendirme yapılır ve harita
+çizilir.
 
 ## 9. Bilinen sınırlamalar
 
