@@ -31,22 +31,46 @@ class SimResult:
     loads: dict | None = None
 
 
+METRICS = ("mean_t", "share_le_z", "mean_excess", "car_share", "mean_car_t", "objective")
+
+
 @dataclass
 class Evaluation:
+    """Results of all simulations. Hours are combined with `hour_weights`
+    (share of the evaluated hours' trips that travel in each hour), so the
+    day-level numbers are passenger weighted: a busy 08:00 counts more than 12:00."""
     sims: list[SimResult]
     Z: float
-    by_hour: dict = field(default_factory=dict)
+    hour_weights: dict = field(default_factory=dict)
+
+    def _weights(self) -> dict:
+        hours = sorted({s.hour for s in self.sims})
+        w = {h: float(self.hour_weights.get(h, 1.0)) for h in hours}
+        tot = sum(w.values()) or 1.0
+        return {h: v / tot for h, v in w.items()}
+
+    def _hour_mean(self, key: str) -> dict:
+        out = {}
+        for h in {s.hour for s in self.sims}:
+            out[h] = float(np.mean([getattr(s, key) for s in self.sims if s.hour == h]))
+        return out
+
+    def daily(self, key: str = "mean_t") -> float:
+        w = self._weights()
+        m = self._hour_mean(key)
+        return float(sum(w[h] * m[h] for h in w))
 
     @property
     def objective(self) -> float:
-        return float(np.mean([s.objective for s in self.sims]))
+        return self.daily("objective")
 
     def summary(self) -> dict:
-        out = {"objective": self.objective, "Z_min": self.Z, "hours": {}}
+        out = {"objective": self.objective, "Z_min": self.Z, "hour_weights": self._weights(),
+               "daily": {k: self.daily(k) for k in METRICS}, "hours": {}}
         for h in sorted({s.hour for s in self.sims}):
             ss = [s for s in self.sims if s.hour == h]
             row = {}
-            for key in ("mean_t", "share_le_z", "mean_excess", "car_share", "mean_car_t", "objective"):
+            for key in METRICS:
                 v = np.array([getattr(s, key) for s in ss])
                 row[key] = float(v.mean())
                 row[key + "_sd"] = float(v.std(ddof=1)) if len(v) > 1 else 0.0
@@ -67,6 +91,8 @@ class Evaluator:
         self.excess_w = float(ev["excess_weight"])
         seed = ev["seed"] if seed is None else seed
         self.demand = Demand(city.zones, city.cfg, city.hourly_profile)
+        # passenger weight of each evaluated hour (trips starting in that hour)
+        self.hour_weights = {h: float(self.demand.profile[h % 24]) for h in self.hours}
         z = city.zones
         net = city.cfg["network"]
         walk_m_per_min = net["walk_kmh"] * 1000.0 / 60.0
@@ -108,7 +134,7 @@ class Evaluator:
                     scale = self.demand.matrix(h).sum() / len(s.d)  # trips/hour per sample
                     sims[-1].loads = {ln.line_id: (b[i] * scale, pkm[i] * scale)
                                       for i, ln in enumerate(g.line_index)}
-        return Evaluation(sims=sims, Z=self.Z)
+        return Evaluation(sims=sims, Z=self.Z, hour_weights=self.hour_weights)
 
     def _metrics(self, h, t, t_car, w, mc, keep) -> SimResult:
         wsum = w.sum()

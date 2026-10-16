@@ -83,7 +83,7 @@ mode_choice:
   car_availability: 0.4   # roughly: share of trips made by people with a car at hand
 
 evaluation:
-  hours: [8, 18]
+  hours: [8, 10, 12, 14, 16, 18, 20]   # every two hours through the working day
   K: 3000
   M: 5
   origins_per_sim: 300
@@ -102,8 +102,27 @@ optimization:
   anneal_iters: 60
   eval_origins: 150   # fewer shortest-path trees while searching; final evaluation uses the full sample
 
-# Budget–time frontier (ptopt frontier): budgets relative to today's network
+# Budget–time frontier (ptopt frontier): how much investment does it take to bring the
+# passenger-weighted daily mean (08-20) down to the target? Caps are generous on purpose;
+# the run stops as soon as the target is reached on the full sample.
 frontier:
-  bus_share: 0.20      # up to +20% of today's peak bus fleet
-  rail_share: 0.30     # up to +30% of today's rail network length (new lines + extensions)
-  target_min: 50       # mean door-to-door time the city aims for
+  bus_share: 1.0       # up to +100% of today's peak bus fleet
+  rail_share: 2.0      # up to +200% of today's rail network length (new lines + extensions)
+  target_min: 50
+  stop_at_target: true
+  out_dir: frontier_50dk
+  screen_hours: [8, 14, 18]   # cheap screening; shortlist and the recorded path use all hours
+  cheap_K: 300
+  cheap_origins: 60
+  fast_K: 500
+  fast_M: 1
+  fast_origins: 120
+  shortlist: 10
+  batch: 5
+  boost_top: 25
+  max_steps: 150
+  checkpoints: [0.05, 0.1, 0.2, 0.3, 0.5, 0.75, 1.0]
+
+# Calibration sample: hours 8 and 18 were collected first with 300 trips each
+calibration:
+  n_per_hour: {8: 300, 18: 300, default: 200}

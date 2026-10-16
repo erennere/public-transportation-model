@@ -85,14 +85,16 @@ class Samples:
     transit_obs: np.ndarray
 
 
-def sample_pairs(city: City, n_per_hour: int, hours, seed: int = 7, min_km: float = 1.5):
-    """Demand-weighted OD sample; points are the street node nearest to each zone centre."""
+def sample_pairs(city: City, n_per_hour, hours, seed: int = 7, min_km: float = 1.5):
+    """Demand-weighted OD sample; points are the street node nearest to each zone centre.
+    `n_per_hour` is an int or a dict {hour: n, "default": n}."""
     dem = Demand(city.zones, city.cfg, city.hourly_profile)
     z = city.zones
     rows = []
     for h in hours:
+        n_h = n_per_hour if isinstance(n_per_hour, int) else int(n_per_hour.get(h, n_per_hour.get(str(h), n_per_hour["default"])))
         T = dem.matrix(h)
-        s = sample_od(T, n_per_hour * 3, n_per_hour, np.random.default_rng([seed, h]))
+        s = sample_od(T, n_h * 3, n_h, np.random.default_rng([seed, h]))
         dist = np.hypot(z.x[s.o] - z.x[s.d], z.y[s.o] - z.y[s.d])
         keep = np.flatnonzero(dist >= min_km * 1000)
         seen, picked = set(), []
@@ -100,7 +102,7 @@ def sample_pairs(city: City, n_per_hour: int, hours, seed: int = 7, min_km: floa
             if (s.o[k], s.d[k]) not in seen:
                 seen.add((s.o[k], s.d[k]))
                 picked.append(k)
-            if len(picked) == n_per_hour:
+            if len(picked) == n_h:
                 break
         rows += [(h, s.o[k], s.d[k]) for k in picked]
     hour = np.array([r[0] for r in rows])

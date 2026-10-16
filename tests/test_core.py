@@ -220,3 +220,33 @@ def test_time_breakdown_components_add_up(synth):
     unreachable_part = a["share_unreachable"] * 180.0
     assert a["mean_total"] == pytest.approx(parts + unreachable_part, rel=1e-6)
     assert a["in_vehicle"] > 0 and a["wait"] > 0
+
+
+def test_daily_mean_is_passenger_weighted():
+    from ptopt.simulate import Evaluation, SimResult
+    sims = [SimResult(8, 60.0, 0, 0, 0, 0, 60.0), SimResult(12, 40.0, 0, 0, 0, 0, 40.0)]
+    ev = Evaluation(sims, Z=60, hour_weights={8: 3.0, 12: 1.0})
+    assert ev.daily("mean_t") == pytest.approx(55.0)
+    assert ev.objective == pytest.approx(55.0)
+    assert ev.summary()["daily"]["mean_t"] == pytest.approx(55.0)
+
+
+def test_frontier_stops_at_target():
+    from ptopt.frontier import run_frontier
+    cfg = load_config(overrides={"synthetic": {"half_size_km": 10},
+                                 "evaluation": {"K": 300, "M": 1, "origins_per_sim": 50, "hours": [8, 12]},
+                                 "candidates": {"n_corridors": 6},
+                                 "frontier": {"cheap_K": 200, "cheap_origins": 40, "fast_K": 300, "fast_M": 1,
+                                              "fast_origins": 50, "max_steps": 5, "shortlist": 3, "n_jobs": 1,
+                                              "boost_top": 4, "checkpoints": [], "screen_hours": [8],
+                                              "bus_share": 1.0, "rail_share": 1.0, "target_min": 1e9}})
+    city = build_synthetic(cfg)
+    calls = []
+
+    def cp(level, sc, sel, steps):
+        calls.append(level)
+        return 0.0
+
+    res = run_frontier(city, on_checkpoint=cp)
+    assert len(res["steps"]) == 2 and calls == ["target"]  # stops right after the first step
+    assert "mean_t_daily" in res["steps"][1]

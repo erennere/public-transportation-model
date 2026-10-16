@@ -275,45 +275,46 @@ def _runs(pos: list[int]) -> list[list[int]]:
 
 
 def plot_frontier(steps: list[dict], base: dict, levels: list[dict], path: Path, target: float = 50.0) -> None:
-    """Mean door-to-door time vs share of the budget spent, from the full evaluations
-    (today + each checkpoint), one line per evaluated hour."""
+    """Passenger-weighted daily mean door-to-door time (line) and the spread across the
+    evaluated hours (band, fastest to slowest hour) against investment, from the full
+    evaluations at today's network and each checkpoint."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    hours = list(base["hours"])
-    colors = ["#2a78d6", "#eb6834"]  # categorical slots 1, 2 (validated reference palette)
-    ink, muted, grid = "#0b0b0b", "#52514e", "#e4e3df"
-    fig, ax = plt.subplots(figsize=(9, 5.2))
-    x = [0.0] + [lv["level"] * 100 for lv in levels]
-    ends = []
-    for i, h in enumerate(hours):
-        y = [base["hours"][h]["mean_t"]] + [lv["evaluation"]["hours"][h]["mean_t"] for lv in levels]
-        ax.plot(x, y, color=colors[i % 2], lw=2, marker="o", ms=8, mec="white", mew=2, label=f"{h}:00")
-        ends.append((y[-1], h, colors[i % 2]))
-    ends.sort()
-    for k, (yv, h, col) in enumerate(ends):  # end labels, nudged apart
-        ax.annotate(f"{h}:00  {yv:.1f} dk", (x[-1], yv), xytext=(8, -7 if k == 0 else 7),
-                    textcoords="offset points", va="center", fontsize=9, color=ink)
+    blue, ink, muted, grid = "#2a78d6", "#0b0b0b", "#52514e", "#e4e3df"
+    pts = [(0.0, 0, 0.0, base)] + sorted(((lv["spend"], lv["buses"], lv["rail_km"], lv["evaluation"])
+                                          for lv in levels), key=lambda p: p[0])
+    x = np.array([p[0] for p in pts]) * 100
+    daily = np.array([p[3]["daily"]["mean_t"] for p in pts])
+    lo = np.array([min(h["mean_t"] for h in p[3]["hours"].values()) for p in pts])
+    hi = np.array([max(h["mean_t"] for h in p[3]["hours"].values()) for p in pts])
+    fig, ax = plt.subplots(figsize=(9.5, 5.4))
+    ax.fill_between(x, lo, hi, color=blue, alpha=0.14, lw=0, label="en hızlı – en yavaş saat (08–20)")
+    ax.plot(x, daily, color=blue, lw=2, marker="o", ms=8, mec="white", mew=2,
+            label="günlük ortalama (yolcu ağırlıklı)")
+    for k, (sp, buses, km, ev) in enumerate(pts):
+        txt = "bugün" if k == 0 else f"+{buses} otobüs\n+{km:.0f} km raylı"
+        ax.annotate(f"{daily[k]:.1f} dk\n{txt}", (x[k], daily[k]), xytext=(0, -12), textcoords="offset points",
+                    ha="center", va="top", fontsize=8, color=ink)
     ax.axhline(target, color=muted, lw=1.2, ls=(0, (5, 3)))
-    ax.annotate(f"hedef {target:.0f} dk", (0, target), xytext=(4, 4), textcoords="offset points",
-                fontsize=9, color=muted)
-    ax.set_xlabel("bütçenin kullanılan payı (%)  —  ek otobüs ve yeni raylı km ortalaması", color=muted)
-    ax.set_ylabel("ortalama kapıdan kapıya süre (dk)", color=muted)
+    ax.annotate(f"hedef {target:.0f} dk", (x.max() if len(x) else 0, target), xytext=(0, 4),
+                textcoords="offset points", ha="right", fontsize=9, color=muted)
+    ax.set_xlabel("bütçe üst sınırının kullanılan payı (%)  —  ek otobüs ve yeni raylı km ortalaması", color=muted)
+    ax.set_ylabel("kapıdan kapıya ortalama süre (dk)", color=muted)
     ax.grid(True, color=grid, lw=0.8)
     ax.set_axisbelow(True)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    for s in ("left", "bottom"):
-        ax.spines[s].set_color(grid)
+    for sname in ("top", "right"):
+        ax.spines[sname].set_visible(False)
+    for sname in ("left", "bottom"):
+        ax.spines[sname].set_color(grid)
     ax.tick_params(colors=muted)
-    allv = [v for lv in levels for v in (lv["evaluation"]["hours"][h]["mean_t"] for h in hours)]
-    allv += [base["hours"][h]["mean_t"] for h in hours]
-    ax.set_ylim(min(target, min(allv)) - 2, max(allv) + 2)
-    ax.set_xlim(-2, 122)
-    ax.set_xticks([0, 25, 50, 75, 100])
+    ymin = min(target, lo.min()) - 6
+    ax.set_ylim(ymin, hi.max() + 2)
+    ax.set_xlim(-4, max(x.max(), 10) + 6)
     ax.legend(loc="upper right", frameon=False, fontsize=9, labelcolor=ink)
-    ax.set_title("Yatırım arttıkça ortalama yolculuk süresi (tam değerlendirme)", color=ink, fontsize=11, loc="left")
+    ax.set_title("Yatırım arttıkça kapıdan kapıya süre (tam değerlendirme, 08:00–20:00 her 2 saatte)",
+                 color=ink, fontsize=11, loc="left")
     fig.tight_layout()
     fig.savefig(path, dpi=150)
     plt.close(fig)

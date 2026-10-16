@@ -82,14 +82,16 @@ def cmd_calibrate(args):
 
 
 def cmd_frontier(args):
-    """Greedy investment path within relative budgets; full evaluation + maps at checkpoints."""
+    """Greedy investment path within budget caps; full evaluation + maps at checkpoints,
+    stopping once the passenger-weighted daily mean reaches the target (if set)."""
     import csv
 
     from .frontier import run_frontier
     from .report import plot_frontier
 
     city = _city(args)
-    out = Path(args.out or f"results/{city.cfg['name']}") / "frontier"
+    fc = city.cfg["frontier"]
+    out = Path(args.out or f"results/{city.cfg['name']}") / fc.get("out_dir", "frontier")
     out.mkdir(parents=True, exist_ok=True)
     full = Evaluator(city)
     base = full.evaluate(city.base).summary()
@@ -98,20 +100,23 @@ def cmd_frontier(args):
     def checkpoint(level, sc, selected, steps):
         t = time.time()
         res = full.evaluate(sc).summary()
-        tag = f"level_{int(round(level * 100)):03d}"
+        tag = "target" if level == "target" else f"level_{int(round(level * 100)):03d}"
         d = out / tag
         d.mkdir(exist_ok=True)
         with open(d / "scenario.pkl", "wb") as f:
             pickle.dump(sc, f)
+        buses, km = steps[-1]["buses"], steps[-1]["rail_km"]
+        title = f"İstanbul: +{buses} otobüs, +{km:.0f} km raylı (günlük ort. {res['daily']['mean_t']:.1f} dk)"
         write_json(scenario_geojson(city, sc, only_new=True), d / "new_lines.geojson")
-        plot_map(city, city.base, sc, d / "map.png", f"{city.cfg['name']}: bütçenin %{level * 100:.0f}'i")
-        web_map(city, city.base, sc, d / "map.html", f"{city.cfg['name']}: bütçenin %{level * 100:.0f}'i")
-        info = {"level": level, "actions": [a.label() for a in selected], "evaluation": res,
-                "buses": steps[-1]["buses"], "rail_km": steps[-1]["rail_km"]}
+        plot_map(city, city.base, sc, d / "map.png", title)
+        web_map(city, city.base, sc, d / "map.html", title)
+        info = {"level": level, "spend": steps[-1]["spend"], "actions": [a.label() for a in selected],
+                "evaluation": res, "buses": buses, "rail_km": km}
         write_json(info, d / "summary.json")
         levels.append(info)
-        log.info("checkpoint %s: %s [%.0fs]", tag, {h: round(v["mean_t"], 1) for h, v in res["hours"].items()},
-                 time.time() - t)
+        log.info("checkpoint %s: daily %.1f, hours %s [%.0fs]", tag, res["daily"]["mean_t"],
+                 {h: round(v["mean_t"], 1) for h, v in res["hours"].items()}, time.time() - t)
+        return res["daily"]["mean_t"]
 
     res = run_frontier(city, on_checkpoint=checkpoint)
     with open(out / "frontier.csv", "w", newline="", encoding="utf-8") as f:
@@ -119,37 +124,49 @@ def cmd_frontier(args):
         w = csv.DictWriter(f, fieldnames=keys)
         w.writeheader()
         w.writerows(res["steps"])
-    plot_frontier(res["steps"], base, levels, out / "frontier.png", target=city.cfg["frontier"].get("target_min", 50))
+    target = fc.get("target_min", 50)
+    plot_frontier(res["steps"], base, levels, out / "frontier.png", target=target)
     report = {"inventory": res["inventory"], "budget": res["budget"], "base": base, "levels": levels,
               "steps": res["steps"]}
     write_json(report, out / "frontier.json")
-    md = frontier_markdown(report, city.cfg["frontier"].get("target_min", 50))
+    md = frontier_markdown(report, target)
     (out / "summary.md").write_text(md, encoding="utf-8")
     print(md)
 
 
 def frontier_markdown(rep: dict, target: float) -> str:
     inv, bud, base = rep["inventory"], rep["budget"], rep["base"]
+    hours = list(base["hours"])
     lines = [f"Bugünkü ağ: zirve otobüs filosu ≈ {inv['bus_fleet_peak']:.0f}, raylı sistem ≈ {inv['rail_km']:.0f} km "
              f"({inv['rail_lines']} hat).",
-             f"Bütçe: +{bud['extra_buses']:.0f} otobüs (filonun %{100 * bud['extra_buses'] / max(inv['bus_fleet_peak'], 1):.0f}'i), "
-             f"+{bud['rail_km']:.0f} km raylı sistem (ağın %{100 * bud['rail_km'] / max(inv['rail_km'], 1):.0f}'i).", "",
-             "| seviye | ek otobüs | yeni raylı km | ort. süre 08:00 | ort. süre 18:00 | 60 dk altı (08:00) |",
-             "|---|---|---|---|---|---|"]
-    hours = list(base["hours"])
-    lines.append(f"| bugün | 0 | 0 | {base['hours'][hours[0]]['mean_t']:.1f} | {base['hours'][hours[-1]]['mean_t']:.1f} | "
-                 f"{base['hours'][hours[0]]['share_le_z']:.0%} |")
-    for lv in rep["levels"]:
-        e = lv["evaluation"]["hours"]
-        lines.append(f"| %{lv['level'] * 100:.0f} | {lv['buses']} | {lv['rail_km']:.1f} | {e[hours[0]]['mean_t']:.1f} | "
-                     f"{e[hours[-1]]['mean_t']:.1f} | {e[hours[0]]['share_le_z']:.0%} |")
-    best = min((lv["evaluation"]["hours"][hours[0]]["mean_t"] for lv in rep["levels"]), default=None)
-    if best is not None:
-        lines.append("")
-        lines.append(f"Hedef {target:.0f} dk: " + ("ulaşıldı." if best <= target else
-                     f"bu bütçeyle ulaşılamadı (en iyi {best:.1f} dk)."))
+             f"Bütçe üst sınırı: +{bud['extra_buses']:.0f} otobüs (filonun %{100 * bud['extra_buses'] / max(inv['bus_fleet_peak'], 1):.0f}'i), "
+             f"+{bud['rail_km']:.0f} km raylı sistem (ağın %{100 * bud['rail_km'] / max(inv['rail_km'], 1):.0f}'i).",
+             f"Değerlendirilen saatler: {', '.join(f'{h}:00' for h in hours)}. Günlük ortalama, her saatin yolcu "
+             f"hacmiyle ağırlıklıdır.", "",
+             "| seviye | ek otobüs | yeni raylı km | günlük ort. | " + " | ".join(f"{h}:00" for h in hours) + " |",
+             "|---|---|---|---|" + "---|" * len(hours)]
+
+    def row(name, buses, km, ev):
+        return (f"| {name} | {buses} | {km:.0f} | **{ev['daily']['mean_t']:.1f}** | "
+                + " | ".join(f"{ev['hours'][h]['mean_t']:.1f}" for h in hours) + " |")
+
+    lines.append(row("bugün", 0, 0.0, base))
+    for lv in sorted(rep["levels"], key=lambda lv: lv["spend"]):
+        name = "hedef" if lv["level"] == "target" else f"%{lv['spend'] * 100:.0f} bütçe"
+        lines.append(row(name, lv["buses"], lv["rail_km"], lv["evaluation"]))
+    reached = [lv for lv in rep["levels"] if lv["evaluation"]["daily"]["mean_t"] <= target]
+    lines.append("")
+    if reached:
+        lv = min(reached, key=lambda lv: lv["spend"])
+        lines.append(f"**Hedef {target:.0f} dk'ya ulaşıldı:** +{lv['buses']} otobüs (bugünkü filonun "
+                     f"%{100 * lv['buses'] / max(inv['bus_fleet_peak'], 1):.0f}'i) ve +{lv['rail_km']:.0f} km raylı sistem "
+                     f"(bugünkü ağın %{100 * lv['rail_km'] / max(inv['rail_km'], 1):.0f}'i).")
+    elif rep["levels"]:
+        best = min(lv["evaluation"]["daily"]["mean_t"] for lv in rep["levels"])
+        lines.append(f"**Hedef {target:.0f} dk'ya bu bütçe üst sınırıyla ulaşılamadı** (en iyi günlük ortalama {best:.1f} dk).")
     lines += ["", "**Seçilen yatırımlar (sırayla)**", ""]
-    lines += [f"{s['step']}. {s['action']} → J {s['objective']:.1f}" for s in rep["steps"][1:]]
+    lines += [f"{s['step']}. {s['action']} → günlük ort. {s.get('mean_t_daily', float('nan')):.1f} dk"
+              for s in rep["steps"][1:]]
     return "\n".join(lines) + "\n"
 
 

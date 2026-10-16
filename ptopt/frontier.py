@@ -242,8 +242,11 @@ def run_frontier(city: City, on_checkpoint=None) -> dict:
     B = fc["bus_share"] * inv["bus_fleet_peak"]
     K = fc["rail_share"] * inv["rail_km"]
     log.info("inventory %s -> budget: %.0f extra buses, %.1f new rail km", inv, B, K)
-    cheap = Evaluator(city, K=fc["cheap_K"], M=1, n_origins=fc["cheap_origins"])
+    # screening may use a subset of hours; the shortlist and the recorded path use all of them
+    cheap = Evaluator(city, hours=fc.get("screen_hours") or None, K=fc["cheap_K"], M=1,
+                      n_origins=fc["cheap_origins"])
     fast = Evaluator(city, K=fc["fast_K"], M=fc["fast_M"], n_origins=fc["fast_origins"])
+    target = fc.get("target_min")
     evs = {"cheap": cheap, "fast": fast}
     n_jobs = fc.get("n_jobs") or os.cpu_count() or 1
 
@@ -253,11 +256,13 @@ def run_frontier(city: City, on_checkpoint=None) -> dict:
     j_fast = fast.evaluate(sc).summary()
     j_cheap = cheap.evaluate(sc).objective
     steps = [{"step": 0, "action": "mevcut durum", "buses": 0, "rail_km": 0.0, "spend": 0.0,
-              "objective": j_fast["objective"], **{f"mean_t_{h}": v["mean_t"] for h, v in j_fast["hours"].items()}}]
+              "objective": j_fast["objective"], "mean_t_daily": j_fast["daily"]["mean_t"],
+              **{f"mean_t_{h}": v["mean_t"] for h, v in j_fast["hours"].items()}}]
     checkpoints = sorted(fc["checkpoints"])
     next_cp = 0
     pool: list[Action] = []
     taken = set()
+    spend, cp_done_at = 0.0, -1.0
     for step in range(1, fc["max_steps"] + 1):
         if (step - 1) % fc["regen_every"] == 0:
             cands = generate_candidates(city, cheap, sc)
@@ -314,14 +319,25 @@ def run_frontier(city: City, on_checkpoint=None) -> dict:
         steps.append({"step": step, "action": label, "kind": "+".join(a.kind for a in batch),
                       "aid": "+".join(a.aid for a in batch), "buses": used_b,
                       "rail_km": round(used_k, 2), "spend": spend, "objective": summ["objective"],
+                      "mean_t_daily": summ["daily"]["mean_t"],
                       **{f"mean_t_{h}": v["mean_t"] for h, v in summ["hours"].items()}})
-        log.info("step %d: %s | buses %d/%.0f, rail %.1f/%.1f km | J %.2f", step, label, used_b, B,
-                 used_k, K, summ["objective"])
+        log.info("step %d: %s | buses %d/%.0f, rail %.1f/%.1f km | J %.2f | daily mean %.1f min", step, label,
+                 used_b, B, used_k, K, summ["objective"], summ["daily"]["mean_t"])
         while next_cp < len(checkpoints) and spend >= checkpoints[next_cp]:
             if on_checkpoint:
                 on_checkpoint(checkpoints[next_cp], sc, list(selected), steps)
+                cp_done_at = spend
             next_cp += 1
-    if on_checkpoint and (next_cp < len(checkpoints)):
-        on_checkpoint(1.0, sc, list(selected), steps)
+        if target is not None and summ["daily"]["mean_t"] <= target:
+            confirmed = on_checkpoint("target", sc, list(selected), steps) if on_checkpoint else None
+            cp_done_at = spend
+            if fc.get("stop_at_target", True) and (confirmed is None or confirmed <= target):
+                log.info("target %.0f min reached (daily mean %.1f on the full sample)", target,
+                         confirmed if confirmed is not None else summ["daily"]["mean_t"])
+                break
+    else:
+        log.info("step limit reached")
+    if on_checkpoint and len(steps) > 1 and cp_done_at < spend:
+        on_checkpoint(spend, sc, list(selected), steps)
     return {"inventory": inv, "budget": {"extra_buses": B, "rail_km": K}, "steps": steps,
             "selected": selected, "scenario": sc}
