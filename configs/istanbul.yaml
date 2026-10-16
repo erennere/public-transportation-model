@@ -107,7 +107,7 @@ optimization:
 # the run stops as soon as the target is reached on the full sample.
 frontier:
   bus_share: 1.0       # up to +100% of today's peak bus fleet
-  rail_share: 2.0      # up to +200% of today's rail network length (new lines + extensions)
+  rail_share: 3.0      # up to +300% of today's rail network length (new lines + extensions)
   target_min: 50
   stop_at_target: true
   out_dir: frontier_50dk
