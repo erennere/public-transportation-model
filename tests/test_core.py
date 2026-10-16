@@ -210,3 +210,13 @@ def test_extend_and_boost_actions_modify_lines():
     assert sc.stops["x"].to_numpy()[b.stops].tolist() == [5000.0, 4000.0, 2900.0, 100.0]
     assert a.headway_min[8] == pytest.approx(5.0)
     assert len(city.base.lines[0].stops) == 2  # base scenario untouched
+
+
+def test_time_breakdown_components_add_up(synth):
+    from ptopt.analysis import time_breakdown
+    r = time_breakdown(synth, synth.base, 8, K=300, n_origins=40)
+    a = r["all"]
+    parts = a["access_egress"] + a["transfer_walk"] + a["wait"] + a["in_vehicle"]
+    unreachable_part = a["share_unreachable"] * 180.0
+    assert a["mean_total"] == pytest.approx(parts + unreachable_part, rel=1e-6)
+    assert a["in_vehicle"] > 0 and a["wait"] > 0

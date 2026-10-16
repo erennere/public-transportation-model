@@ -153,6 +153,28 @@ def frontier_markdown(rep: dict, target: float) -> str:
     return "\n".join(lines) + "\n"
 
 
+def cmd_explain(args):
+    """Where the time goes: walk / wait / ride per distance band, today vs a saved scenario."""
+    from .analysis import time_breakdown
+
+    city = _city(args)
+    hour = (args.hours or [8])[0]
+    rows = {"bugün": time_breakdown(city, city.base, hour)}
+    if args.scenario:
+        with open(args.scenario, "rb") as f:
+            rows["senaryo"] = time_breakdown(city, pickle.load(f), hour)
+    out = Path(args.out or f"results/{city.cfg['name']}")
+    write_json(rows, out / f"time_breakdown_{hour}.json")
+    keys = [("mean_total", "toplam"), ("access_egress", "durağa/duraktan yürüme"), ("wait", "bekleme"),
+            ("in_vehicle", "araç içi"), ("transfer_walk", "aktarma yürüyüşü"),
+            ("boardings_per_transit_trip", "biniş sayısı"), ("share_unreachable", "bağlantısız pay")]
+    print(f"| {hour}:00 | " + " | ".join(rows) + " |\n|---|" + "---|" * len(rows))
+    for k, label in keys:
+        vals = [r["all"][k] for r in rows.values()]
+        fmt = (lambda v: f"{v:.1%}") if k.startswith("share") else (lambda v: f"{v:.1f}")
+        print(f"| {label} | " + " | ".join(fmt(v) for v in vals) + " |")
+
+
 def cmd_download(args):
     download_all(load_config(args.config))
 
@@ -247,7 +269,7 @@ def main(argv=None):
     sub = p.add_subparsers(dest="cmd", required=True)
     for name, fn in (("download", cmd_download), ("build", cmd_build), ("evaluate", cmd_evaluate),
                      ("optimize", cmd_optimize), ("map", cmd_map), ("calibrate", cmd_calibrate),
-                     ("frontier", cmd_frontier)):
+                     ("frontier", cmd_frontier), ("explain", cmd_explain)):
         s = sub.add_parser(name)
         s.add_argument("--config", required=True)
         s.add_argument("--out")
@@ -257,6 +279,8 @@ def main(argv=None):
         s.add_argument("--M", type=int)
         if name == "optimize":
             s.add_argument("--skip-frequencies", action="store_true")
+        if name == "explain":
+            s.add_argument("--scenario", help="pickled scenario, e.g. results/istanbul/frontier/level_100/scenario.pkl")
         s.set_defaults(fn=fn)
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO,
