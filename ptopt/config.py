@@ -132,7 +132,8 @@ DEFAULTS: dict = {
         "shortlist": 6,
         "regen_every": 4,        # regenerate new-line candidates every n steps
         "boost_top": 40,         # busiest bus routes considered for more buses
-        "boost_factor": 0.67,    # headway multiplier of one boost (= +50% buses)
+        "boost_factor": 0.5,     # headway multiplier of one boost (= twice the buses)
+        "batch": 3,              # actions on different routes/corridors taken per step
         "max_steps": 80,
         "checkpoints": [0.25, 0.5, 0.75, 1.0],  # share of budget spent -> full evaluation + maps
         "n_jobs": None,

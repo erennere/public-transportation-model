@@ -213,6 +213,13 @@ def boost_actions(city: City, sc: Scenario, ev: Evaluator, hour: int, top: int, 
 
 
 # ---------------------------------------------------------------- search
+def _group(a: Action) -> str:
+    """Actions in the same group interact strongly and are not combined in one step."""
+    if a.kind == "line":
+        return f"line:{a.cand.meta.get('corridor', a.aid)}"
+    return f"{a.kind}:{a.route}"
+
+
 def _eval_worker(args):
     actions, which = args
     ev = _WORKER["cheap"] if which == "cheap" else _WORKER["fast"]
@@ -273,23 +280,42 @@ def run_frontier(city: City, on_checkpoint=None) -> dict:
             break
         jf = _parallel(city, evs, [(selected + [actions[i]], "fast") for i in order], n_jobs)
         gains = [(steps[-1]["objective"] - j) / max(cost[i], 1e-3) for i, j in zip(order, jf)]
-        k = int(np.argmax(gains))
-        if gains[k] <= 0:
+        ranked = sorted(range(len(order)), key=lambda q: -gains[q])
+        if gains[ranked[0]] <= 0:
             log.info("step %d: shortlisted actions do not improve on the larger sample", step)
             break
-        a = actions[order[k]]
-        selected.append(a)
-        taken.add(a.aid)
-        used_b += a.cost_buses
-        used_k += a.cost_km
+        # take up to `batch` good actions on different routes / corridors at once
+        batch = [actions[order[ranked[0]]]]
+        groups = {_group(batch[0])}
+        for q in ranked[1:]:
+            a2 = actions[order[q]]
+            if len(batch) >= fc.get("batch", 1) or gains[q] <= 0:
+                break
+            nb = used_b + sum(a.cost_buses for a in batch) + a2.cost_buses
+            nk = used_k + sum(a.cost_km for a in batch) + a2.cost_km
+            if _group(a2) in groups or nb > B + 1e-6 or nk > K + 1e-6:
+                continue
+            batch.append(a2)
+            groups.add(_group(a2))
+        if len(batch) > 1:  # keep the combination only if it beats the single best action
+            j_batch = fast.evaluate(apply_actions(city, selected + batch)).objective
+            if j_batch >= jf[ranked[0]]:
+                batch = batch[:1]
+        for a in batch:
+            selected.append(a)
+            taken.add(a.aid)
+            used_b += a.cost_buses
+            used_k += a.cost_km
         sc = apply_actions(city, selected)
-        j_cheap = js[order[k]]
+        j_cheap = cheap.evaluate(sc).objective if len(batch) > 1 else js[order[ranked[0]]]
         summ = fast.evaluate(sc).summary()
         spend = (used_b / max(B, 1) + used_k / max(K, 1e-6)) / 2
-        steps.append({"step": step, "action": a.label(), "kind": a.kind, "aid": a.aid, "buses": used_b,
+        label = " + ".join(a.label() for a in batch)
+        steps.append({"step": step, "action": label, "kind": "+".join(a.kind for a in batch),
+                      "aid": "+".join(a.aid for a in batch), "buses": used_b,
                       "rail_km": round(used_k, 2), "spend": spend, "objective": summ["objective"],
                       **{f"mean_t_{h}": v["mean_t"] for h, v in summ["hours"].items()}})
-        log.info("step %d: %s | buses %d/%.0f, rail %.1f/%.1f km | J %.2f", step, a.label(), used_b, B,
+        log.info("step %d: %s | buses %d/%.0f, rail %.1f/%.1f km | J %.2f", step, label, used_b, B,
                  used_k, K, summ["objective"])
         while next_cp < len(checkpoints) and spend >= checkpoints[next_cp]:
             if on_checkpoint:
