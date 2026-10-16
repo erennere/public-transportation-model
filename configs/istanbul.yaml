@@ -1,6 +1,8 @@
-# İstanbul — whole metropolitan area.
+# İstanbul — the whole province (Silivri to Şile), clipped to the official
+# administrative boundary so neighbouring Kocaeli (Gebze) is excluded.
 name: istanbul
-bbox: [28.45, 40.80, 29.45, 41.30]   # [min_lon, min_lat, max_lon, max_lat]
+bbox: [27.95, 40.72, 29.97, 41.68]   # [min_lon, min_lat, max_lon, max_lat]
+boundary: {name: "İstanbul", admin_level: 4}
 data_dir: data
 
 zones:
@@ -34,10 +36,11 @@ gtfs:
       stops.csv: https://data.ibb.gov.tr/dataset/8540e256-6df5-4719-85bc-e64e91508ede/resource/2299bc82-983b-4bdf-8520-5cef8c555e29/download/stops.csv
       trips.csv: https://data.ibb.gov.tr/dataset/8540e256-6df5-4719-85bc-e64e91508ede/resource/7ff49bdd-b0d2-4a6e-9392-b598f77f5070/download/trips.csv
       stop_times.zip: https://data.ibb.gov.tr/dataset/8540e256-6df5-4719-85bc-e64e91508ede/resource/80401c1c-c240-4a32-8f40-ef697100a681/download/stop_times.zip
-  # Metro İstanbul, Marmaray (TCDD), Şehir Hatları / İDO ferries
+  # Ferries (Şehir Hatları, İDO, Turyol, Dentur). Rail from this 2024 feed is
+  # replaced by the current OSM rail network below (transit_osm).
   - name: rail
     dir: rail
-    exclude_route_types: ["9", "10"]      # minibus / dolmuş: informal, no reliable schedules
+    include_modes: [ferry]
     urls:
       agency.csv: https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/42ae499d-ae9c-4906-ac5c-96e0c155e00b/download/agency.csv
       calendar.csv: https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/c84ca913-29ac-4f15-87cd-076aef3dccd6/download/calendar.csv
@@ -46,6 +49,22 @@ gtfs:
       stop_times.csv: https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/ac646b83-3b6f-4ca2-afb4-9071ab44d9af/download/stop_times.csv
       stops.csv: https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/d1f7c258-bbc1-406f-9ab2-7a7c1797c673/download/stops.csv
       trips.csv: https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/dcee1700-e59f-4a5f-8009-f602045a4507/download/trips.csv
+
+# Current rail network (metro, tram, Marmaray, suburban, funicular) from OSM
+# route relations: includes lines opened after 2024 (M11 to Halkalı, M3/M4/M5
+# extensions, T5, T6 ...). OSM has no timetables: headways are [peak, off-peak]
+# minutes per route type, overridden by a relation's `interval` tag if present.
+transit_osm:
+  train_include: "Marmaray|Banliyö|\\bT6\\b"   # suburban rail only, no YHT / regional trains
+  # planned tram, no ref / opening date in OSM; enable once it is in service
+  exclude: "Üsküdar-Cevizli|Cevizli-Üsküdar"
+  headways:
+    subway: [4, 7]
+    light_rail: [5, 8]
+    monorail: [5, 8]
+    tram: [5, 8]
+    train: [8, 15]
+    funicular: [5, 8]
 
 traffic:
   source: ibb   # İBB hourly traffic density (geohash-6 average speeds)
@@ -75,10 +94,16 @@ evaluation:
     - {name: "Pendik -> Ataşehir", x: [29.233, 40.877], y: [29.112, 40.993]}
 
 candidates:
-  n_corridors: 25
+  n_corridors: 40
 
 optimization:
   budget: {extra_buses: 300, metro_km: 40}
   greedy_rounds: 8
   anneal_iters: 60
   eval_origins: 150   # fewer shortest-path trees while searching; final evaluation uses the full sample
+
+# Budget–time frontier (ptopt frontier): budgets relative to today's network
+frontier:
+  bus_share: 0.20      # up to +20% of today's peak bus fleet
+  rail_share: 0.30     # up to +30% of today's rail network length (new lines + extensions)
+  target_min: 50       # mean door-to-door time the city aims for

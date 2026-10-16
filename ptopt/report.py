@@ -130,6 +130,24 @@ def plot_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title
             ax.annotate(f"{ln.name}", (ox[ln.stops[0]], oy[ln.stops[0]]), fontsize=8, fontweight="bold",
                         color="white", zorder=10, bbox=dict(boxstyle="round,pad=0.2", fc=col, ec="none"))
             handles.append(Line2D([], [], color=col, lw=3, ls=ls, marker="o", ms=4, label=f"YENİ {kind}: {ln.name}"))
+        ext_seen = set()
+        for ln in opt.lines:
+            ext = ln.meta.get("ext_stops")
+            if not ext or ln.name in ext_seen:
+                continue
+            ext_seen.add(ln.name)
+            pos = [k for k, s in enumerate(ln.stops) if s in set(ext)]
+            for run in _runs(pos):  # each extension incl. the old terminal it starts from
+                k0, k1 = max(run[0] - 1, 0), min(run[-1] + 1, len(ln.stops) - 1)
+                seg = ln.stops[k0:k1 + 1]
+                ax.plot(ox[seg], oy[seg], color="#6250d6", lw=4.5, ls=(0, (4, 1.5)), zorder=8)
+                ax.scatter(ox[seg], oy[seg], s=22, color="#6250d6", edgecolor="white", lw=0.8, zorder=9)
+            ax.annotate(f"{_short(ln.name)} uzatma", (ox[ln.stops[pos[-1]]], oy[ln.stops[pos[-1]]]), fontsize=8,
+                        fontweight="bold", color="white", zorder=10,
+                        bbox=dict(boxstyle="round,pad=0.2", fc="#6250d6", ec="none"))
+        if ext_seen:
+            handles.append(Line2D([], [], color="#6250d6", lw=3, ls=(0, (4, 1.5)), marker="o", ms=4,
+                                  label="mevcut raylı hat uzatması"))
     xs_all = np.concatenate([[p[0] for p in s_] for s_ in sq])
     ys_all = np.concatenate([[p[1] for p in s_] for s_ in sq])
     ax.set_xlim(xs_all.min(), xs_all.max())
@@ -226,6 +244,61 @@ def web_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title:
             f'<div style="position:fixed;top:10px;left:60px;z-index:9999;background:white;padding:6px 10px;'
             f'border-radius:6px;font:600 14px sans-serif;box-shadow:0 1px 4px rgba(0,0,0,.3)">{title}</div>'))
     m.save(str(path))
+
+
+def _runs(pos: list[int]) -> list[list[int]]:
+    """Split sorted positions into runs of consecutive integers."""
+    runs: list[list[int]] = []
+    for p in pos:
+        if runs and p == runs[-1][-1] + 1:
+            runs[-1].append(p)
+        else:
+            runs.append([p])
+    return runs
+
+
+def plot_frontier(steps: list[dict], base: dict, levels: list[dict], path: Path, target: float = 50.0) -> None:
+    """Mean door-to-door time vs share of the budget spent (one line per hour)."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    hours = list(base["hours"])
+    colors = ["#2a78d6", "#eb6834"]  # categorical slots 1, 2 (validated reference palette)
+    ink, muted, grid = "#0b0b0b", "#52514e", "#e4e3df"
+    fig, ax = plt.subplots(figsize=(9, 5.2))
+    x = np.array([s["spend"] for s in steps]) * 100
+    for i, h in enumerate(hours):
+        y = np.array([s.get(f"mean_t_{h}", np.nan) for s in steps])
+        ax.plot(x, y, color=colors[i % 2], lw=2, label=f"{h}:00 (hızlı örneklem)")
+        lx = [lv["level"] * 100 for lv in levels]
+        ly = [lv["evaluation"]["hours"][h]["mean_t"] for lv in levels]
+        ax.plot(lx, ly, "o", ms=8, color=colors[i % 2], mec="white", mew=2, zorder=5)
+        if len(x):
+            ax.annotate(f"{h}:00  {y[-1]:.1f} dk", (x[-1], y[-1]), xytext=(6, 0), textcoords="offset points",
+                        va="center", fontsize=9, color=ink)
+    ax.axhline(target, color=muted, lw=1.2, ls=(0, (5, 3)))
+    ax.annotate(f"hedef {target:.0f} dk", (0, target), xytext=(4, 4), textcoords="offset points",
+                fontsize=9, color=muted)
+    ax.set_xlabel("bütçenin kullanılan payı (%)  —  ek otobüs ve yeni raylı km ortalaması", color=muted)
+    ax.set_ylabel("ortalama kapıdan kapıya süre (dk)", color=muted)
+    ax.grid(True, color=grid, lw=0.8)
+    ax.set_axisbelow(True)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    for s in ("left", "bottom"):
+        ax.spines[s].set_color(grid)
+    ax.tick_params(colors=muted)
+    lo = min(target, np.nanmin([s.get(f"mean_t_{h}", np.nan) for s in steps for h in hours])) - 3
+    hi = np.nanmax([s.get(f"mean_t_{h}", np.nan) for s in steps for h in hours]) + 3
+    ax.set_ylim(lo, hi)
+    ax.set_xlim(0, max(100, x.max() if len(x) else 100) + 12)
+    ax.legend(loc="upper right", frameon=False, fontsize=9, labelcolor=ink)
+    ax.set_title("Yatırım arttıkça ortalama yolculuk süresi (noktalar: tam değerlendirme)", color=ink, fontsize=11,
+                 loc="left")
+    fig.tight_layout()
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
 
 
 def write_json(obj, path: Path) -> None:

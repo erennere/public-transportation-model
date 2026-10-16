@@ -63,8 +63,16 @@ Frekans tabanlı bir graf, her saat için ayrı kurulur:
 
 * Yürüme erişimi / çıkışı: bölge merkezinden 800 m içindeki duraklar, kuş uçuşu × 1.3, 4.5 km/s.
 * Aktarma: 250 m içindeki duraklar arası yürüme.
-* Biniş: `min(headway/2, 15 dk) + 2 dk ceza`. Headway her hat paterni için GTFS'teki o saatteki
-  sefer sayısından (`60 / sefer`, 3 saatlik kayan ortalama) hesaplanır.
+* Biniş: `min(1 / (2·Σf), bekleme_tavanı) + biniş cezası`. Σf, aynı **sonraki iki durağa** giden
+  tüm hatların o saatteki toplam sefer sıklığıdır ("ortak hatlar": aynı caddeden geçen 5 hattan
+  hangisi önce gelirse ona binilir; Spiess–Florian hiperyol mantığının yaklaşığı).
+* Headway her hat için GTFS'teki o saatteki sefer sayısından (`60 / sefer`, 3 saatlik kayan
+  ortalama) hesaplanır. İETT bir hattı çok sayıda varyanta böldüğü için (farklı ilk durak, küçük
+  sapmalar) aynı hat ve yöndeki varyantlar, durakları en az %70 ortak ise ana güzergâhta
+  birleştirilip sıklıkları toplanır.
+* Raylı ağ (metro, tramvay, Marmaray, banliyö, füniküler) OpenStreetMap hat ilişkilerinden kurulur
+  (İBB'nin raylı GTFS'i 2024 tarihli ve yeni hatları içermiyor). OSM'de sefer saati olmadığı için
+  zirve/zirve dışı headway mod bazında varsayılan değerlerden (`transit_osm.headways`) gelir.
 * Araç içi süre:
   * GTFS tüm duraklarda saat veriyorsa (raylı sistem, vapur) doğrudan o süreler,
   * otobüs: `mesafe × 1.3 / min(trafik_hızı(konum, saat) × 0.75, 40 km/s) + 20 sn`,
@@ -73,6 +81,21 @@ Frekans tabanlı bir graf, her saat için ayrı kurulur:
 
 Araba süresi: başlangıç–varış doğrusu üzerindeki trafik hızlarının harmonik ortalaması ile
 `mesafe × 1.3 / hız + 5 dk` (park/erişim).
+
+### Kalibrasyon (Google Routes + TomTom)
+
+Talep ağırlıklı 600 örnek yolculuk (08:00 ve 18:00) için Google Routes API'den trafikli araba ve
+toplu taşıma süreleri, TomTom'dan trafikli araba süresi alınır (hafta içi bir gün, o saatte kalkış).
+
+* Araba: her yolculuk için modelin hızını gözleme eşitleyen çarpan hesaplanır; çarpanlar en yakın
+  10 yolculukla mekânsal olarak yumuşatılıp İBB hız alanının üzerine uygulanır. Otobüs hızları da
+  bu düzeltilmiş alandan türetilir.
+* Toplu taşıma: otobüs hız katsayısı, biniş cezası, bekleme tavanı, yürüme dolambaç katsayısı,
+  erişim yarıçapı ve raylı hız ölçeği, model süresi ile Google süresi arasındaki log farkın karesi
+  en küçük olacak şekilde (Nelder–Mead) ayarlanır.
+
+Sonuç `data/processed/calibration_<şehir>.json`'a yazılır ve sonraki tüm komutlarda otomatik uygulanır;
+öncesi/sonrası hata istatistikleri `results/<şehir>/calibration.json`'dadır.
 
 ## 5. Metrikler
 
@@ -117,7 +140,24 @@ Araba süresi: başlangıç–varış doğrusu üzerindeki trafik hızlarının 
 Otobüs filosu ihtiyacı: `⌈tur_süresi / headway⌉`, tur süresi zirve saatteki trafik hızıyla
 hesaplanan gidiş-dönüş süresi + %10 bekleme.
 
-## 8. Bilinen sınırlamalar
+## 8. Bütçe–süre eğrisi (`ptopt frontier`)
+
+Bütçe bugünkü ağa göre tanımlanır: ek otobüs ≤ zirve filonun %20'si, yeni raylı km ≤ raylı ağ
+uzunluğunun %30'u. Her adımda dört tür yatırım aday olur:
+
+1. yeni metro hattı (koridor üzerinde, 1.2 km istasyon aralığı),
+2. mevcut metro / raylı hattın bir ucundan 4 veya 8 km uzatılması (aktarma olmadan devam eder;
+   yön, ileri 120°'lik koni içinde en yoğun nüfus+iş bölgelerine göre seçilir),
+3. yeni otobüs hattı (sokaklar üzerinde),
+4. en yoğun otobüs hatlarına %50 ek araç (headway × 0.67).
+
+Seçim, normalleştirilmiş maliyet başına amaç fonksiyonu kazancına göre yapılır
+(`maliyet = ek_otobüs / otobüs_bütçesi + km / km_bütçesi`). Her aday önce küçük bir örneklemle
+taranır, en iyi 6 aday daha büyük örneklemle yeniden değerlendirilir. Ağ büyüdükçe yeni hat adayları
+güncel ağın açıklarından yeniden üretilir. Bütçenin %25/50/75/100'ü harcandığında tam değerlendirme
+yapılır ve harita çizilir.
+
+## 9. Bilinen sınırlamalar
 
 * Araç kapasitesi / kalabalık modellenmiyor (yükler raporlanıyor). Sonraki adım: kapasite
   kısıtlı atama.

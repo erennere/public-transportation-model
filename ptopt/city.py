@@ -8,10 +8,14 @@ import pickle
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
+import shapely
 
 from .geo import Projector, utm_crs_for
+from .io.boundary import admin_boundary, inside
 from .io.download import fetch, unzip_if_needed
 from .io.gtfs import load_feeds
+from .io.osm_transit import rail_lines, read_rail_relations
 from .io.osm import fetch_pois, pois_from_pbf
 from .io.ridership import ibb_hourly_profile
 from .io.roads import CACHE_VERSION as ROADS_CACHE_VERSION
@@ -110,7 +114,50 @@ def build_zones(cfg: dict, proj: Projector) -> Zones:
     idx = np.flatnonzero(keep)
     cx = x0 + (idx % nx + 0.5) * cell
     cy = y0 + (idx // nx + 0.5) * cell
-    return Zones(x=cx, y=cy, pop=pop[idx], jobs=jobs[idx], cell_size=cell)
+    zones = Zones(x=cx, y=cy, pop=pop[idx], jobs=jobs[idx], cell_size=cell)
+    geom = study_boundary(cfg)
+    if geom is not None:
+        zones = clip_zones(zones, geom, proj)
+    return zones
+
+
+def clip_zones(zones: Zones, geom_lonlat, proj: Projector) -> Zones:
+    """Keep only zones whose centre lies inside the boundary polygon."""
+    ok = inside(geom_lonlat, proj, zones.x, zones.y)
+    log.info("boundary clip: %d -> %d zones, population %.0f -> %.0f",
+             len(zones), int(ok.sum()), zones.pop.sum(), zones.pop[ok].sum())
+    return Zones(x=zones.x[ok], y=zones.y[ok], pop=zones.pop[ok], jobs=zones.jobs[ok], cell_size=zones.cell_size)
+
+
+def study_boundary(cfg: dict):
+    bc = cfg.get("boundary")
+    if not bc:
+        return None
+    raw, processed = data_paths(cfg)
+    pbf = raw / "osm" / Path(cfg["jobs"]["pbf_url"]).name
+    tag = f"{bc['name']}_{bc['admin_level']}".replace(" ", "_")
+    return admin_boundary(pbf, bc["name"], int(bc["admin_level"]), processed / f"boundary_{tag}.geojson")
+
+
+def add_osm_rail(cfg: dict, proj: Projector, stops, lines):
+    """Append rail lines built from OSM route relations to the GTFS network."""
+    raw, processed = data_paths(cfg)
+    pbf = raw / "osm" / Path(cfg["jobs"]["pbf_url"]).name
+    rels = read_rail_relations(pbf, processed / f"osm_rail_relations_{Path(pbf).stem.split('.')[0]}.json")
+    geom = study_boundary(cfg)
+    b = cfg["bbox"]
+
+    def inside_fn(lon, lat):
+        ok = (lon >= b[0]) & (lon <= b[2]) & (lat >= b[1]) & (lat <= b[3])
+        if geom is not None:
+            ok &= shapely.contains_xy(geom, lon, lat)
+        return ok
+
+    s2, l2 = rail_lines(rels, cfg["transit_osm"], inside_fn, proj)
+    offset = len(stops)
+    for ln in l2:
+        ln.stops = ln.stops + offset
+    return pd.concat([stops, s2], ignore_index=True), lines + l2
 
 
 def build_traffic(cfg: dict, proj: Projector):
@@ -148,7 +195,8 @@ def build_profile(cfg: dict) -> np.ndarray:
 
 
 def _cache_key(cfg: dict) -> str:
-    keys = ["bbox", "crs", "zones", "population", "jobs", "gtfs", "traffic", "ridership", "roads"]
+    keys = ["bbox", "crs", "zones", "population", "jobs", "gtfs", "traffic", "ridership", "roads", "boundary",
+            "transit_osm", "transit_model"]
     blob = json.dumps({**{k: cfg.get(k) for k in keys}, "_roads_v": ROADS_CACHE_VERSION},
                       sort_keys=True, default=str)
     return hashlib.sha1(blob.encode()).hexdigest()[:12]
@@ -168,6 +216,8 @@ def load_city(cfg: dict, use_cache: bool = True) -> City:
     zones = build_zones(cfg, proj)
     raw, _ = data_paths(cfg)
     stops, lines = load_feeds(cfg["gtfs"], raw, cfg["bbox"], proj)
+    if cfg.get("transit_osm"):
+        stops, lines = add_osm_rail(cfg, proj, stops, lines)
     city = City(cfg=cfg, proj=proj, zones=zones, base=Scenario(stops, lines),
                 traffic=build_traffic(cfg, proj), hourly_profile=build_profile(cfg),
                 roads=build_roads(cfg, proj))

@@ -28,15 +28,18 @@ Ayrıntılar: [`docs/methodology.md`](docs/methodology.md).
 | Nüfus | [WorldPop](https://hub.worldpop.org) R2025A, 100 m, constrained (2015–2030) |
 | İş yerleri (çekim) | OpenStreetMap, [BBBike İstanbul extract](https://download.bbbike.org/osm/bbbike/Istanbul/) veya Overpass |
 | Otobüs + Metrobüs | İBB Açık Veri — [İETT GTFS](https://data.ibb.gov.tr/dataset/iett-gtfs-verisi) |
-| Metro, Marmaray, vapur | İBB Açık Veri — [Toplu Taşıma GTFS](https://data.ibb.gov.tr/dataset/public-transport-gtfs-data) |
+| Metro, Marmaray, tramvay (güncel) | OpenStreetMap hat ilişkileri (`route=subway/tram/train/...`): 2024 sonrası açılan hatlar dahil |
+| Vapur | İBB Açık Veri — [Toplu Taşıma GTFS](https://data.ibb.gov.tr/dataset/public-transport-gtfs-data) |
+| İl sınırı | OpenStreetMap (admin_level=4 "İstanbul") |
 | Trafik | İBB Açık Veri — [Saatlik Trafik Yoğunluk](https://data.ibb.gov.tr/dataset/hourly-traffic-density-data-set) (geohash bazında hız) |
 | Saatlik talep profili | İBB Açık Veri — [Saatlik Toplu Ulaşım](https://data.ibb.gov.tr/dataset/hourly-public-transport-data-set) |
+| Kalibrasyon | Google Routes API (trafikli araba + toplu taşıma süresi), TomTom Routing API (trafikli araba) — anahtar gerekir, bkz. [`docs/api_keys.md`](docs/api_keys.md) |
 
 İBB GTFS dosyalarındaki bozukluklar (Excel'in bozduğu koordinatlar, çift kodlanmış Türkçe
 karakterler, sadece ilk durakta saat) yükleyici tarafından otomatik onarılır.
 
-Google / Bing trafik haritaları kullanım şartları nedeniyle kazınmaz; İBB'nin resmi trafik
-verisi kullanılır.
+Google / Yandex / Bing harita karoları kullanım şartları nedeniyle kazınmaz; aynı veri bu
+servislerin resmi API'lerinden alınır (`ptopt calibrate`).
 
 ## Kurulum
 
@@ -58,7 +61,18 @@ ptopt evaluate --config configs/istanbul_pilot.yaml --hours 8 18
 
 # 4) yeni hatları ve sıklıkları optimize et
 ptopt optimize --config configs/istanbul_pilot.yaml
+
+# 5) modeli Google / TomTom süreleriyle kalibre et (API anahtarı gerekir)
+ptopt calibrate --config configs/istanbul.yaml
+
+# 6) bütçe–süre eğrisi: bugünkü filonun %20'si kadar ek otobüs ve raylı ağın %30'u kadar
+#    yeni hat / uzatma ile ortalama süre nereye iner?
+ptopt frontier --config configs/istanbul.yaml
 ```
+
+`ptopt frontier` çıktıları `results/<şehir>/frontier/` altında: `summary.md`, `frontier.png`
+(yatırım–süre eğrisi), `frontier.csv` (her adım), `level_025` … `level_100` (bütçenin o payı
+harcandığında harita, GeoJSON, tam değerlendirme).
 
 Çıktılar `results/<şehir>/` altında:
 

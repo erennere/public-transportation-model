@@ -39,8 +39,26 @@ def line_segment_minutes(line: Line, sx: np.ndarray, sy: np.ndarray, traffic: Tr
         if road_m is None or len(road_m) != len(dist_m):
             road_m = dist_m * net["road_detour"]
         return np.asarray(road_m) / 1000.0 / v * 60.0 + dwell
-    v = net["mode_speed_kmh"].get(line.mode, 30.0)
+    v = net["mode_speed_kmh"].get(line.mode, 30.0) * net.get("rail_speed_scale", 1.0)
     return dist_m * 1.1 / 1000.0 / v * 60.0 + dwell
+
+
+def _segment_keys(stops) -> list[tuple]:
+    """Boarding keys: (stop, next stop, stop after that or -1) for each boarding position."""
+    s = list(stops)
+    return [(s[k], s[k + 1], s[k + 2] if k + 2 < len(s) else -1) for k in range(len(s) - 1)]
+
+
+def _shared_frequency(lines, hour: int) -> dict:
+    """Combined trips/hour of all lines serving the same boarding key."""
+    freq: dict = {}
+    for ln in lines:
+        h = ln.headway_min[hour % 24]
+        if not np.isfinite(h) or h <= 0 or len(ln.stops) < 2:
+            continue
+        for key in _segment_keys(ln.stops):
+            freq[key] = freq.get(key, 0.0) + 60.0 / h
+    return freq
 
 
 def line_cycle_minutes(line: Line, sx, sy, traffic, hour, net, layover: float = 0.1) -> float:
@@ -89,6 +107,7 @@ class TransitGraph:
         nxt = self.s0 + ns
         node_line, node_seg_km = [], []
         self.line_index = []  # lines in service, aligned with node_line ids
+        shared = _shared_frequency(scenario.lines, hour) if net.get("common_lines", True) else None
         for ln in scenario.lines:
             h = ln.headway_min[hour % 24]
             if not np.isfinite(h) or h <= 0 or len(ln.stops) < 2:
@@ -99,11 +118,17 @@ class TransitGraph:
             rnodes = np.arange(nxt, nxt + n)
             nxt += n
             snodes = self.s0 + ln.stops
-            wait = min(h / 2.0, net["max_wait_min"]) + net["boarding_penalty_min"]
+            if shared is not None:
+                # common lines: any line continuing to the same next two stops will do,
+                # so the wait is set by their combined frequency (trips/hour)
+                f = np.array([shared[k] for k in _segment_keys(ln.stops)])
+                wait = np.minimum(30.0 / f, net["max_wait_min"]) + net["boarding_penalty_min"]
+            else:
+                wait = np.full(n - 1, min(h / 2.0, net["max_wait_min"]) + net["boarding_penalty_min"])
             seg = line_segment_minutes(ln, sx, sy, traffic, hour, net)
             rows += [snodes[:-1], rnodes[1:], rnodes[:-1]]
             cols += [rnodes[:-1], snodes[1:], rnodes[1:]]
-            w += [np.full(n - 1, wait), np.full(n - 1, EPS), np.maximum(seg, EPS)]
+            w += [wait, np.full(n - 1, EPS), np.maximum(seg, EPS)]
             node_line.append(np.full(n, li))
             seg_km = np.hypot(np.diff(sx[ln.stops]), np.diff(sy[ln.stops])) / 1000.0
             node_seg_km.append(np.append(seg_km, 0.0))

@@ -69,6 +69,9 @@ class Optimizer:
 
     def feasible(self, sel) -> bool:
         b = self.oc["budget"]
+        max_bus_km = self.cfg["candidates"]["max_bus_length_km"]
+        if any(c.mode == "bus" and c.length_km > max_bus_km for c in sel):
+            return False
         buses, km = self.cost(sel)
         return buses <= b["extra_buses"] and km <= b["metro_km"]
 

@@ -86,3 +86,28 @@ def test_shift_move_keeps_stops_on_street():
             | np.isclose(c.xs, c.ys, atol=1e-6)  # the diagonal is a street too
         assert on_street.all(), kind
     assert len(c.stop_s) >= before - 1
+
+
+def test_clip_zones_keeps_only_inside():
+    from shapely.geometry import box
+    from ptopt.city import clip_zones
+    from ptopt.geo import Projector
+    from ptopt.model import Zones
+
+    proj = Projector(32635)
+    lon, lat = np.array([28.9, 29.1, 29.5]), np.array([41.0, 41.0, 41.0])
+    x, y = proj.to_xy(lon, lat)
+    z = Zones(x=x, y=y, pop=np.array([1.0, 2.0, 3.0]), jobs=np.ones(3), cell_size=1000)
+    out = clip_zones(z, box(28.8, 40.9, 29.2, 41.1), proj)
+    assert len(out) == 2 and out.pop.sum() == 3.0
+
+
+def test_too_long_bus_line_is_infeasible():
+    from ptopt.candidates import Candidate
+    city = _toy_city()
+    city.cfg["candidates"]["max_bus_length_km"] = 1.0
+    opt = Optimizer.__new__(Optimizer)
+    opt.city, opt.cfg, opt.oc = city, city.cfg, city.cfg["optimization"]
+    opt.peak_hour = 8
+    long_bus = Candidate("NB0", "bus", np.array([0.0, 3000.0]), np.array([0.0, 0.0]), default_headways(10, 20))
+    assert not opt.feasible([long_bus])

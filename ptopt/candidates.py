@@ -268,7 +268,7 @@ def generate_candidates(city: City, ev: Evaluator, scenario: Scenario | None = N
             if mode == "bus" and city.roads is not None:
                 c = bus_on_roads(f"{prefix}{n}", city.roads, px, py, spacing, cc["bus_corridor_width_m"],
                                  default_headways(hw, hw * 2), meta)
-                if c is not None:
+                if c is not None and c.length_km <= cc["max_bus_length_km"]:
                     cands.append(c)
                 continue
             sx, sy = resample_polyline(px, py, spacing)

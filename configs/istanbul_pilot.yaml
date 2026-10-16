@@ -3,6 +3,7 @@
 extends: istanbul.yaml
 name: istanbul_pilot
 bbox: [28.99, 40.95, 29.20, 41.07]
+boundary: null   # the pilot box lies inside the province
 
 jobs:
   # the small BBBike Istanbul extract covers the pilot area

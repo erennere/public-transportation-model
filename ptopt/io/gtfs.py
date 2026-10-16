@@ -153,6 +153,8 @@ def load_feed(feed: dict, base_dir: Path, bbox, proj, smooth_hours: int = 3):
     routes = routes[~routes["route_type"].isin(excluded)]
     routes["mode"] = [route_mode(t, s, feed.get("mode_overrides")) for t, s in
                       zip(routes["route_type"], routes["route_short_name"])]
+    if feed.get("include_modes"):
+        routes = routes[routes["mode"].isin(feed["include_modes"])]
     routes = routes.set_index("route_id")
 
     trips = table("trips")
@@ -234,7 +236,12 @@ def load_feed(feed: dict, base_dir: Path, bbox, proj, smooth_hours: int = 3):
         r = routes.loc[route_id]
         lines.append(Line(line_id=f"{name}:{route_id}:{k}", name=f"{name}:{r['route_short_name']}",
                           mode=r["mode"], stops=np.array(seq[a:b], dtype=object), headway_min=headway,
-                          seg_time_s=seg, meta={"route_id": route_id, "long_name": r.get("route_long_name", "")}))
+                          seg_time_s=seg, meta={"route_id": route_id, "long_name": r.get("route_long_name", ""),
+                                                "direction": _dir}))
+    if feed.get("merge_variants", True):
+        n0 = len(lines)
+        lines = merge_variants(lines, feed.get("variant_overlap", 0.7))
+        log.info("%s: merged %d pattern variants into %d lines", name, n0, len(lines))
     used = sorted({s for ln in lines for s in ln.stops})
     sub = stops.loc[used]
     x, y = proj.to_xy(sub["lon"].to_numpy(), sub["lat"].to_numpy())
@@ -245,6 +252,40 @@ def load_feed(feed: dict, base_dir: Path, bbox, proj, smooth_hours: int = 3):
         ln.stops = np.array([pos[s] for s in ln.stops], dtype=int)
     log.info("%s: %d stops, %d line patterns", name, len(out), len(lines))
     return out, lines
+
+
+def merge_variants(lines: list[Line], min_overlap: float = 0.7) -> list[Line]:
+    """Fold short-turn / detour variants into the main pattern of the same route.
+
+    Feeds like İETT split one route into many patterns (different first stop,
+    small detours). Treated separately each looks infrequent (median 60 min
+    at 08:00) although together they run often. Within each route name and
+    direction, patterns are taken longest first; a pattern whose stops are at
+    least `min_overlap` contained in an already kept pattern adds its trips to
+    that one instead of standing alone."""
+    def freq(ln):
+        return np.where(np.isfinite(ln.headway_min) & (ln.headway_min > 0), 60.0 / ln.headway_min, 0.0)
+
+    groups: dict[tuple, list[Line]] = {}
+    for ln in lines:
+        groups.setdefault((ln.name, ln.meta.get("direction", "")), []).append(ln)
+    out = []
+    for grp in groups.values():
+        kept: list[tuple[Line, set, np.ndarray]] = []
+        for ln in sorted(grp, key=lambda l: -len(l.stops)):
+            s = set(ln.stops)
+            for trunk, ts, f in kept:
+                if len(s & ts) / len(s) >= min_overlap:
+                    f += freq(ln)
+                    trunk.meta["merged_variants"] = trunk.meta.get("merged_variants", 1) + 1
+                    break
+            else:
+                kept.append((ln, s, freq(ln)))
+        for ln, _, f in kept:
+            with np.errstate(divide="ignore"):
+                ln.headway_min = np.where(f > 0.05, 60.0 / np.maximum(f, 1e-9), np.nan)
+            out.append(ln)
+    return out
 
 
 def load_feeds(feeds: list[dict], base_dir: Path, bbox, proj):

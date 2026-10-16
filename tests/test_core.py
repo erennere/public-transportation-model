@@ -130,3 +130,66 @@ def test_optimizer_improves_synthetic_city(synth):
     buses, km = opt.cost(res.selection)
     budget = synth.cfg["optimization"]["budget"]
     assert buses <= budget["extra_buses"] and km <= budget["metro_km"]
+
+
+def test_merge_variants_adds_frequencies():
+    from ptopt.io.gtfs import merge_variants
+    hw = np.full(24, 30.0)
+    trunk = Line("a", "iett:15F", "bus", np.array(list("ABCDEFGHIJ"), dtype=object), hw.copy(), meta={"direction": "0"})
+    short = Line("b", "iett:15F", "bus", np.array(list("CDEFGH"), dtype=object), hw.copy(), meta={"direction": "0"})
+    other_dir = Line("c", "iett:15F", "bus", np.array(list("JIHG"), dtype=object), hw.copy(), meta={"direction": "1"})
+    detour = Line("d", "iett:15F", "bus", np.array(list("AXYZW"), dtype=object), hw.copy(), meta={"direction": "0"})
+    out = merge_variants([trunk, short, other_dir, detour])
+    assert len(out) == 3
+    merged = next(l for l in out if l.line_id == "a")
+    assert merged.headway_min[8] == pytest.approx(15.0)  # two 30-min variants -> every 15 min
+    assert next(l for l in out if l.line_id == "d").headway_min[8] == pytest.approx(30.0)
+
+
+def test_common_lines_halve_the_wait():
+    city = _toy_city()
+    city.cfg["network"]["max_wait_min"] = 60
+    g1 = TransitGraph(city.base, city.zones, city.traffic, city.cfg, hour=8)
+    t1 = g1.shortest([0])[0, 1]
+    twin = city.base.lines[0].copy()
+    twin.line_id = "L2"
+    city.base.lines.append(twin)
+    g2 = TransitGraph(city.base, city.zones, city.traffic, city.cfg, hour=8)
+    t2 = g2.shortest([0])[0, 1]
+    assert t1 - t2 == pytest.approx(5.0 - 2.5, abs=1e-3)  # 10-min headway -> combined 5 min
+
+
+def test_car_calibration_recovers_known_slowdown(synth):
+    from ptopt import calibrate
+    from ptopt.traffic import car_time_min
+    net = synth.cfg["network"]
+    s = calibrate.sample_pairs(synth, 60, [8])
+    slow = ProfileTraffic(synth.traffic.free_flow * 0.5, synth.traffic.factor, synth.traffic.centres)
+    z = synth.zones
+    s.car_obs = np.array([car_time_min(slow, [z.x[o]], [z.y[o]], [z.x[d]], [z.y[d]], 8, net)[0]
+                          for o, d in zip(s.o, s.d)])
+    traffic, car = calibrate.fit_car(synth, s)
+    assert car["global_factor"] == pytest.approx(0.5, rel=0.05)
+    assert car["stats"]["after"]["median_abs_pct_err"] < 3.0 < car["stats"]["before"]["median_abs_pct_err"]
+
+
+def test_frontier_runs_within_budget_and_improves():
+    from ptopt.frontier import inventory, run_frontier
+    cfg = load_config(overrides={"synthetic": {"half_size_km": 10},
+                                 "evaluation": {"K": 300, "M": 1, "origins_per_sim": 50},
+                                 "candidates": {"n_corridors": 6},
+                                 "frontier": {"cheap_K": 200, "cheap_origins": 40, "fast_K": 300, "fast_M": 1,
+                                              "fast_origins": 50, "max_steps": 3, "shortlist": 3, "n_jobs": 1,
+                                              "boost_top": 4, "checkpoints": [0.5, 1.0]}})
+    city = build_synthetic(cfg)
+    inv = inventory(city)
+    assert inv["bus_fleet_peak"] > 0 and inv["rail_km"] > 0
+    seen = []
+    res = run_frontier(city, on_checkpoint=lambda lvl, sc, sel, steps: seen.append(lvl))
+    steps = res["steps"]
+    assert len(steps) >= 2
+    assert steps[-1]["objective"] < steps[0]["objective"]
+    assert steps[-1]["buses"] <= res["budget"]["extra_buses"] + 1e-6
+    assert steps[-1]["rail_km"] <= res["budget"]["rail_km"] + 1e-6
+    assert all(b["spend"] >= a["spend"] for a, b in zip(steps, steps[1:]))
+    assert seen  # at least the final checkpoint
