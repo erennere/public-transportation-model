@@ -148,10 +148,27 @@ def plot_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title
         if ext_seen:
             handles.append(Line2D([], [], color="#6250d6", lw=3, ls=(0, (4, 1.5)), marker="o", ms=4,
                                   label="mevcut raylı hat uzatması"))
-    xs_all = np.concatenate([[p[0] for p in s_] for s_ in sq])
-    ys_all = np.concatenate([[p[1] for p in s_] for s_ in sq])
-    ax.set_xlim(xs_all.min(), xs_all.max())
-    ax.set_ylim(ys_all.min(), ys_all.max())
+    # frame the urban area: where 93% of the population lives, plus every new line
+    zx, zy = _merc(city, z.x, z.y)
+    order = np.argsort(z.pop)[::-1]
+    core = order[: np.searchsorted(np.cumsum(z.pop[order]), 0.93 * z.pop.sum()) + 1]
+    fx, fy = list(zx[core]), list(zy[core])
+    for ln in base.lines:  # and the whole rail network
+        if ln.mode in ("metro", "rail", "tram"):
+            fx += list(bx[ln.stops])
+            fy += list(by[ln.stops])
+    if opt is not None:
+        for ln in opt.lines:
+            if ln.is_new or ln.meta.get("ext_stops"):
+                fx += list(ox[ln.stops])
+                fy += list(oy[ln.stops])
+    pad = 1500
+    x0, x1, y0, y1 = min(fx) - pad, max(fx) + pad, min(fy) - pad, max(fy) + pad
+    # size the figure to the content so the basemap is neither stretched nor padded
+    ax.set_aspect("equal")
+    ax.set_xlim(x0, x1)
+    ax.set_ylim(y0, y1)
+    fig.set_size_inches(15, min(13, max(6, 12.5 * (y1 - y0) / (x1 - x0) + 1.2)))
     try:
         import contextily as cx
         cx.add_basemap(ax, crs="EPSG:3857", source=cx.providers.Esri.WorldStreetMap, zorder=1,
@@ -162,7 +179,7 @@ def plot_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title
     ax.set_axis_off()
     ax.set_title(title, fontsize=13)
     fig.tight_layout()
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -258,7 +275,8 @@ def _runs(pos: list[int]) -> list[list[int]]:
 
 
 def plot_frontier(steps: list[dict], base: dict, levels: list[dict], path: Path, target: float = 50.0) -> None:
-    """Mean door-to-door time vs share of the budget spent (one line per hour)."""
+    """Mean door-to-door time vs share of the budget spent, from the full evaluations
+    (today + each checkpoint), one line per evaluated hour."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -267,16 +285,16 @@ def plot_frontier(steps: list[dict], base: dict, levels: list[dict], path: Path,
     colors = ["#2a78d6", "#eb6834"]  # categorical slots 1, 2 (validated reference palette)
     ink, muted, grid = "#0b0b0b", "#52514e", "#e4e3df"
     fig, ax = plt.subplots(figsize=(9, 5.2))
-    x = np.array([s["spend"] for s in steps]) * 100
+    x = [0.0] + [lv["level"] * 100 for lv in levels]
+    ends = []
     for i, h in enumerate(hours):
-        y = np.array([s.get(f"mean_t_{h}", np.nan) for s in steps])
-        ax.plot(x, y, color=colors[i % 2], lw=2, label=f"{h}:00 (hızlı örneklem)")
-        lx = [lv["level"] * 100 for lv in levels]
-        ly = [lv["evaluation"]["hours"][h]["mean_t"] for lv in levels]
-        ax.plot(lx, ly, "o", ms=8, color=colors[i % 2], mec="white", mew=2, zorder=5)
-        if len(x):
-            ax.annotate(f"{h}:00  {y[-1]:.1f} dk", (x[-1], y[-1]), xytext=(6, 0), textcoords="offset points",
-                        va="center", fontsize=9, color=ink)
+        y = [base["hours"][h]["mean_t"]] + [lv["evaluation"]["hours"][h]["mean_t"] for lv in levels]
+        ax.plot(x, y, color=colors[i % 2], lw=2, marker="o", ms=8, mec="white", mew=2, label=f"{h}:00")
+        ends.append((y[-1], h, colors[i % 2]))
+    ends.sort()
+    for k, (yv, h, col) in enumerate(ends):  # end labels, nudged apart
+        ax.annotate(f"{h}:00  {yv:.1f} dk", (x[-1], yv), xytext=(8, -7 if k == 0 else 7),
+                    textcoords="offset points", va="center", fontsize=9, color=ink)
     ax.axhline(target, color=muted, lw=1.2, ls=(0, (5, 3)))
     ax.annotate(f"hedef {target:.0f} dk", (0, target), xytext=(4, 4), textcoords="offset points",
                 fontsize=9, color=muted)
@@ -289,13 +307,13 @@ def plot_frontier(steps: list[dict], base: dict, levels: list[dict], path: Path,
     for s in ("left", "bottom"):
         ax.spines[s].set_color(grid)
     ax.tick_params(colors=muted)
-    lo = min(target, np.nanmin([s.get(f"mean_t_{h}", np.nan) for s in steps for h in hours])) - 3
-    hi = np.nanmax([s.get(f"mean_t_{h}", np.nan) for s in steps for h in hours]) + 3
-    ax.set_ylim(lo, hi)
-    ax.set_xlim(0, max(100, x.max() if len(x) else 100) + 12)
+    allv = [v for lv in levels for v in (lv["evaluation"]["hours"][h]["mean_t"] for h in hours)]
+    allv += [base["hours"][h]["mean_t"] for h in hours]
+    ax.set_ylim(min(target, min(allv)) - 2, max(allv) + 2)
+    ax.set_xlim(-2, 122)
+    ax.set_xticks([0, 25, 50, 75, 100])
     ax.legend(loc="upper right", frameon=False, fontsize=9, labelcolor=ink)
-    ax.set_title("Yatırım arttıkça ortalama yolculuk süresi (noktalar: tam değerlendirme)", color=ink, fontsize=11,
-                 loc="left")
+    ax.set_title("Yatırım arttıkça ortalama yolculuk süresi (tam değerlendirme)", color=ink, fontsize=11, loc="left")
     fig.tight_layout()
     fig.savefig(path, dpi=150)
     plt.close(fig)
