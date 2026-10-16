@@ -81,9 +81,9 @@ def inventory(city: City, scenario: Scenario | None = None, hour: int = 8) -> di
 
 
 # ---------------------------------------------------------------- applying actions
-def apply_actions(city: City, actions: list[Action]) -> Scenario:
+def apply_actions(city: City, actions: list[Action], base: Scenario | None = None) -> Scenario:
     snap = city.cfg["candidates"]["snap_existing_m"]
-    sc = materialize(city.base, [a.cand for a in actions if a.kind == "line"], snap)
+    sc = materialize(base or city.base, [a.cand for a in actions if a.kind == "line"], snap)
     for a in actions:
         if a.kind == "extend":
             _extend(sc, a)
@@ -200,7 +200,9 @@ def boost_actions(city: City, sc: Scenario, ev: Evaluator, hour: int, top: int, 
             if ln is not None and ln.mode in ROAD_MODES:
                 board[ln.name] = board.get(ln.name, 0.0) + b / len(res.sims)
     out = []
-    for name in sorted(board, key=board.get, reverse=True)[:top]:
+    for name in sorted(board, key=board.get, reverse=True):
+        if len(out) >= top:  # the `top` busiest routes that can still take more buses
+            break
         lines = [ln for ln in sc.lines if ln.name == name]
         hs = [ln.headway_min[hour] for ln in lines if np.isfinite(ln.headway_min[hour])]
         if not hs or min(hs) * factor < min_headway:
@@ -223,19 +225,21 @@ def _group(a: Action) -> str:
 def _eval_worker(args):
     actions, which = args
     ev = _WORKER["cheap"] if which == "cheap" else _WORKER["fast"]
-    return ev.evaluate(apply_actions(_WORKER["city"], actions)).objective
+    return ev.evaluate(apply_actions(_WORKER["city"], actions, _WORKER["base"])).objective
 
 
-def _parallel(city, evs, jobs, n_jobs):
+def _parallel(city, evs, jobs, n_jobs, base=None):
     global _WORKER
-    _WORKER = {"city": city, **evs}
+    _WORKER = {"city": city, "base": base, **evs}
     if n_jobs <= 1 or len(jobs) <= 1 or "fork" not in mp.get_all_start_methods():
         return [_eval_worker(j) for j in jobs]
     with mp.get_context("fork").Pool(min(n_jobs, len(jobs))) as pool:
         return pool.map(_eval_worker, jobs, chunksize=1)
 
 
-def run_frontier(city: City, on_checkpoint=None) -> dict:
+def run_frontier(city: City, on_checkpoint=None, start: dict | None = None) -> dict:
+    """`start` resumes from an earlier run: {"scenario", "buses", "rail_km", "steps"};
+    the scenario becomes the starting network and its spending counts against the caps."""
     fc = city.cfg["frontier"]
     hour = int(fc.get("cost_hour", 8))
     inv = inventory(city, hour=hour)
@@ -251,21 +255,32 @@ def run_frontier(city: City, on_checkpoint=None) -> dict:
     n_jobs = fc.get("n_jobs") or os.cpu_count() or 1
 
     selected: list[Action] = []
-    used_b, used_k = 0, 0.0
-    sc = city.base
+    start_sc = start["scenario"] if start else city.base
+    used_b, used_k = (int(start["buses"]), float(start["rail_km"])) if start else (0, 0.0)
+    sc = start_sc
     j_fast = fast.evaluate(sc).summary()
     j_cheap = cheap.evaluate(sc).objective
-    steps = [{"step": 0, "action": "mevcut durum", "buses": 0, "rail_km": 0.0, "spend": 0.0,
-              "objective": j_fast["objective"], "mean_t_daily": j_fast["daily"]["mean_t"],
-              **{f"mean_t_{h}": v["mean_t"] for h, v in j_fast["hours"].items()}}]
+    if start and start.get("steps"):
+        steps = list(start["steps"])
+    else:
+        steps = [{"step": 0, "action": "mevcut durum", "buses": 0, "rail_km": 0.0, "spend": 0.0,
+                  "objective": j_fast["objective"], "mean_t_daily": j_fast["daily"]["mean_t"],
+                  **{f"mean_t_{h}": v["mean_t"] for h, v in j_fast["hours"].items()}}]
+    step0 = steps[-1]["step"]
+    steps[-1] = {**steps[-1], "objective": j_fast["objective"], "mean_t_daily": j_fast["daily"]["mean_t"]}
     checkpoints = sorted(fc["checkpoints"])
     next_cp = 0
     pool: list[Action] = []
     taken = set()
-    spend, cp_done_at = 0.0, -1.0
-    for step in range(1, fc["max_steps"] + 1):
-        if (step - 1) % fc["regen_every"] == 0:
+    spend = (used_b / max(B, 1) + used_k / max(K, 1e-6)) / 2
+    cp_done_at = spend if start else -1.0
+    while next_cp < len(checkpoints) and checkpoints[next_cp] <= spend:
+        next_cp += 1
+    for step in range(step0 + 1, step0 + fc["max_steps"] + 1):
+        if (step - step0 - 1) % fc["regen_every"] == 0:
             cands = generate_candidates(city, cheap, sc)
+            for c in cands:  # ids restart at NB0/NM0 every generation: make them unique
+                c.cid = f"{c.cid}g{step}"
             pool = [a for a in line_actions(city, cands, hour) if a.aid not in taken]
             log.info("step %d: %d new-line candidates", step, len(pool))
         actions = [a for a in pool if a.aid not in taken]
@@ -274,16 +289,16 @@ def run_frontier(city: City, on_checkpoint=None) -> dict:
                                  city.cfg["optimization"]["min_headway_min"])
         actions = [a for a in actions if used_b + a.cost_buses <= B + 1e-6 and used_k + a.cost_km <= K + 1e-6]
         if not actions:
-            log.info("budget exhausted")
+            log.info("no affordable action left (buses %d/%.0f, rail %.1f/%.1f km)", used_b, B, used_k, K)
             break
-        js = _parallel(city, evs, [(selected + [a], "cheap") for a in actions], n_jobs)
+        js = _parallel(city, evs, [(selected + [a], "cheap") for a in actions], n_jobs, start_sc)
         cost = np.array([a.cost_buses / max(B, 1) + a.cost_km / max(K, 1e-6) for a in actions])
         ratio = (j_cheap - np.array(js)) / np.maximum(cost, 1e-3)
         order = [i for i in np.argsort(-ratio) if j_cheap - js[i] > 0][: fc["shortlist"]]
         if not order:
             log.info("step %d: no action improves the objective", step)
             break
-        jf = _parallel(city, evs, [(selected + [actions[i]], "fast") for i in order], n_jobs)
+        jf = _parallel(city, evs, [(selected + [actions[i]], "fast") for i in order], n_jobs, start_sc)
         gains = [(steps[-1]["objective"] - j) / max(cost[i], 1e-3) for i, j in zip(order, jf)]
         ranked = sorted(range(len(order)), key=lambda q: -gains[q])
         if gains[ranked[0]] <= 0:
@@ -303,7 +318,7 @@ def run_frontier(city: City, on_checkpoint=None) -> dict:
             batch.append(a2)
             groups.add(_group(a2))
         if len(batch) > 1:  # keep the combination only if it beats the single best action
-            j_batch = fast.evaluate(apply_actions(city, selected + batch)).objective
+            j_batch = fast.evaluate(apply_actions(city, selected + batch, start_sc)).objective
             if j_batch >= jf[ranked[0]]:
                 batch = batch[:1]
         for a in batch:
@@ -311,7 +326,7 @@ def run_frontier(city: City, on_checkpoint=None) -> dict:
             taken.add(a.aid)
             used_b += a.cost_buses
             used_k += a.cost_km
-        sc = apply_actions(city, selected)
+        sc = apply_actions(city, selected, start_sc)
         j_cheap = cheap.evaluate(sc).objective if len(batch) > 1 else js[order[ranked[0]]]
         summ = fast.evaluate(sc).summary()
         spend = (used_b / max(B, 1) + used_k / max(K, 1e-6)) / 2
@@ -337,7 +352,7 @@ def run_frontier(city: City, on_checkpoint=None) -> dict:
                 break
     else:
         log.info("step limit reached")
-    if on_checkpoint and len(steps) > 1 and cp_done_at < spend:
+    if on_checkpoint and steps[-1]["step"] > step0 and cp_done_at < spend:
         on_checkpoint(spend, sc, list(selected), steps)
     return {"inventory": inv, "budget": {"extra_buses": B, "rail_km": K}, "steps": steps,
             "selected": selected, "scenario": sc}

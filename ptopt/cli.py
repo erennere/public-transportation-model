@@ -94,13 +94,29 @@ def cmd_frontier(args):
     out = Path(args.out or f"results/{city.cfg['name']}") / fc.get("out_dir", "frontier")
     out.mkdir(parents=True, exist_ok=True)
     full = Evaluator(city)
-    base = full.evaluate(city.base).summary()
-    levels = []
+    start, levels = None, []
+    if getattr(args, "resume", False) and (out / "frontier.json").exists():
+        prev = json.loads((out / "frontier.json").read_text())
+        last = max(prev["levels"], key=lambda lv: lv["spend"])
+        tag = "target" if last["level"] == "target" else f"level_{int(round(last['level'] * 100)):03d}"
+        with open(out / tag / "scenario.pkl", "rb") as f:
+            start_sc = pickle.load(f)
+        upto = max(i for i, s in enumerate(prev["steps"])
+                   if s["buses"] == last["buses"] and abs(s["rail_km"] - last["rail_km"]) < 1e-6)
+        start = {"scenario": start_sc, "buses": last["buses"], "rail_km": last["rail_km"],
+                 "steps": prev["steps"][: upto + 1]}
+        levels = prev["levels"]
+        base = prev["base"]
+        log.info("resuming from %s: +%d buses, +%.1f km rail, %d steps", tag, last["buses"], last["rail_km"], upto)
+    else:
+        base = full.evaluate(city.base).summary()
 
     def checkpoint(level, sc, selected, steps):
         t = time.time()
         res = full.evaluate(sc).summary()
         tag = "target" if level == "target" else f"level_{int(round(level * 100)):03d}"
+        if start and tag != "target":  # caps may differ from the resumed run: tag by investment
+            tag = f"level_b{steps[-1]['buses']}_r{int(round(steps[-1]['rail_km']))}"
         d = out / tag
         d.mkdir(exist_ok=True)
         with open(d / "scenario.pkl", "wb") as f:
@@ -111,14 +127,14 @@ def cmd_frontier(args):
         plot_map(city, city.base, sc, d / "map.png", title)
         web_map(city, city.base, sc, d / "map.html", title)
         info = {"level": level, "spend": steps[-1]["spend"], "actions": [a.label() for a in selected],
-                "evaluation": res, "buses": buses, "rail_km": km}
+                "evaluation": res, "buses": buses, "rail_km": km, "tag": tag}
         write_json(info, d / "summary.json")
         levels.append(info)
         log.info("checkpoint %s: daily %.1f, hours %s [%.0fs]", tag, res["daily"]["mean_t"],
                  {h: round(v["mean_t"], 1) for h, v in res["hours"].items()}, time.time() - t)
         return res["daily"]["mean_t"]
 
-    res = run_frontier(city, on_checkpoint=checkpoint)
+    res = run_frontier(city, on_checkpoint=checkpoint, start=start)
     with open(out / "frontier.csv", "w", newline="", encoding="utf-8") as f:
         keys = sorted({k for s in res["steps"] for k in s}, key=lambda k: (k != "step", k))
         w = csv.DictWriter(f, fieldnames=keys)
@@ -314,6 +330,9 @@ def main(argv=None):
         s.add_argument("--M", type=int)
         if name == "optimize":
             s.add_argument("--skip-frequencies", action="store_true")
+        if name == "frontier":
+            s.add_argument("--resume", action="store_true",
+                           help="continue from the last checkpoint of an earlier run in the same out_dir")
         if name in ("explain", "reallocate"):
             s.add_argument("--scenario", required=name == "reallocate",
                            help="pickled scenario, e.g. results/istanbul/frontier/level_100/scenario.pkl")
