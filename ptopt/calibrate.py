@@ -31,14 +31,16 @@ from .traffic import car_time_min
 
 log = logging.getLogger(__name__)
 
-# name, config key path, lower, upper
+# name, config key path, lower, upper. Bounds are physical: a bus in mixed traffic is
+# not faster than the cars around it, rail runs near its design speed.
 TRANSIT_PARAMS = [
-    ("bus_speed_factor", ("network", "bus_speed_factor"), 0.45, 1.3),
+    ("bus_speed_factor", ("network", "bus_speed_factor"), 0.45, 1.0),
+    ("dwell_s", ("network", "dwell_s"), 5.0, 40.0),
     ("boarding_penalty_min", ("network", "boarding_penalty_min"), 0.0, 6.0),
     ("max_wait_min", ("network", "max_wait_min"), 4.0, 20.0),
     ("walk_detour", ("network", "walk_detour"), 1.1, 1.6),
     ("max_access_m", ("network", "max_access_m"), 500.0, 1500.0),
-    ("rail_speed_scale", ("network", "rail_speed_scale"), 0.7, 1.4),
+    ("rail_speed_scale", ("network", "rail_speed_scale"), 0.9, 1.3),
 ]
 
 

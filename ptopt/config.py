@@ -142,7 +142,7 @@ DEFAULTS: dict = {
         "n_per_hour": 300,       # sampled trips per evaluation hour
         "max_google_elements": 4000,
         "max_tomtom_requests": 1500,
-        "max_evals": 70,         # Nelder-Mead evaluations for the transit parameters
+        "max_evals": 80,         # Nelder-Mead evaluations for the transit parameters
     },
     "synthetic": None,
 }
