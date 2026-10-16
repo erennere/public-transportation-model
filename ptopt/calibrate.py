@@ -224,8 +224,12 @@ def fit_transit(city: City, s: Samples, traffic: TrafficField, max_evals: int = 
         return val
 
     t_before = transit_times(city, s, base_cfg, traffic)
-    res = minimize(loss, u_of(x0), method="Nelder-Mead",
-                   options={"maxfev": max_evals, "xatol": 0.05, "fatol": 1e-4, "initial_simplex": None})
+    u0 = u_of(x0)
+    # wide initial simplex in the unconstrained space: one step of 1.2 per parameter
+    # moves each parameter roughly a quarter of its range
+    simplex = np.vstack([u0] + [u0 + 1.2 * np.eye(len(u0))[i] * (1 if u0[i] < 0 else -1) for i in range(len(u0))])
+    res = minimize(loss, u0, method="Nelder-Mead",
+                   options={"maxfev": max_evals, "xatol": 0.05, "fatol": 1e-4, "initial_simplex": simplex})
     cfg_best, v_best = to_cfg(res.x)
     t_after = transit_times(city, s, cfg_best, traffic)
     return {"params": {p[0]: float(x) for p, x in zip(TRANSIT_PARAMS, v_best)},

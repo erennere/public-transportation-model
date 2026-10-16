@@ -193,3 +193,20 @@ def test_frontier_runs_within_budget_and_improves():
     assert steps[-1]["rail_km"] <= res["budget"]["rail_km"] + 1e-6
     assert all(b["spend"] >= a["spend"] for a, b in zip(steps, steps[1:]))
     assert seen  # at least the final checkpoint
+
+
+def test_extend_and_boost_actions_modify_lines():
+    from ptopt.frontier import Action, apply_actions
+    from ptopt.candidates import Candidate
+    city = _toy_city()
+    city.base.lines.append(Line("L_B", "L", "metro", np.array([1, 0]), np.full(24, 10.0)))
+    term = (float(city.base.stops["x"][1]), float(city.base.stops["y"][1]))
+    ext = Candidate("X1", "metro", np.array([4000.0, 5000.0]), np.array([0.0, 0.0]), np.full(24, 10.0))
+    sc = apply_actions(city, [Action("X1", "extend", 0, 2.1, cand=ext, route="L", meta={"terminal": term}),
+                              Action("B1", "boost", 5, 0.0, route="L", factor=0.5)])
+    a, b = sc.lines
+    assert len(a.stops) == 4 and len(b.stops) == 4
+    assert sc.stops["x"].to_numpy()[a.stops].tolist() == [100.0, 2900.0, 4000.0, 5000.0]
+    assert sc.stops["x"].to_numpy()[b.stops].tolist() == [5000.0, 4000.0, 2900.0, 100.0]
+    assert a.headway_min[8] == pytest.approx(5.0)
+    assert len(city.base.lines[0].stops) == 2  # base scenario untouched
