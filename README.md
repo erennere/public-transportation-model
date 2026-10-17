@@ -70,12 +70,20 @@ ptopt calibrate --config configs/istanbul.yaml
 ptopt frontier --config configs/istanbul.yaml
 
 # 7) süre nereye gidiyor? (yürüme / bekleme / araç içi / aktarma)
-ptopt explain --config configs/istanbul.yaml --scenario results/istanbul/frontier_50dk/target/scenario.pkl
+ptopt explain --config configs/istanbul.yaml --scenario results/istanbul/frontier_50dk/level_b4965_r1130/scenario.pkl
 ```
 
 `ptopt frontier` çıktıları `results/<şehir>/<frontier.out_dir>/` altında: `summary.md`, `frontier.png`
 (yatırım–süre eğrisi), `frontier.csv` (her adım), `level_025` … `level_100` (bütçenin o payı
 harcandığında harita, GeoJSON, tam değerlendirme).
+Koşu `--resume` ile kaldığı yerden daha yüksek bütçe sınırlarıyla sürdürülebilir; o zaman
+seviyeler yatırıma göre adlandırılır (`level_b<otobüs>_r<km>`).
+
+**İstanbul sonucu** (`results/istanbul/frontier_50dk/summary.md`): günlük ortalama (08–20, yolcu
+ağırlıklı) bugün 57.7 dk. +136 otobüs ve +305 km raylı sistemle 54.8 dk, +413 otobüs ve +738 km ile
+52.6 dk, +4965 otobüs (filonun %100'ü) ve +1130 km (ağın %300'ü) ile 50.2 dk. Yani 50 dk hedefi bu
+sınırlarla tutturulamıyor. Kazancın çoğu raylı sistemden geliyor; son 2400 ek otobüs yalnızca 0.5 dk
+kazandırıyor.
 
 Çıktılar `results/<şehir>/` altında:
 

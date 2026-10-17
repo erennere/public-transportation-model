@@ -115,21 +115,32 @@ def plot_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title
                Line2D([], [], color="#3a9bd9", lw=1, ls="--", label="vapur")]
     if opt is not None:
         ox, oy = _merc(city, opt.stops["x"].to_numpy(), opt.stops["y"].to_numpy())
-        seen = []
-        for ln in opt.new_lines:
-            if ln.name in seen:
-                continue
-            seen.append(ln.name)
-            col = NEW_COLORS[(len(seen) - 1) % len(NEW_COLORS)]
-            ls = "-" if ln.mode == "bus" else (0, (4, 1.5))
+        uniq = list({ln.name: ln for ln in opt.new_lines}.values())
+        # many new lines: one colour per kind and a summary legend, else one colour and entry per line
+        compact = len(uniq) > 12
+        for i, ln in enumerate(uniq):
+            is_bus = ln.mode == "bus"
+            col = ("#eb6834" if is_bus else "#d6336c") if compact else NEW_COLORS[i % len(NEW_COLORS)]
+            ls = "-" if is_bus else (0, (4, 1.5))
             gx, gy = _merc(city, *ln.meta["shape"]) if "shape" in ln.meta else (ox[ln.stops], oy[ln.stops])
-            ax.plot(gx, gy, color=col, lw=4 if ln.mode != "bus" else 3, ls=ls, zorder=8)
-            ax.scatter(ox[ln.stops], oy[ln.stops], s=22 if ln.mode != "bus" else 9, color=col,
+            ax.plot(gx, gy, color=col, lw=(2 if compact else 3) if is_bus else 4, ls=ls, zorder=8,
+                    alpha=0.85 if compact else 1.0)
+            ax.scatter(ox[ln.stops], oy[ln.stops], s=9 if is_bus else 22, color=col,
                        edgecolor="white", lw=0.8, zorder=9)
-            kind = "metro" if ln.mode == "metro" else "otobüs"
+            if compact:
+                continue
+            kind = "otobüs" if is_bus else "metro"
             ax.annotate(f"{ln.name}", (ox[ln.stops[0]], oy[ln.stops[0]]), fontsize=8, fontweight="bold",
                         color="white", zorder=10, bbox=dict(boxstyle="round,pad=0.2", fc=col, ec="none"))
             handles.append(Line2D([], [], color=col, lw=3, ls=ls, marker="o", ms=4, label=f"YENİ {kind}: {ln.name}"))
+        if compact:
+            n_bus = sum(ln.mode == "bus" for ln in uniq)
+            if len(uniq) - n_bus:
+                handles.append(Line2D([], [], color="#d6336c", lw=3, ls=(0, (4, 1.5)), marker="o", ms=4,
+                                      label=f"YENİ metro hatları ({len(uniq) - n_bus} hat)"))
+            if n_bus:
+                handles.append(Line2D([], [], color="#eb6834", lw=2, marker="o", ms=3,
+                                      label=f"YENİ otobüs hatları ({n_bus} hat)"))
         ext_seen = set()
         for ln in opt.lines:
             ext = ln.meta.get("ext_stops")
@@ -142,12 +153,13 @@ def plot_map(city: City, base: Scenario, opt: Scenario | None, path: Path, title
                 seg = ln.stops[k0:k1 + 1]
                 ax.plot(ox[seg], oy[seg], color="#6250d6", lw=4.5, ls=(0, (4, 1.5)), zorder=8)
                 ax.scatter(ox[seg], oy[seg], s=22, color="#6250d6", edgecolor="white", lw=0.8, zorder=9)
-            ax.annotate(f"{_short(ln.name)} uzatma", (ox[ln.stops[pos[-1]]], oy[ln.stops[pos[-1]]]), fontsize=8,
+            ax.annotate(f"{_short(ln.name)}+" if compact else f"{_short(ln.name)} uzatma",
+                        (ox[ln.stops[pos[-1]]], oy[ln.stops[pos[-1]]]), fontsize=7 if compact else 8,
                         fontweight="bold", color="white", zorder=10,
                         bbox=dict(boxstyle="round,pad=0.2", fc="#6250d6", ec="none"))
         if ext_seen:
             handles.append(Line2D([], [], color="#6250d6", lw=3, ls=(0, (4, 1.5)), marker="o", ms=4,
-                                  label="mevcut raylı hat uzatması"))
+                                  label=f"raylı hat uzatması ({len(ext_seen)} hat)"))
     # frame the urban area: where 93% of the population lives, plus every new line
     zx, zy = _merc(city, z.x, z.y)
     order = np.argsort(z.pop)[::-1]
@@ -276,31 +288,34 @@ def _runs(pos: list[int]) -> list[list[int]]:
 
 def plot_frontier(steps: list[dict], base: dict, levels: list[dict], path: Path, target: float = 50.0) -> None:
     """Passenger-weighted daily mean door-to-door time (line) and the spread across the
-    evaluated hours (band, fastest to slowest hour) against investment, from the full
-    evaluations at today's network and each checkpoint."""
+    evaluated hours (band, fastest to slowest hour) against new rail km, from the full
+    evaluations of today's network and each saved checkpoint. Extra buses are labelled."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
     blue, ink, muted, grid = "#2a78d6", "#0b0b0b", "#52514e", "#e4e3df"
-    pts = [(0.0, 0, 0.0, base)] + sorted(((lv["spend"], lv["buses"], lv["rail_km"], lv["evaluation"])
-                                          for lv in levels), key=lambda p: p[0])
-    x = np.array([p[0] for p in pts]) * 100
-    daily = np.array([p[3]["daily"]["mean_t"] for p in pts])
-    lo = np.array([min(h["mean_t"] for h in p[3]["hours"].values()) for p in pts])
-    hi = np.array([max(h["mean_t"] for h in p[3]["hours"].values()) for p in pts])
-    fig, ax = plt.subplots(figsize=(9.5, 5.4))
+    pts = [(0.0, 0, base)] + sorted(((lv["rail_km"], lv["buses"], lv["evaluation"]) for lv in levels),
+                                    key=lambda p: (p[0], p[1]))
+    x = np.array([p[0] for p in pts])
+    daily = np.array([p[2]["daily"]["mean_t"] for p in pts])
+    lo = np.array([min(h["mean_t"] for h in p[2]["hours"].values()) for p in pts])
+    hi = np.array([max(h["mean_t"] for h in p[2]["hours"].values()) for p in pts])
+    fig, ax = plt.subplots(figsize=(10, 5.6))
     ax.fill_between(x, lo, hi, color=blue, alpha=0.14, lw=0, label="en hızlı – en yavaş saat (08–20)")
-    ax.plot(x, daily, color=blue, lw=2, marker="o", ms=8, mec="white", mew=2,
-            label="günlük ortalama (yolcu ağırlıklı)")
-    for k, (sp, buses, km, ev) in enumerate(pts):
-        txt = "bugün" if k == 0 else f"+{buses} otobüs\n+{km:.0f} km raylı"
-        ax.annotate(f"{daily[k]:.1f} dk\n{txt}", (x[k], daily[k]), xytext=(0, -12), textcoords="offset points",
-                    ha="center", va="top", fontsize=8, color=ink)
+    ax.plot(x, daily, color=blue, lw=2, marker="o", ms=8, mec="white", mew=2, label="günlük ortalama (yolcu ağırlıklı)")
+    for k, (km, buses, ev) in enumerate(pts):
+        label = f"{daily[k]:.1f}"
+        if buses:
+            label += f"\n+{buses} otb."
+        same_x = [q for q in range(len(pts)) if abs(pts[q][0] - km) < 25]
+        right = len(same_x) > 1 and k == same_x[-1]  # stacked points: put the lower label to the right
+        ax.annotate(label, (km, daily[k]), xytext=(10, -2) if right else (0, 10), textcoords="offset points",
+                    ha="left" if right else "center", va="center" if right else "bottom", fontsize=8, color=ink)
     ax.axhline(target, color=muted, lw=1.2, ls=(0, (5, 3)))
-    ax.annotate(f"hedef {target:.0f} dk", (x.max() if len(x) else 0, target), xytext=(0, 4),
-                textcoords="offset points", ha="right", fontsize=9, color=muted)
-    ax.set_xlabel("bütçe üst sınırının kullanılan payı (%)  —  ek otobüs ve yeni raylı km ortalaması", color=muted)
+    ax.annotate(f"hedef {target:.0f} dk", (0, target), xytext=(4, -12), textcoords="offset points",
+                fontsize=9, color=muted)
+    ax.set_xlabel("yeni raylı sistem (km; bugünkü ağ ≈ 378 km)", color=muted)
     ax.set_ylabel("kapıdan kapıya ortalama süre (dk)", color=muted)
     ax.grid(True, color=grid, lw=0.8)
     ax.set_axisbelow(True)
@@ -309,9 +324,8 @@ def plot_frontier(steps: list[dict], base: dict, levels: list[dict], path: Path,
     for sname in ("left", "bottom"):
         ax.spines[sname].set_color(grid)
     ax.tick_params(colors=muted)
-    ymin = min(target, lo.min()) - 6
-    ax.set_ylim(ymin, hi.max() + 2)
-    ax.set_xlim(-4, max(x.max(), 10) + 6)
+    ax.set_ylim(min(target, lo.min()) - 2, hi.max() + 2)
+    ax.set_xlim(-30, x.max() * 1.12 + 10)
     ax.legend(loc="upper right", frameon=False, fontsize=9, labelcolor=ink)
     ax.set_title("Yatırım arttıkça kapıdan kapıya süre (tam değerlendirme, 08:00–20:00 her 2 saatte)",
                  color=ink, fontsize=11, loc="left")

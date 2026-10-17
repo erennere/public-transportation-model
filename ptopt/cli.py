@@ -111,9 +111,18 @@ def cmd_frontier(args):
     else:
         base = full.evaluate(city.base).summary()
 
+    target = fc.get("target_min", 50)
+
     def checkpoint(level, sc, selected, steps):
         t = time.time()
         res = full.evaluate(sc).summary()
+        if level == "target" and res["daily"]["mean_t"] > target:
+            # the fast sample says the target is reached but the full sample does not:
+            # record the check, keep searching, no maps
+            levels.append({"level": "check", "spend": steps[-1]["spend"], "evaluation": res,
+                           "buses": steps[-1]["buses"], "rail_km": steps[-1]["rail_km"]})
+            log.info("target check: daily %.2f on the full sample (> %.0f), continuing", res["daily"]["mean_t"], target)
+            return res["daily"]["mean_t"]
         tag = "target" if level == "target" else f"level_{int(round(level * 100)):03d}"
         if start and tag != "target":  # caps may differ from the resumed run: tag by investment
             tag = f"level_b{steps[-1]['buses']}_r{int(round(steps[-1]['rail_km']))}"
@@ -140,11 +149,12 @@ def cmd_frontier(args):
         w = csv.DictWriter(f, fieldnames=keys)
         w.writeheader()
         w.writerows(res["steps"])
-    target = fc.get("target_min", 50)
-    plot_frontier(res["steps"], base, levels, out / "frontier.png", target=target)
     report = {"inventory": res["inventory"], "budget": res["budget"], "base": base, "levels": levels,
               "steps": res["steps"]}
     write_json(report, out / "frontier.json")
+    report = json.loads((out / "frontier.json").read_text())  # one key type (str) for resumed + new levels
+    plot_frontier(report["steps"], report["base"], [lv for lv in report["levels"] if lv["level"] != "check"],
+                  out / "frontier.png", target=target)
     md = frontier_markdown(report, target)
     (out / "summary.md").write_text(md, encoding="utf-8")
     print(md)
@@ -167,10 +177,11 @@ def frontier_markdown(rep: dict, target: float) -> str:
                 + " | ".join(f"{ev['hours'][h]['mean_t']:.1f}" for h in hours) + " |")
 
     lines.append(row("bugün", 0, 0.0, base))
-    for lv in sorted(rep["levels"], key=lambda lv: lv["spend"]):
-        name = "hedef" if lv["level"] == "target" else f"%{lv['spend'] * 100:.0f} bütçe"
+    saved = [lv for lv in rep["levels"] if lv["level"] != "check"]
+    for lv in sorted(saved, key=lambda lv: (lv["rail_km"], lv["buses"])):
+        name = "hedef" if lv["level"] == "target" else f"{lv['tag'] if 'tag' in lv else ''}".replace("level_", "") or "seviye"
         lines.append(row(name, lv["buses"], lv["rail_km"], lv["evaluation"]))
-    reached = [lv for lv in rep["levels"] if lv["evaluation"]["daily"]["mean_t"] <= target]
+    reached = [lv for lv in saved if lv["evaluation"]["daily"]["mean_t"] <= target]
     lines.append("")
     if reached:
         lv = min(reached, key=lambda lv: lv["spend"])

@@ -345,7 +345,8 @@ def run_frontier(city: City, on_checkpoint=None, start: dict | None = None) -> d
             next_cp += 1
         if target is not None and summ["daily"]["mean_t"] <= target:
             confirmed = on_checkpoint("target", sc, list(selected), steps) if on_checkpoint else None
-            cp_done_at = spend
+            if confirmed is None or confirmed <= target:
+                cp_done_at = spend
             if fc.get("stop_at_target", True) and (confirmed is None or confirmed <= target):
                 log.info("target %.0f min reached (daily mean %.1f on the full sample)", target,
                          confirmed if confirmed is not None else summ["daily"]["mean_t"])
